@@ -1,67 +1,66 @@
 ---
 // @ts-ignore
-import { Icon } from "astro-icon/components";
+import { Icon } from 'astro-icon/components'
 
 const features = [
   {
-    title: "Bring Your Own Framework",
+    title: '咖啡豆供应',
     description:
-      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
-    icon: "bx:bxs-briefcase",
+      "自家烘焙新鲜咖啡豆，为您带来丰富的风味选择。",
+    icon: 'bx:bxs-briefcase',
   },
   {
-    title: "100% Static HTML, No JS",
+    title: '咖啡冲泡体验',
     description:
-      "Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.",
-    icon: "bx:bxs-window-alt",
+      '自营店铺提供精品冲泡和日式冲泡服务，让您感受不同冲泡方式的魅力。',
+    icon: 'bx:bxs-window-alt',
   },
   {
-    title: "On-Demand Components",
+    title: '咖啡课程培训',
     description:
-      "Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ",
-    icon: "bx:bxs-data",
+      '开设 SCA 课程培训、拉花兴趣班、咖啡师全能班，满足不同学习需求。 ',
+    icon: 'bx:bxs-data',
   },
   {
-    title: "Broad Integration",
+    title: '专业器具与开店支持',
     description:
-      "Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.",
-    icon: "bx:bxs-bot",
+      '代理专业咖啡器具，提供开店顾问服务，助力咖啡事业。',
+    icon: 'bx:bxs-bot',
   },
   {
-    title: "SEO Enabled",
+    title: '咖啡文化活动',
     description:
-      "Automatic sitemaps, RSS feeds, pagination and collections take the pain out of SEO and syndication. It just works!",
-    icon: "bx:bxs-file-find",
+      '举办咖啡沙龙分享会，组织日本咖啡深造游学之旅，拓展咖啡视野。',
+    icon: 'bx:bxs-file-find',
   },
-  {
-    title: "Community",
-    description:
-      "Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.",
-    icon: "bx:bxs-user",
-  },
-];
+  // {
+  //   title: 'Community',
+  //   description:
+  //     'Astro is an open source project powered by hundreds of contributors making thousands of individual contributions.',
+  //   icon: 'bx:bxs-user',
+  // },
+]
 ---
 
-<div class="mt-16 md:mt-0">
-  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight">
-    Everything you need to start a website
+<div class='mt-16 md:mt-0'>
+  <h2 class='text-4xl lg:text-5xl font-bold lg:tracking-tight'>
+    咖啡品质把控
   </h2>
-  <p class="text-lg mt-4 text-slate-600">
-    Astro comes batteries included. It takes the best parts of state-of-the-art
-    tools and adds its own innovations.
+  <p class='text-lg mt-4 text-slate-600'>
+    深入庄园，参与豆子从处理到包装运输的每一步
   </p>
 </div>
 
-<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16">
+<div class='grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-16'>
   {
-    features.map((item) => (
-      <div class="flex gap-4 items-start">
-        <div class="mt-1 bg-black rounded-full  p-2 w-8 h-8 shrink-0">
-          <Icon class="text-white" name={item.icon} />
+    features.map(item => (
+      <div class='flex gap-4 items-start'>
+        <div class='mt-1 bg-black rounded-full  p-2 w-8 h-8 shrink-0'>
+          <Icon class='text-white' name={item.icon} />
         </div>
         <div>
-          <h3 class="font-semibold text-lg">{item.title}</h3>{" "}
-          <p class="text-slate-500 mt-2 leading-relaxed">{item.description}</p>
+          <h3 class='font-semibold text-lg'>{item.title}</h3>{' '}
+          <p class='text-slate-500 mt-2 leading-relaxed'>{item.description}</p>
         </div>
       </div>
     ))
