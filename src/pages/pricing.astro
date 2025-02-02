@@ -1,80 +1,112 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import Container from "@components/container.astro";
-import Sectionhead from "@components/sectionhead.astro";
-import PricingCard from "@components/pricing.astro";
+import Layout from '@layouts/Layout.astro'
+import Container from '@components/container.astro'
+import Sectionhead from '@components/sectionhead.astro'
+import PricingCard from '@components/pricing.astro'
 
+/**
+ * @typedef {Object} PricingButton
+ * @property {string} text - 按钮显示的文本
+ * @property {string} link - 按钮跳转的链接
+ */
+
+/**
+ * @typedef {Object} PricingPrice
+ * @property {string} monthly - 月付价格
+ * @property {string} annual - 年付价格
+ * @property {string} discount - 折扣百分比
+ * @property {string} original - 原始价格
+ */
+
+/**
+ * @typedef {Object} PricingPlan
+ * @property {string} name - 套餐名称
+ * @property {(string|PricingPrice)} price - 套餐价格，可以是字符串或者详细的价格对象
+ * @property {boolean} popular - 是否为推荐套餐
+ * @property {string[]} features - 套餐包含的功能列表
+ * @property {PricingButton} button - 套餐对应的按钮配置
+ */
+
+/** @type {PricingPlan[]} */
 const pricing = [
   {
-    name: "Personal",
-    price: "Free",
+    name: 'Personal',
+    price: 'Free',
     popular: false,
     features: [
-      "Lifetime free",
-      "Up to 3 users",
-      "Unlimited Pages",
-      "Astro Sub domain",
-      "Basic Integrations",
-      "Community Support",
+      'Lifetime free',
+      'Up to 3 users',
+      'Unlimited Pages',
+      'Astro Sub domain',
+      'Basic Integrations',
+      'Community Support',
     ],
     button: {
-      text: "Get Started",
-      link: "/",
+      text: 'Get Started',
+      link: '/',
     },
   },
   {
-    name: "Startup",
+    name: 'Startup',
     price: {
-      monthly: "$19",
-      annual: "$16",
-      discount: "10%",
-      original: "$24",
+      monthly: '$19',
+      annual: '$16',
+      discount: '10%',
+      original: '$24',
     },
     popular: true,
     features: [
-      "All Free Features",
-      "Up to 20 users",
-      "20 Custom domains",
-      "Unlimited Collaborators",
-      "Advanced Integrations",
-      "Priority Support",
+      'All Free Features',
+      'Up to 20 users',
+      '20 Custom domains',
+      'Unlimited Collaborators',
+      'Advanced Integrations',
+      'Priority Support',
     ],
     button: {
-      text: "Get Started",
-      link: "#",
+      text: 'Get Started',
+      link: '#',
     },
   },
   {
-    name: "Enterprise",
-    price: "Custom",
+    name: 'Enterprise',
+    price: 'Custom',
     popular: false,
     features: [
-      "All Pro Features",
-      "Unlimited Custom domains",
-      "99.99% Uptime SLA",
-      "SAML & SSO Integration",
-      "Dedicated Account Manager",
-      "24/7 Phone Support",
+      'All Pro Features',
+      'Unlimited Custom domains',
+      '99.99% Uptime SLA',
+      'SAML & SSO Integration',
+      'Dedicated Account Manager',
+      '24/7 Phone Support',
     ],
     button: {
-      text: "Contact us",
-      link: "/contact",
+      text: 'Contact us',
+      link: '/contact',
     },
   },
-];
+]
 ---
 
-<Layout title="Pricing">
+<!--
+@component
+ * 定价页面组件
+ *
+ * @description
+ * 展示三种不同定价方案的页面组件，包括个人版、创业版和企业版。
+ * 使用网格布局在桌面端显示三列，在移动端自动调整为单列布局。
+-->
+<Layout title='Pricing'>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">Pricing</Fragment>
-      <Fragment slot="desc">
+      <Fragment slot='title'>Pricing</Fragment>
+      <Fragment slot='desc'>
         Simple & Predictable pricing. No Surprises.
       </Fragment>
     </Sectionhead>
 
-    <div class="grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12">
-      {pricing.map((item) => <PricingCard plan={item} />)}
+    <div class='grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12'>
+      {pricing.map(item => <PricingCard plan={item} />)}
     </div>
   </Container>
 </Layout>
