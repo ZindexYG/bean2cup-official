@@ -1,19 +1,25 @@
 ---
 import Link from './ui/link.astro'
+
+// const qrcode = new URL('/qrcode.jpeg', Astro.site).toString()
 ---
 
 <div
-  class='bg-black p-8 md:px-20 md:py-20 mt-20 mx-auto max-w-5xl rounded-lg flex flex-col items-center text-center'>
-  <!-- <h2 class="text-white text-4xl md:text-6xl tracking-tight">
-    Build faster websites.
-  </h2> -->
-  <!-- todo -->
-  <!-- 1. 左右布局，放入微信公众号 -->
-  <p class='text-slate-400 mt-4 text-lg md:text-xl'>
-    扫码关注微信公众号 “BEAN2CUP”、微博
-    “Bean2CupCoffee”，获取更多咖啡知识、新品资讯和活动信息。
-  </p>
-  <!-- <div class="flex mt-5">
-    <Link href="#" style="inverted">Get Started</Link>
-  </div> -->
+  class='p-8 md:px-20 md:py-20 mt-20 mx-auto max-w-5xl rounded-lg flex flex-col md:flex-row items-center justify-center gap-8'>
+  <div class='flex-shrink-0'>
+    <img
+      src={'/qrcode.jpeg'}
+      alt='BEAN2CUP 微信公众号二维码'
+      class='w-48 h-48 object-cover rounded-lg'
+    />
+  </div>
+  <div
+    class='flex flex-col items-center md:items-start text-center md:text-left'>
+    <h2 class='text-white text-3xl md:text-4xl tracking-tight'>
+      关注 BEAN2CUP
+    </h2>
+    <p class='text-slate-400 mt-4 text-lg md:text-xl max-w-md'>
+      扫码关注微信公众号 "BEAN2CUP"，获取更多咖啡知识、新品资讯和活动信息。
+    </p>
+  </div>
 </div>
