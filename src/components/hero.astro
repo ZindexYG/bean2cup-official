@@ -1,18 +1,18 @@
 ---
 import { Picture } from 'astro:assets'
-import heroImage from 'assets/bean2cup-logo-transformed.png'
+import heroImage from 'assets/520*520.png'
 import Link from '@components/ui/link.astro'
 import { Icon } from 'astro-icon/components'
 ---
 
 <main
   class='grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24'>
-  <div class='py-6 md:order-1 hidden md:block'>
+  <div class='py-6 md:order-1 md:block w-md h-md'>
     <Picture
       src={heroImage}
-      alt='Astronaut in the air'
-      widths={[200, 400, 600]}
-      sizes='(max-width: 800px) 100vw, 620px'
+      alt='B2C Logo'
+      widths={[260, 400, 520]}
+      sizes='(max-width: 800px) 100vw, 520px'
       loading='eager'
       format='avif'
     />
@@ -20,11 +20,13 @@ import { Icon } from 'astro-icon/components'
   <div>
     <h1
       class='text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter'>
-      Bean2Cup <br />
+      Bean2Cup
     </h1>
     <p class='text-lg mt-4 text-slate-600 max-w-xl'>
-      从种子到杯子，我们用心把控咖啡的每一个环节。<wbr /> 种植、采摘、处理、烘焙、杯测、储存、冲泡，全程精挑细选，为您呈上精品咖啡。在这里，不仅能品味咖啡，还能深入了解咖啡文化，感受专业咖啡的独特魅力。
+      从种子到杯子,我们用心把控咖啡的每一个环节
     </p>
-    <div class='mt-6 flex flex-col sm:flex-row gap-3'></div>
+    <div class='mt-6 flex flex-col sm:flex-row gap-3'>
+      在这里，不仅能品味咖啡，还能深入了解咖啡文化，感受专业咖啡的独特魅力。
+    </div>
   </div>
 </main>

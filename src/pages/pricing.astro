@@ -99,14 +99,24 @@ const pricing = [
 <Layout title='Pricing'>
   <Container>
     <Sectionhead>
-      <Fragment slot='title'>Pricing</Fragment>
+      <Fragment slot='title'>课程介绍</Fragment>
       <Fragment slot='desc'>
-        Simple & Predictable pricing. No Surprises.
+        我们致力于提供专业且丰富的咖啡课程，助力您在咖啡领域不断进步。
       </Fragment>
     </Sectionhead>
-
-    <div class='grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12'>
-      {pricing.map(item => <PricingCard plan={item} />)}
+    <div class='flex flex-col gap-3 mx-auto max-w-4xl mt-16'>
+      <h2 class='font-bold text-3xl text-gray-800'>
+        <!-- SCAA（美国精品咖啡协会）与 SCAE（欧洲精品咖啡协会）于 2017 年 1
+        月合并，正式组成了世界上最大最权威的精品咖啡协会 SCA（Specialty Coffee
+        Association）。 -->
+      </h2>
+      <p class='text-lg leading-relaxed text-slate-500'>
+        SCA 的教育体系下划分有 “CSP” 系统，即 COFFEE SKILLS
+        PROGRAM（咖啡师技能培训计划）。这个计划包括了六个模块、三个级别、四张文凭，你可以根据自己的需求与爱好选择相应的课程学习。
+      </p>
     </div>
+    <!-- <div class='grid md:grid-cols-3 gap-10 mx-auto max-w-screen-lg mt-12'>
+      {pricing.map(item => <PricingCard plan={item} />)}
+    </div> -->
   </Container>
 </Layout>
