@@ -1,4 +1,22 @@
+---
+import { Picture } from 'astro:assets'
+import footer from 'assets/footer.webp'
+import Cta from '@components/cta.astro'
+---
+
+
 <footer class="my-20">
+  <!-- <div class="flex justify-center mb-4">
+    <Picture
+      src={footer}
+      alt="Footer Logo"
+      widths={[260, 400, 520]}
+      sizes="(max-width: 800px) 100vw, 520px"
+      loading="eager"
+      format="avif"
+    />
+  </div> -->
+  <Cta />
   <p class="text-center text-sm text-slate-500">
     Copyright © {new Date().getFullYear()} Bean2Cup. All rights reserved.
   </p>
