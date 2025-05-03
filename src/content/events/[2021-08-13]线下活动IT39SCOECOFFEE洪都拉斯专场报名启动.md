@@ -4,7 +4,7 @@ title: "线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动"
 snippet: "过去2个多月，我们在全国18座城市50个站点举办了7场 IT'S COE COFFEE! 系列分享会"
 image:
   {
-    src: "src/content/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg",
+    src: "/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg",
     alt: "线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动",
   }
 publishDate: "2021-08-13 00:00"

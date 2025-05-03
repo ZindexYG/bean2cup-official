@@ -4,7 +4,7 @@ title: "Bean2cup & MUJI咖啡活动暖心回顾"
 snippet: "10月咖啡分享活动圆满结束"
 image:
   {
-    src: "src/content/events/static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg",
+    src: "/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg",
     alt: "Bean2cup & MUJI咖啡活动暖心回顾",
   }
 publishDate: "2019-10-07 00:00"
