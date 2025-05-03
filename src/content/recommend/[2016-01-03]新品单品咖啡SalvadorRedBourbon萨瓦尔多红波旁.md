@@ -20,7 +20,7 @@ __ _ _ _ _
 
 
 
-![](./static/原创wenBEAN2CUP_01.jpeg)
+![](/assets/recommend/static/原创wenBEAN2CUP_01.jpeg)
 
 萨瓦尔多·红波旁
 
@@ -40,7 +40,7 @@ Salvacor · Red Bourbon
 
 
 
-![](./static/原创wenBEAN2CUP_02.jpeg)
+![](/assets/recommend/static/原创wenBEAN2CUP_02.jpeg)
 
 
 
@@ -52,7 +52,7 @@ Salvacor · Red Bourbon
 
 
 
-![](./static/原创wenBEAN2CUP_03.jpeg)
+![](/assets/recommend/static/原创wenBEAN2CUP_03.jpeg)
 
 —— 下单烘焙 ——
 
@@ -78,8 +78,8 @@ B2C
 
 感谢关注
 
-![](./static/原创wenBEAN2CUP_04.jpeg)
-![](./static/原创wenBEAN2CUP_05.jpeg)
+![](/assets/recommend/static/原创wenBEAN2CUP_04.jpeg)
+![](/assets/recommend/static/原创wenBEAN2CUP_05.jpeg)
 
 【新品】单品咖啡 哥斯达黎加塔拉珠 Costa Rica SHB EP Tarrazu 红蜜处理
 

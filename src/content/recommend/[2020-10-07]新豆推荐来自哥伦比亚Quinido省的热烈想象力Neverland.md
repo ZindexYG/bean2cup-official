@@ -12,7 +12,7 @@ author: "BEAN2CUP"
 tags: []
 ---
 
-![cover_image](./static/原创CaraBEAN2CUP_01.jpeg)
+![cover_image](/assets/recommend/static/原创CaraBEAN2CUP_01.jpeg)
 
 #  新豆推荐 | 来自哥伦比亚Quinido省的热烈想象力-Neverland
 
@@ -29,7 +29,7 @@ Moroccan moonlight in your eyes
 
 我们给它取名  **Neverland（梦幻岛）**
 
-![](./static/原创CaraBEAN2CUP_02.png)
+![](/assets/recommend/static/原创CaraBEAN2CUP_02.png)
 
 
 
@@ -55,7 +55,7 @@ Moroccan moonlight in your eyes
 
 沙漠里温和的午夜太阳照耀着的黄昏之地，渐凉的沙丘，微微炙热的手。这里香辛料的存在丝毫不会突兀，很平和，就像一阵热风，热烈的吹过皮肤，展开你蔓延的想像。
 
-![](./static/原创CaraBEAN2CUP_03.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_03.jpeg)
 
 
 
@@ -69,7 +69,7 @@ Moroccan moonlight in your eyes
 
 
 
-![](./static/原创CaraBEAN2CUP_04.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_04.jpeg)
 
 
 
@@ -77,7 +77,7 @@ Moroccan moonlight in your eyes
 
 
 
-![](./static/原创CaraBEAN2CUP_05.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_05.jpeg)
 
 
 
@@ -105,7 +105,7 @@ Quinido产区是哥伦比亚国家咖啡公园所在地
 
 从俯瞰图看，它的西边就像被猫抓了一下；由北至南，留下了三条垂直的爪痕。该国有名的产区，就是散落在这些带有肥沃火山土的安第斯山脉当中。
 
-![](./static/原创CaraBEAN2CUP_06.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_06.jpeg)
 
 
 
@@ -130,7 +130,7 @@ Neverland在天上，要在有皎洁月亮的夜里，等待彼德潘带着有�
 
 ** 扫描二维码即可进入购买页面  **
 
-![](./static/原创CaraBEAN2CUP_07.png)
+![](/assets/recommend/static/原创CaraBEAN2CUP_07.png)
 
 ** / 良心推荐咖啡清单回顾 /  **
 
@@ -151,15 +151,15 @@ Neverland在天上，要在有皎洁月亮的夜里，等待彼德潘带着有�
 
 
 
-![](./static/原创CaraBEAN2CUP_08.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_08.jpeg)
 
-![](./static/原创CaraBEAN2CUP_09.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_09.jpeg)
 
-![](./static/原创CaraBEAN2CUP_10.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_10.jpeg)
 
-![](./static/原创CaraBEAN2CUP_11.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_11.jpeg)
 
-![](./static/原创CaraBEAN2CUP_12.jpeg)
+![](/assets/recommend/static/原创CaraBEAN2CUP_12.jpeg)
 
 
 
