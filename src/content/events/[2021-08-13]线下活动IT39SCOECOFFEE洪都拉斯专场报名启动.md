@@ -16,7 +16,7 @@ tags: []
 
 #  线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动
 
-BEAN2CUP  
+BEAN2CUP
 
 __ _ _ _ _
 
@@ -366,33 +366,4 @@ CoE官网｜cupofexcellence.org
 ACE官网｜allianceforcoffeeexcellence.org
 
 轉自“卓越咖啡聯盟”公眾號
-
-预览时标签不可点
-
-微信扫一扫
-关注该公众号
-
-
-
-
-
-****
-
-
-
-****
-
-
-
-×  分析
-
-__
-
-![作者头像](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_31.png)
-
-微信扫一扫可打开此内容，
-使用完整服务
-
-：  ，  ，  ，  ，  ，  ，  ，  ，  ，  ，  ，  ，  。  视频  小程序  赞  ，轻点两下取消赞  在看  ，轻点两下取消在看
-分享  留言  收藏  听过
 
