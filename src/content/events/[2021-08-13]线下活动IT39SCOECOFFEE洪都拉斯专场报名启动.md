@@ -3,7 +3,7 @@ draft: false
 title: "线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动"
 snippet: "过去2个多月，我们在全国18座城市50个站点举办了7场 IT'S COE COFFEE! 系列分享会"
 image: {
-    src: "https://mmbiz.qlogo.cn/mmbiz_jpg/suBmQOmY8Aa2zoomSl3EJRdeL9ZN2OY2Jqj7CWNmbvo9V1h8BticjpEGJKVslvKgJU40hx3RwtjonLgBkWR7jiaA/0?wx_fmt=jpeg",
+    src: "src/content/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg",
     alt: "线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动"
 }
 publishDate: "2021-08-13 00:00"
@@ -12,11 +12,11 @@ author: "BEAN2CUP"
 tags: []
 ---
 
-![cover_image](https://mmbiz.qlogo.cn/mmbiz_jpg/suBmQOmY8Aa2zoomSl3EJRdeL9ZN2OY2Jqj7CWNmbvo9V1h8BticjpEGJKVslvKgJU40hx3RwtjonLgBkWR7jiaA/0?wx_fmt=jpeg)
+![cover_image](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg)
 
 #  线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动
 
-BEAN2CUP  [ BEAN2CUP ](javascript:void\(0\);)
+BEAN2CUP  
 
 __ _ _ _ _
 
@@ -82,7 +82,7 @@ IHCAFE  洪都拉斯国家咖啡学会  总经理
 2021年，重返CoE赛场的洪都拉斯释放了巨大的能量，收获了25支CoE获奖豆，其中6支拿下“总统奖”，创下了  **
 2021年度前八场CoE竞赛总统豆数量之最。  **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibMupmk56uoqialINltwxqoIyXETAtZJB9gvl2sDXB25qfjKnYVuPmT4w/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_02.jpeg)
 
 △ 2021洪都拉斯CoE颁奖典礼，前排从右到左分别为：
 
@@ -98,10 +98,10 @@ IHCAFE  洪都拉斯国家咖啡学会  总经理
 
 ** 8月14日至18日  ** ，我们将在全国6个站点为大家推介2021年度  洪都拉斯所有  CoE获奖豆。  除了数量众多的总统豆，大家还将品尝到水洗
 ** 伦皮拉 (Lempira)  ** 和各种处理方式的  ** 帕拉伊内玛 (Parainema)
-![](https://mmbiz.qpic.cn/mmbiz_png/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibw6zVTvaQfAQr2xaXBYA8Mt8Dsx4pibJPOAq3I92ribXFco3GAdtBiaUCw/640?wx_fmt=png)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_03.png)
 **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwib0vJVmI4bBIREKQoJotHibRVuSXA8icKicjV92l0uSaHPYFyqKxrIAic7CQ/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_04.jpeg)
 
 △ IT'S COE COFFEE!系列分享会之洪都拉斯专场豆单
 
@@ -117,7 +117,7 @@ Orlando Carvajal 的女儿。父女同台获奖，这在洪都拉斯17年的CoE�
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibSZAsyCHHzJsLQcMFRC4nAbXScU1CXz9JS3yMIrPqzaga2yic59skN4w/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_05.jpeg)
 
 
 △ Dariela Carvajal 与父亲 Orlando Carvajal  图片来自CoE官网洪都拉斯2019CoE获奖农场图片
@@ -138,7 +138,7 @@ Orlando Carvajal 的女儿。父女同台获奖，这在洪都拉斯17年的CoE�
 COFFEE!分享会的朋友们须同时出示行程码和健康码。哦对了，好久没抽奖了，今天来一个吧~~介意奖品顺丰到付、介意第7名只有25g的朋友们请勿参与哦！**
 
 [
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTIvGW5dup0MvxFYjj2dF69iaFt4G4WL9geZVaPwrrn2lZzzYibwfe0myH7tpabdEgxlicQVBn5WlDKyw/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_06.jpeg)
 ]()
 
 
@@ -147,7 +147,7 @@ COFFEE!分享会的朋友们须同时出示行程码和健康码。哦对了，�
 
 **2021年ACE捐助者会员**
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwib2IiamHZaUMwXkN2ObQm6eeDIZbFlqMmLOjwyBIxeV5qy1o9TmN2VF2A/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_07.jpeg)
 
 咖啡公社是2013年由德籍创办人Eric
 Baden成立的咖啡品牌。2017年我们选址产地云南普洱，专门从事咖啡种植、加工、烘焙、国际贸易的完整服务。我们还建立国际精品咖啡微批次专业脱壳服务，聘请CQI认证杯测师与SCA认证烘豆师，监制云南咖啡产品制造，全面提升云南咖啡国际精品的品牌形象。
@@ -156,8 +156,8 @@ Baden成立的咖啡品牌。2017年我们选址产地云南普洱，专门从�
 
 我们同时在上海浦东拥有自己的200平米咖啡门店，致力于升级精品咖啡体验，探索精品咖啡文化，希望有更多的人领略精品咖啡的美妙。
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibicdN2f39O7n9jSXjE870mDtQg0Mff86hWovuPgBukPeyW8WlP4cL8ibw/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibwiaPv1enSzwctK9gpZlAMonBYkejXBfU7UDb46MQ33WRz1VLl1WINicg/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_08.jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_09.jpeg)
 
 分享会时间：  2021年8月14日 14:00-16:00
 
@@ -167,7 +167,7 @@ Baden成立的咖啡品牌。2017年我们选址产地云南普洱，专门从�
 
 报名二维码：
 
-![](https://mmbiz.qpic.cn/mmbiz_png/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwib85CiaDV0oyYS0h3q63F7GPj7l89YpGVFnCUszVJMSqY8AIQRMGF612A/640?wx_fmt=png)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_10.png)
 
 
 
@@ -181,11 +181,11 @@ Coffee于2013年创立于深圳，多年来致力于咖啡教育与精品咖啡�
 我们的理念是由咖啡果实开始到杯中的咖啡，从种植、采摘、咖啡果处理、烘焙、杯测、储存、冲泡的每一个环节都用心把控 让消费者可以感受到我们每杯咖啡精挑细选的心意
 消费者在分享交流中越懂得好咖啡 如此就越鼓励咖啡行业的发展 传播专业的精品咖啡概念。
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibPfjVqS58dBD4iaT5CZ6HN9eRUV0HryDBDSVddAacqmkibdGJr2Vic6jzA/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_11.jpeg)
 
 BEAN2CUP  ▲
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibjiaXC6shGOCzmM5wkze5Se7nRUicXR961crwXqNHd5SUCIR1Y4rAOmkA/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_12.jpeg)
 
 分享会时间：  2021年8月14日 14:30-16:00
 
@@ -195,7 +195,7 @@ BEAN2CUP  ▲
 
 报名联系人：  Momo
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwiba6MUGJ1ia7UIbToMSvQpvGJFgHZAX72icrZbIfUsT63042ZVMbTJnE2w/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_13.jpeg)
 
 
 
@@ -207,9 +207,9 @@ BEAN2CUP  ▲
 
 主理人Luka澳洲从业归国后开设的独立咖啡门店，注重品质、性价比和社区性。
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibJPq65wyCaBHH7sZ3T7obMJP4XHQOjvib45PfibO5c25BdVt2F6v2Dapw/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibiaqujbnEvQL6ibicWXsjhNI9zTiaPdia1YjiacIeX9qIYfksf81lMWibWwlZw/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibustkIbvoZRsW41FAib9m3dJK5NqpRE4ZDuumou4icu3HkIAmXwPacOXg/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_14.jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_15.jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_16.jpeg)
 
 分享会时间：  2021年8月15日 14:00-16:00
 
@@ -219,7 +219,7 @@ BEAN2CUP  ▲
 
 报名二维码：
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTIvGW5dup0MvxFYjj2dF69iasGL5GJD7PBI6XO4LwqOljS7UriaLHLLN8eb7Th3Tpmyibicib5uw0vZJDA/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_17.jpeg)
 
 
 
@@ -229,9 +229,9 @@ BEAN2CUP  ▲
 
 无屿咖啡是一家专注于咖啡文化推广，咖啡教育以及咖啡烘焙的工作室。
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibZR9hte5FSjFcYzFNImKwgEysQAJbKSaMf5KIEhkOEzzb4dGGDTicXDg/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_png/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibRNtlIBn1N2uV8y5nEHLAiaY91CFFo7RKnYNnTpf60fZoJDBtib3ADRVA/640?wx_fmt=png)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibUOvicJvowiaaAU88XQOPPdAibQPxX3ia8ia9dLiapjBbdgticdbzK0FSqLaJA/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_18.jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_19.png)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_20.jpeg)
 
 
 
@@ -251,14 +251,14 @@ BEAN2CUP  ▲
 
 **2021年ACE社区会员**
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibRKMJlaJ1FjtLaYnLH5N749wR5kh978NKktibjJibTEkwrvUGcZ4I1BDA/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_21.jpeg)
 
 FEW
 CROSS体验店作为一个新的空间，是FEW精品咖啡对外的一个产品、设计理念展示，旨在分享和传递咖啡美好。店内设有烘焙厨房，供应每日现烤面包及点心，面包坚持使用自家喂养酵母，主打健康低脂品类，为的是搭配日常好咖啡，让大家吃好喝好。
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibLXgMxlV7riaG35BficKk4b4TIoeSvILQE70jqbhzqtrchbWaUvzFdkxA/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_png/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibhtIgvFqrGkfsiaNibs8bOc4Gawu4bqZJQvv8M6cmovKZnvpSVwdXnwoQ/640?wx_fmt=png)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibKIyvuc6huicUBJ8usGSQ1FtMiaCUZuea4GU8z7xHfBf6KzA2mH3uqNEg/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_22.jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_23.png)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_24.jpeg)
 
 
 
@@ -270,7 +270,7 @@ CROSS体验店作为一个新的空间，是FEW精品咖啡对外的一个产品
 
 报名方式：  联系FEW CROSS官方客服报名
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibib42TYmPjK6ibVib00KxFtegQCNIOKibtOK2iaZ6yAnus2UBaJLYGAzmpTQ/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_25.jpeg)
 
 
 
@@ -290,7 +290,7 @@ CROSS体验店作为一个新的空间，是FEW精品咖啡对外的一个产品
 
 **点**
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibEcvOpQybo3DsOiaW0YHouDtSaMMKib8zkiaO2Cdo8mV5a4QMHDmicbZibng/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_26.jpeg)
 
 
 
@@ -300,7 +300,7 @@ Coffee Exchange
 
 **** **2021年ACE捐助者** **会员**
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTIvGW5dup0MvxFYjj2dF69iaHfNDr0MWiblALJiclOwYI67K6ibicicKZB6VepQD7W0hPh96DTdyeL2pDZw/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_27.jpeg)
 
 分享会时间：  2021年8月17日 14:30
 
@@ -310,7 +310,7 @@ Coffee Exchange
 
 报名联系人：  微信联系含笑进行报名
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibaInuCypTyUDUwS2QCReNTMNz7vlrKQbWUJFmlba495ticm8oQJdW9pQ/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_28.jpeg)
 
 
 
@@ -350,14 +350,14 @@ $6.50/lb ≥90分
 
 CoE东亚顾问CC (微信ID:ciecilia，请注明来意)
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/YlV8bbDQX3RibZ6lEFAvqBMZBoCeJlTXFEwKVa4FvfFjmNHOjlubDDmAyrib5ebCDMe7TvraulbGZyPDeyazv1AQ/640?wx_fmt=gif)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
 
 **不想错过CoE好咖啡？**
 
 **ACE公众号关注起来呀！**
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/YlV8bbDQX3RibZ6lEFAvqBMZBoCeJlTXFEwKVa4FvfFjmNHOjlubDDmAyrib5ebCDMe7TvraulbGZyPDeyazv1AQ/640?wx_fmt=gif)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/E9heKbWeCTKezUtZAeQI9pnTx7MHdSwibvjq3iaV2795ficv1Lsq62dOE0XUVdQg8ZlIWQZwl7Y7Lg9licicRZRdwNw/640?wx_fmt=jpeg)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
+![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_30.jpeg)
 
 Ins｜cupofexcellence
 
@@ -388,7 +388,7 @@ ACE官网｜allianceforcoffeeexcellence.org
 
 __
 
-![作者头像](http://mmbiz.qpic.cn/mmbiz_png/suBmQOmY8AbXbPr4CAl9jiaLNibbdqLbGx5LRVt8vR1tZicY5LAvN86YgdaeYqSSnlWGticFJSdkayhl6MTYMGE0dw/0?wx_fmt=png)
+![作者头像](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_31.png)
 
 微信扫一扫可打开此内容，
 使用完整服务

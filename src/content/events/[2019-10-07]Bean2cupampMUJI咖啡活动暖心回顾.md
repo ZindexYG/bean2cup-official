@@ -3,7 +3,7 @@ draft: false
 title: "Bean2cup & MUJI咖啡活动暖心回顾"
 snippet: "10月咖啡分享活动圆满结束"
 image: {
-    src: "https://mmbiz.qlogo.cn/mmbiz_jpg/suBmQOmY8AYU5HkArepuRSDibhuwf1f984P7rguOtJUBsyXqcEpSWd6ARAxt3UKJaOlHy7XjOXbtafNW5YHMqLg/0?wx_fmt=jpeg",
+    src: "src/content/events/static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg",
     alt: "Bean2cup & MUJI咖啡活动暖心回顾"
 }
 publishDate: "2019-10-07 00:00"
@@ -12,15 +12,15 @@ author: "BEAN2CUP"
 tags: []
 ---
 
-![cover_image](https://mmbiz.qlogo.cn/mmbiz_jpg/suBmQOmY8AYU5HkArepuRSDibhuwf1f984P7rguOtJUBsyXqcEpSWd6ARAxt3UKJaOlHy7XjOXbtafNW5YHMqLg/0?wx_fmt=jpeg)
+![cover_image](./static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg)
 
 #  Bean2cup & MUJI咖啡活动暖心回顾
 
-原创  BEAN2CUP  [ BEAN2CUP ](javascript:void\(0\);)
+原创  BEAN2CUP  
 
 __ _ _ _ _
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQGhm03tYJ3oMPhGK3ibylNgFnboSGDzKiaFPTfRTVNRRqNFa0wAHqkDibg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_02.gif)
 
 Bean2cup Coffee & MUJI
 
@@ -66,39 +66,39 @@ Bean2cup Coffee & MUJI
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQEQgXepPOL9wpLMPdYLu1gztY8h7GF6kPYgWGM3siazmbFBfbXJeR3Vg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 活动准备花絮：  **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQicMX3nu5thXwKU3RFHxFATcaGF2ZicZnYZtW5FvGwKlibwkBAfYYr1HbA/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_04.jpeg)
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQEQgXepPOL9wpLMPdYLu1gztY8h7GF6kPYgWGM3siazmbFBfbXJeR3Vg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 活动互动进行中  **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQFtsljjovZZ6fwfOatVibhD05QnWjZoFKPyeJysOJzdzxMH1qulQqsEQ/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_05.jpeg)
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQEQgXepPOL9wpLMPdYLu1gztY8h7GF6kPYgWGM3siazmbFBfbXJeR3Vg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 冲泡演示讲解  **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQlFpFhW8JAZoztib1cBd18hZMTn7Fiaje0ibFM8NFUjEHzBswNurWM2fbA/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_06.jpeg)
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQEQgXepPOL9wpLMPdYLu1gztY8h7GF6kPYgWGM3siazmbFBfbXJeR3Vg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 咖啡品鉴  **
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQzIsOTOQyhOib18aibWI1PLAs99oFHN981eSx1FIqbnYzKCZHI6WZuUcQ/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_07.jpeg)
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_gif/suBmQOmY8AYPQLNYkCRibAy9cJXECeUuQEQgXepPOL9wpLMPdYLu1gztY8h7GF6kPYgWGM3siazmbFBfbXJeR3Vg/640?wx_fmt=gif)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 短短1个多小时的分享活动很快结束了
 
@@ -117,22 +117,22 @@ Bean2cup Coffee & MUJI
 
 
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AbVaM0DLKQlMhtVEU1pvxB4mrhG7Kkf674icbvFr5M0oLE6F9icuzwj4Jx8lzz2WVGwXY5QxVN58dvQ/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_08.jpeg)
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AZAnBA0ITySx8iayBLlLmDkYV8fPSy50eLusYHbHnNtI5XGD0NIcRsqCRic4lFu39Ef4amlcgiaKQEBw/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_09.jpeg)
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8Aanvv2TZm3S6cedicmeyibYo9MUCjDicSYUeOVk25bvyQ0WzHlsgKMRTMep2vn880L8L3tS96QPlOlLg/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_10.jpeg)
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYnjnopPFWn7C5JUFfyWJUUhR4YdyjUgicAe54vyTZibMXwC8vHLbuJTdtu9YvaPlTkFD7LEmjxRibSQ/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_11.jpeg)
 
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AYnjnopPFWn7C5JUFfyWJUU6BXcOic0bwqc0MZlDL8Pnzq0Wicd2RxeYEKpp971kicDGwGoWAficBbTjQ/640?wx_fmt=jpeg)
-![](https://mmbiz.qpic.cn/mmbiz_jpg/suBmQOmY8AZK2icyLYO8beeJicibCp200yxZRNxAVLBqC9GbRsD5ZjwsADtX22ptCPibWMrGl2mKyOYpsFu5ficA6PA/640?wx_fmt=jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_12.jpeg)
+![](./static/Bean2cup&MUJI咖啡活动暖心回顾_13.jpeg)
 
 
 
 预览时标签不可点
 
-[ 阅读原文 ](javascript:;)
+
 
 微信扫一扫
 关注该公众号
@@ -153,7 +153,7 @@ Bean2cup Coffee & MUJI
 
 __
 
-![作者头像](http://mmbiz.qpic.cn/mmbiz_png/suBmQOmY8AbXbPr4CAl9jiaLNibbdqLbGx5LRVt8vR1tZicY5LAvN86YgdaeYqSSnlWGticFJSdkayhl6MTYMGE0dw/0?wx_fmt=png)
+![作者头像](./static/Bean2cup&MUJI咖啡活动暖心回顾_14.png)
 
 微信扫一扫可打开此内容，
 使用完整服务
