@@ -9,8 +9,6 @@ const publishedEvents = await getCollection('events', ({ data }) => {
   return !data.draft && data.publishDate < new Date()
 })
 
-console.log('publishedEvents', publishedEvents)
-
 // 按活动时间倒序排列
 publishedEvents.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
@@ -23,41 +21,39 @@ publishedEvents.sort(
       <Fragment slot='title'>活动讯息</Fragment>
       <Fragment slot='desc'> 我们的最新活动与讯息，欢迎报名参与。 </Fragment>
     </Sectionhead>
-    <main class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
+    <main class='mt-16'>
+      <ul class='grid gap-16 max-w-4xl mx-auto'>
         {
           publishedEvents.map((eventEntry, index) => (
-            <li
-              class="transition-shadow hover:shadow-lg rounded-lg bg-white/90 hover:bg-blue-50"
-            >
-              <a href={`/events/${eventEntry.slug}`} class="block">
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
+            <li class='transition-shadow hover:shadow-lg rounded-lg bg-white/90 hover:bg-blue-50'>
+              <a href={`/events/${eventEntry.slug}`} class='block'>
+                <div class='grid md:grid-cols-2 gap-5 md:gap-10 items-center'>
                   {/* 图片居中，宽高统一，背景色为 slate-100，圆角 */}
                   {eventEntry.data.image && (
-                    <div class="flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto">
+                    <div class='flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto'>
                       <img
                         src={eventEntry.data.image.src}
                         alt={eventEntry.data.image.alt}
-                        class="object-cover object-center rounded-md w-[320px] h-[240px]"
-                        loading={index <= 2 ? "eager" : "lazy"}
-                        decoding={index <= 2 ? "sync" : "async"}
+                        class='object-cover object-center rounded-md w-[320px] h-[240px]'
+                        loading={index <= 2 ? 'eager' : 'lazy'}
+                        decoding={index <= 2 ? 'sync' : 'async'}
                       />
                     </div>
                   )}
                   <div>
-                    <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
+                    <span class='text-blue-400 uppercase tracking-wider text-sm font-medium'>
                       {eventEntry.data.category}
                     </span>
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1">
+                    <h2 class='text-3xl font-semibold leading-snug tracking-tight mt-1'>
                       {eventEntry.data.title}
                     </h2>
-                    <div class="flex gap-2 mt-3">
-                      <span class="text-gray-400">
+                    <div class='flex gap-2 mt-3'>
+                      <span class='text-gray-400'>
                         {eventEntry.data.author}
                       </span>
-                      <span class="text-gray-400">•</span>
+                      <span class='text-gray-400'>•</span>
                       <time
-                        class="text-gray-400"
+                        class='text-gray-400'
                         datetime={eventEntry.data.publishDate.toISOString()}>
                         {eventEntry.data.publishDate.toLocaleDateString()}
                       </time>

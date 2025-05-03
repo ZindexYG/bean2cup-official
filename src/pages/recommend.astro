@@ -5,11 +5,8 @@ import Container from '@components/container.astro'
 import Sectionhead from '@components/sectionhead.astro'
 
 const publishedEvents = await getCollection('recommend', ({ data }) => {
-  console.log('...')
   return !data.draft && data.publishDate < new Date()
 })
-
-console.log('publishedEvents', publishedEvents)
 
 publishedEvents.sort(
   (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
