@@ -3,7 +3,7 @@ draft: false
 title: "新品单品咖啡SalvadorRedBourbon萨瓦尔多红波旁"
 snippet: "原创  wen  __ _ _ _ _    萨瓦尔多·红波旁——————————Salvacor · Red Bourbon  "
 image: {
-    src: "src/content/recommend/static/原创wenBEAN2CUP_01.jpeg",
+    src: "/assets/recommend/static/原创wenBEAN2CUP_01.jpeg",
     alt: "原创  wen  [ BEAN2CUP ]"
 }
 publishDate: "2016-01-03 00:00"

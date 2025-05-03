@@ -3,7 +3,7 @@ draft: false
 title: "新豆推荐来自哥伦比亚Quinido省的热烈想象力Neverland"
 snippet: "原创  Cara  __ _ _ _ _Sleepyhead under a violet moon  在紫罗兰色的月光下昏昏欲睡"
 image: {
-    src: "src/content/recommend/static/原创CaraBEAN2CUP_01.jpeg",
+    src: "/assets/recommend/static/原创CaraBEAN2CUP_01.jpeg",
     alt: "原创  Cara  [ BEAN2CUP ]"
 }
 publishDate: "2020-10-07 00:00"
