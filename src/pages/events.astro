@@ -1,48 +1,50 @@
 ---
-import { getCollection } from "astro:content";
-import Layout from "@layouts/Layout.astro";
-import Container from "@components/container.astro";
-import Sectionhead from "@components/sectionhead.astro";
+import { getCollection } from 'astro:content'
+import Layout from '@layouts/Layout.astro'
+import Container from '@components/container.astro'
+import Sectionhead from '@components/sectionhead.astro'
 
 // 获取所有已发布的活动（draft: false 且日期早于当前时间）
-const publishedEvents = await getCollection("events", ({ data }) => {
-  console.log('data', data.draft,data.publishDate,new Date())
-  console.log('publishedEvents',!data.draft && data.publishDate < new Date())
-  return !data.draft && data.publishDate < new Date();
-});
+const publishedEvents = await getCollection('events', ({ data }) => {
+  console.log('data', data.draft, data.publishDate, new Date())
+  console.log('publishedEvents', !data.draft && data.publishDate < new Date())
+  return !data.draft && data.publishDate < new Date()
+})
 
-console.log('publishedEvents',publishedEvents)
+console.log('publishedEvents', publishedEvents)
 
 // 按活动时间倒序排列
-publishedEvents.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+publishedEvents.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+)
 ---
 
-<Layout title="Events">
+<Layout title='Events'>
   <Container>
     <Sectionhead>
-      <Fragment slot="title">活动讯息</Fragment>
-      <Fragment slot="desc">
-        我们的最新活动与讯息，欢迎报名参与。
-      </Fragment>
+      <Fragment slot='title'>活动讯息</Fragment>
+      <Fragment slot='desc'> 我们的最新活动与讯息，欢迎报名参与。 </Fragment>
     </Sectionhead>
     <main class="mt-16">
       <ul class="grid gap-16 max-w-4xl mx-auto">
         {
           publishedEvents.map((eventEntry, index) => (
-            <li>
-              <a href={`/events/${eventEntry.slug}`}>
+            <li
+              class="transition-shadow hover:shadow-lg rounded-lg bg-white/90 hover:bg-blue-50"
+            >
+              <a href={`/events/${eventEntry.slug}`} class="block">
                 <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  {/* 可根据需要添加图片字段 */}
+                  {/* 图片居中，宽高统一，背景色为 slate-100，圆角 */}
                   {eventEntry.data.image && (
-                    <img
-                      src={eventEntry.data.image.src}
-                      alt={eventEntry.data.image.alt}
-                      class="w-full rounded-md object-cover object-center bg-white"
-                      width={800}
-                      height={600}
-                      loading={index <= 2 ? "eager" : "lazy"}
-                      decoding={index <= 2 ? "sync" : "async"}
-                    />
+                    <div class="flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto">
+                      <img
+                        src={eventEntry.data.image.src}
+                        alt={eventEntry.data.image.alt}
+                        class="object-cover object-center rounded-md w-[320px] h-[240px]"
+                        loading={index <= 2 ? "eager" : "lazy"}
+                        decoding={index <= 2 ? "sync" : "async"}
+                      />
+                    </div>
                   )}
                   <div>
                     <span class="text-blue-400 uppercase tracking-wider text-sm font-medium">
