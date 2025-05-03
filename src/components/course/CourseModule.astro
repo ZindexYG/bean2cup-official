@@ -1,0 +1,44 @@
+---
+export interface Props {
+  title: string
+  subtitle: string
+  icon?: string // 预留 icon 字段，便于后续支持图标展示
+  description: string
+  target: string
+  outline: string[]
+}
+const { title, subtitle, icon, description, target, outline } = Astro.props
+
+// 判断是否需要分栏显示（大纲超过10项时）
+const splitIndex = Math.ceil(outline.length / 2)
+const isMultiColumn = outline.length > 10
+const leftOutline = isMultiColumn ? outline.slice(0, splitIndex) : outline
+const rightOutline = isMultiColumn ? outline.slice(splitIndex) : []
+---
+
+<!-- 课程模块组件 -->
+<section class="mb-12">
+  {/* 预留 icon 展示位，后续可根据 icon 字段渲染对应图标 */}
+  {/* {icon && <Icon name={icon} class="mr-2" />} */}
+  <h2 class="text-2xl font-bold mb-2">
+    {title} <span class="text-base text-gray-500">{subtitle}</span>
+  </h2>
+  <p class="mb-2 text-gray-700">{description}</p>
+  <p class="mb-2 text-sm text-gray-600"><strong>适合人群：</strong>{target}</p>
+  {isMultiColumn ? (
+    // 超过10项时，左右分栏布局，便于阅读
+    <div class="flex flex-col md:flex-row gap-6 mt-2">
+      <ul class="list-disc pl-6 flex-1 space-y-1 text-gray-600">
+        {leftOutline.map(item => <li>{item}</li>)}
+      </ul>
+      <ul class="list-disc pl-6 flex-1 space-y-1 text-gray-600">
+        {rightOutline.map(item => <li>{item}</li>)}
+      </ul>
+    </div>
+  ) : (
+    // 10项及以内，单列展示
+    <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600">
+      {outline.map(item => <li>{item}</li>)}
+    </ul>
+  )}
+</section>
