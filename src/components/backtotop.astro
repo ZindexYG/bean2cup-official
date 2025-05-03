@@ -1,0 +1,40 @@
+---
+/**
+ * 返回顶部按钮组件
+ * 1. 移动过一屏半时显示
+ * 2. 纯原生 JS，无 React
+ * 3. 支持平滑滚动
+ */
+---
+
+<script>
+  // 监听滚动，控制按钮显示
+  let btn
+  function handleScroll() {
+    if (!btn) btn = document.getElementById('back-to-top-btn')
+    if (!btn) return
+    if (window.scrollY > window.innerHeight * 1.5) {
+      btn.style.display = 'flex'
+    } else {
+      btn.style.display = 'none'
+    }
+  }
+  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('DOMContentLoaded', handleScroll)
+</script>
+
+<button
+  id='back-to-top-btn'
+  aria-label='返回顶部'
+  onclick="window.scrollTo({top:0,behavior:'smooth'})"
+  class='fixed right-8 bottom-10 z-50 hidden items-center justify-center w-11 h-11 bg-teal-500/90 text-white rounded-full shadow-lg cursor-pointer transition hover:bg-teal-600'>
+  <svg
+    fill='none'
+    stroke='currentColor'
+    stroke-width='2'
+    viewBox='0 0 24 24'
+    class='w-6 h-6'>
+    <path stroke-linecap='round' stroke-linejoin='round' d='M5 15l7-7 7 7'
+    ></path>
+  </svg>
+</button>
