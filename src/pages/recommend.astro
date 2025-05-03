@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content'
+import { Picture } from 'astro:assets'
 import Layout from '@layouts/Layout.astro'
 import Container from '@components/container.astro'
 import Sectionhead from '@components/sectionhead.astro'
@@ -31,12 +32,14 @@ publishedEvents.sort(
                   {/* 图片居中，宽高统一，背景色为 slate-100，圆角 */}
                   {eventEntry.data.image && (
                     <div class='flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto'>
-                      <img
+                      <Picture
                         src={eventEntry.data.image.src}
-                        alt={eventEntry.data.image.alt}
+                        alt={eventEntry.data.image.alt || 'Event image'}
                         class='object-cover object-center rounded-md w-[320px] h-[240px]'
                         loading={index <= 2 ? 'eager' : 'lazy'}
                         decoding={index <= 2 ? 'sync' : 'async'}
+                        width={320}
+                        height={240}
                       />
                     </div>
                   )}
