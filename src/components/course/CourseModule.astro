@@ -17,28 +17,44 @@ const rightOutline = isMultiColumn ? outline.slice(splitIndex) : []
 ---
 
 <!-- 课程模块组件 -->
-<section class="mb-12">
+<section class='mb-12'>
   {/* 预留 icon 展示位，后续可根据 icon 字段渲染对应图标 */}
   {/* {icon && <Icon name={icon} class="mr-2" />} */}
-  <h2 class="text-2xl font-bold mb-2">
-    {title} <span class="text-base text-gray-500">{subtitle}</span>
+  <h2 class='text-2xl font-bold mb-2 text-center leading-relaxed'>
+    {title}<br/>
+    <span class='text-base text-gray-500'>{subtitle}</span>
   </h2>
-  <p class="mb-2 text-gray-700">{description}</p>
-  <p class="mb-2 text-sm text-gray-600"><strong>适合人群：</strong>{target}</p>
-  {isMultiColumn ? (
-    // 超过10项时，左右分栏布局，便于阅读
-    <div class="flex flex-col md:flex-row gap-6 mt-2">
-      <ul class="list-disc pl-6 flex-1 space-y-1 text-gray-600">
-        {leftOutline.map(item => <li>{item}</li>)}
+  <p class='mb-2 text-gray-700'>{description}</p>
+  {/* 适合人群加粗提示，行高提升 */}
+  <p class='mb-4 mt-4 text-base text-gray-700 leading-relaxed'>
+    <span class='font-bold text-gray-800'>适合人群：</span>{target}
+  </p>
+  {/* 课程大纲加粗标题，行高提升 */}
+  <div class='mb-2 mt-6'>
+    <span class='font-bold text-gray-800 text-lg'>课程大纲</span>
+  </div>
+  {
+    isMultiColumn ? (
+      // 超过10项时，左右分栏布局，便于阅读
+      <div class='flex flex-col md:flex-row gap-6 mt-2'>
+        <ul class='list-disc pl-6 flex-1 space-y-2 text-gray-600'>
+          {leftOutline.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <ul class='list-disc pl-6 flex-1 space-y-2 text-gray-600'>
+          {rightOutline.map(item => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    ) : (
+      // 10项及以内，单列展示
+      <ul class='list-disc pl-6 mt-2 space-y-2 text-gray-600 leading-relaxed'>
+        {outline.map(item => (
+          <li>{item}</li>
+        ))}
       </ul>
-      <ul class="list-disc pl-6 flex-1 space-y-1 text-gray-600">
-        {rightOutline.map(item => <li>{item}</li>)}
-      </ul>
-    </div>
-  ) : (
-    // 10项及以内，单列展示
-    <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-600">
-      {outline.map(item => <li>{item}</li>)}
-    </ul>
-  )}
+    )
+  }
 </section>
