@@ -15,7 +15,7 @@ tags: []
 
 ![cover_image](./static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg)
 
-# Bean2cup & MUJI 咖啡活动暖心回顾
+<!-- # Bean2cup & MUJI 咖啡活动暖心回顾 -->
 
 原创 BEAN2CUP
 
