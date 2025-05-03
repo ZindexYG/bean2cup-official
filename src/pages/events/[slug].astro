@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import Layout from "@layouts/Layout.astro";
 import Container from "@components/container.astro";
 
-// 动态生成每个活动的路径
 export async function getStaticPaths() {
   const events = await getCollection("events");
   return events.map((entry) => ({
@@ -14,7 +13,6 @@ export async function getStaticPaths() {
 
 console.log('getStaticPaths', getStaticPaths);
 
-// 获取当前活动内容
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---

@@ -6,8 +6,6 @@ import Sectionhead from '@components/sectionhead.astro'
 
 // 获取所有已发布的活动（draft: false 且日期早于当前时间）
 const publishedEvents = await getCollection('events', ({ data }) => {
-  console.log('data', data.draft, data.publishDate, new Date())
-  console.log('publishedEvents', !data.draft && data.publishDate < new Date())
   return !data.draft && data.publishDate < new Date()
 })
 

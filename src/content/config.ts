@@ -34,6 +34,22 @@ const eventsCollection = defineCollection({
   }),
 });
 
+const experienceCollection = defineCollection({
+  schema: z.object({
+    draft: z.boolean(),
+    title: z.string(),
+    snippet: z.string(),
+    image: z.object({
+      src: z.string(),
+      alt: z.string(),
+    }),
+    publishDate: z.string().transform(str => new Date(str)),
+    author: z.string().default('Astroship'),
+    category: z.string(),
+    tags: z.array(z.string()),
+  }),
+});
+
 
 const teamCollection = defineCollection({
   schema: z.object({
@@ -54,4 +70,6 @@ export const collections = {
   'blog': blogCollection,
   'team': teamCollection,
   'events': eventsCollection,
+  'experience': experienceCollection,
+  "recommend": blogCollection,
 };

@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '@layouts/Layout.astro'
+import Container from '@components/container.astro'
+import Sectionhead from '@components/sectionhead.astro'
+
+const publishedEvents = await getCollection('recommend', ({ data }) => {
+  console.log('...')
+  return !data.draft && data.publishDate < new Date()
+})
+
+console.log('publishedEvents', publishedEvents)
+
+publishedEvents.sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+)
+---
+
+<Layout title='Recommend'>
+  <Container>
+    <Sectionhead>
+      <Fragment slot='title'>推荐新品</Fragment>
+      <Fragment slot='desc'>
+        自家烘焙新鲜咖啡豆，为您带来丰富的风味选择。
+      </Fragment>
+    </Sectionhead>
+    <main class='mt-16'>
+      <ul class='grid gap-16 max-w-4xl mx-auto'>
+        {
+          publishedEvents.map((eventEntry, index) => (
+            <li class='transition-shadow hover:shadow-lg rounded-lg bg-white/90 hover:bg-blue-50'>
+              <a href={`/recommend/${eventEntry.slug}`} class='block'>
+                <div class='grid md:grid-cols-2 gap-5 md:gap-10 items-center'>
+                  {/* 图片居中，宽高统一，背景色为 slate-100，圆角 */}
+                  {eventEntry.data.image && (
+                    <div class='flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto'>
+                      <img
+                        src={eventEntry.data.image.src}
+                        alt={eventEntry.data.image.alt}
+                        class='object-cover object-center rounded-md w-[320px] h-[240px]'
+                        loading={index <= 2 ? 'eager' : 'lazy'}
+                        decoding={index <= 2 ? 'sync' : 'async'}
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <span class='text-blue-400 uppercase tracking-wider text-sm font-medium'>
+                      {eventEntry.data.category}
+                    </span>
+                    <h2 class='text-3xl font-semibold leading-snug tracking-tight mt-1'>
+                      {eventEntry.data.title}
+                    </h2>
+                    <div class='flex gap-2 mt-3'>
+                      <span class='text-gray-400'>
+                        {eventEntry.data.author}
+                      </span>
+                      <span class='text-gray-400'>•</span>
+                      <time
+                        class='text-gray-400'
+                        datetime={eventEntry.data.publishDate.toISOString()}>
+                        {eventEntry.data.publishDate.toLocaleDateString()}
+                      </time>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+  </Container>
+</Layout>
