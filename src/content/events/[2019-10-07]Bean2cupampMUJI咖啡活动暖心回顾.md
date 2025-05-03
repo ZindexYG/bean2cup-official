@@ -13,7 +13,7 @@ author: "BEAN2CUP"
 tags: []
 ---
 
-![cover_image](./static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg)
+![cover_image](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_01.jpeg)
 
 <!-- # Bean2cup & MUJI 咖啡活动暖心回顾 -->
 
@@ -21,7 +21,7 @@ tags: []
 
 ---
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_02.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_02.gif)
 
 Bean2cup Coffee & MUJI
 
@@ -59,31 +59,31 @@ Bean2cup Coffee & MUJI
 
 话不多说～上图啦啦啦啦！
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 活动准备花絮： **
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_04.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_04.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 活动互动进行中 **
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_05.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_05.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 冲泡演示讲解 **
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_06.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_06.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 ** 咖啡品鉴 **
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_07.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_07.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_03.gif)
 
 短短 1 个多小时的分享活动很快结束了
 
@@ -91,13 +91,13 @@ Bean2cup Coffee & MUJI
 
 下次活动再会呀～
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_08.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_08.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_09.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_09.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_10.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_10.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_11.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_11.jpeg)
 
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_12.jpeg)
-![](./static/Bean2cup&MUJI咖啡活动暖心回顾_13.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_12.jpeg)
+![](/assets/events/static/Bean2cup&MUJI咖啡活动暖心回顾_13.jpeg)

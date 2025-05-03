@@ -13,7 +13,7 @@ author: "BEAN2CUP"
 tags: []
 ---
 
-![cover_image](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg)
+![cover_image](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_01.jpeg)
 
 <!-- # 线下活动 | IT'S COE COFFEE! 洪都拉斯专场报名启动 -->
 
@@ -63,7 +63,7 @@ IHCAFE 洪都拉斯国家咖啡学会 总经理
 2021 年，重返 CoE 赛场的洪都拉斯释放了巨大的能量，收获了 25 支 CoE 获奖豆，其中 6 支拿下“总统奖”，创下了 **
 2021 年度前八场 CoE 竞赛总统豆数量之最。 **
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_02.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_02.jpeg)
 
 △ 2021 洪都拉斯 CoE 颁奖典礼，前排从右到左分别为：
 
@@ -75,10 +75,10 @@ IHCAFE 洪都拉斯国家咖啡学会 总经理
 
 ** 8 月 14 日至 18 日 ** ，我们将在全国 6 个站点为大家推介 2021 年度 洪都拉斯所有 CoE 获奖豆。 除了数量众多的总统豆，大家还将品尝到水洗
 ** 伦皮拉 (Lempira) ** 和各种处理方式的 ** 帕拉伊内玛 (Parainema)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_03.png)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_03.png)
 **
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_04.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_04.jpeg)
 
 △ IT'S COE COFFEE!系列分享会之洪都拉斯专场豆单
 
@@ -88,7 +88,7 @@ Orlando Carvajal 的女儿。父女同台获奖，这在洪都拉斯 17 年的 C
 不幸的是， Dariela 于 2020 年底被查出患有脑瘤，后在家人的陪伴下前往萨尔瓦多进行手术，不料在当地医院就诊期间感染新冠。
 日前，CoE 正在为 Dariela 进行筹款，用于支付其部分医疗费用。衷心祝愿努力美丽的 Dariela 早日康复！
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_05.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_05.jpeg)
 
 △ Dariela Carvajal 与父亲 Orlando Carvajal 图片来自 CoE 官网洪都拉斯 2019CoE 获奖农场图片
 当年其父以一支 90.23 分的蜜处理铁皮卡摘得“总统奖”
@@ -104,22 +104,22 @@ Orlando Carvajal 的女儿。父女同台获奖，这在洪都拉斯 17 年的 C
 COFFEE!分享会的朋友们须同时出示行程码和健康码。哦对了，好久没抽奖了，今天来一个吧~~介意奖品顺丰到付、介意第 7 名只有 25g 的朋友们请勿参与哦！**
 
 [
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_06.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_06.jpeg)
 ]()
 
 \*\*\ 咖啡公社 \*\*
 
 **2021 年 ACE 捐助者会员**
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_07.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_07.jpeg)
 
 咖啡公社是 2013 年由德籍创办人 Eric
 Baden 成立的咖啡品牌。2017 年我们选址产地云南普洱，专门从事咖啡种植、加工、烘焙、国际贸易的完整服务。我们还建立国际精品咖啡微批次专业脱壳服务，聘请 CQI 认证杯测师与 SCA 认证烘豆师，监制云南咖啡产品制造，全面提升云南咖啡国际精品的品牌形象。
 
 我们同时在上海浦东拥有自己的 200 平米咖啡门店，致力于升级精品咖啡体验，探索精品咖啡文化，希望有更多的人领略精品咖啡的美妙。
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_08.jpeg)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_09.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_08.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_09.jpeg)
 
 分享会时间： 2021 年 8 月 14 日 14:00-16:00
 
@@ -129,7 +129,7 @@ Baden 成立的咖啡品牌。2017 年我们选址产地云南普洱，专门从
 
 报名二维码：
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_10.png)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_10.png)
 
 \*\*\ Bean2cup Coffee \*\*
 
@@ -139,11 +139,11 @@ Coffee 于 2013 年创立于深圳，多年来致力于咖啡教育与精品咖�
 我们的理念是由咖啡果实开始到杯中的咖啡，从种植、采摘、咖啡果处理、烘焙、杯测、储存、冲泡的每一个环节都用心把控 让消费者可以感受到我们每杯咖啡精挑细选的心意
 消费者在分享交流中越懂得好咖啡 如此就越鼓励咖啡行业的发展 传播专业的精品咖啡概念。
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_11.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_11.jpeg)
 
 BEAN2CUP ▲
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_12.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_12.jpeg)
 
 分享会时间： 2021 年 8 月 14 日 14:30-16:00
 
@@ -153,15 +153,15 @@ BEAN2CUP ▲
 
 报名联系人： Momo
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_13.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_13.jpeg)
 
 \*\*\ The Fox Fur Coffee \*\*
 
 主理人 Luka 澳洲从业归国后开设的独立咖啡门店，注重品质、性价比和社区性。
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_14.jpeg)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_15.jpeg)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_16.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_14.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_15.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_16.jpeg)
 
 分享会时间： 2021 年 8 月 15 日 14:00-16:00
 
@@ -171,15 +171,15 @@ BEAN2CUP ▲
 
 报名二维码：
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_17.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_17.jpeg)
 
 \*\*\ 无屿咖啡 \*\*
 
 无屿咖啡是一家专注于咖啡文化推广，咖啡教育以及咖啡烘焙的工作室。
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_18.jpeg)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_19.png)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_20.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_18.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_19.png)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_20.jpeg)
 
 分享会时间： 2021 年 8 月 16 日 14:00-15:30
 
@@ -193,14 +193,14 @@ BEAN2CUP ▲
 
 **2021 年 ACE 社区会员**
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_21.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_21.jpeg)
 
 FEW
 CROSS 体验店作为一个新的空间，是 FEW 精品咖啡对外的一个产品、设计理念展示，旨在分享和传递咖啡美好。店内设有烘焙厨房，供应每日现烤面包及点心，面包坚持使用自家喂养酵母，主打健康低脂品类，为的是搭配日常好咖啡，让大家吃好喝好。
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_22.jpeg)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_23.png)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_24.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_22.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_23.png)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_24.jpeg)
 
 分享会时间： 2021 年 8 月 18 日 15:00-17:00
 
@@ -210,7 +210,7 @@ CROSS 体验店作为一个新的空间，是 FEW 精品咖啡对外的一个产
 
 报名方式： 联系 FEW CROSS 官方客服报名
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_25.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_25.jpeg)
 
 **特**
 
@@ -226,7 +226,7 @@ CROSS 体验店作为一个新的空间，是 FEW 精品咖啡对外的一个产
 
 **点**
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_26.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_26.jpeg)
 
 **易咖吉**
 
@@ -234,7 +234,7 @@ Coffee Exchange
 
 \***\* **2021 年 ACE 捐助者\*\* **会员**
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_27.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_27.jpeg)
 
 分享会时间： 2021 年 8 月 17 日 14:30
 
@@ -244,7 +244,7 @@ Coffee Exchange
 
 报名联系人： 微信联系含笑进行报名
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_28.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_28.jpeg)
 
 **常见问题**
 
@@ -280,14 +280,14 @@ $6.50/lb ≥90 分
 
 CoE 东亚顾问 CC (微信 ID:ciecilia，请注明来意)
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
 
 **不想错过 CoE 好咖啡？**
 
 **ACE 公众号关注起来呀！**
 
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
-![](./static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_30.jpeg)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_29.gif)
+![](/assets/events/static/线下活动IT'SCOECOFFEE!洪都拉斯专场报名启动_30.jpeg)
 
 Ins ｜ cupofexcellence
 
