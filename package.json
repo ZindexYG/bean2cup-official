@@ -8,9 +8,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.6",
