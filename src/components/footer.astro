@@ -1,37 +1,103 @@
 ---
-import { Picture } from 'astro:assets'
-import footer from 'assets/footer.webp'
-import Cta from '@components/cta.astro'
+import Link from './ui/link.astro'
+import { Icon } from 'astro-icon/components'
 ---
 
+<div class="py-16">
+  <div class="container mx-auto max-w-6xl px-4">
+    <div class="grid md:grid-cols-3 gap-8 items-start">
+      <!-- 左侧：公司信息 -->
+      <div class="md:col-span-1">
+        <div class="flex items-center mb-4">
+          <h3 class="text-2xl font-bold text-gray-800">BEAN2CUP</h3>
+        </div>
+        <p class="text-slate-600 mb-6">
+          从种子到杯子，我们用心把控咖啡的每一个环节，为您提供极致的咖啡体验。
+        </p>
 
-<footer class="my-20">
-  <!-- <div class="flex justify-center mb-4">
-    <Picture
-      src={footer}
-      alt="Footer Logo"
-      widths={[260, 400, 520]}
-      sizes="(max-width: 800px) 100vw, 520px"
-      loading="eager"
-      format="avif"
-    />
-  </div> -->
-  <Cta />
-  <p class="text-center text-sm text-slate-500">
-    Copyright © {new Date().getFullYear()} Bean2Cup. All rights reserved.
-  </p>
-  <!--
-    Can we ask you a favor 🙏
-    Please keep this backlink on your website if possible.
-    or Purchase a commercial license from https://web3templates.com
-  -->
-  <!-- <p class="text-center text-xs text-slate-500 mt-1">
-    Made by <a
-      href="https://web3templates.com"
-      target="_blank"
-      rel="noopener"
-      class="hover:underline">
-      Web3Templates
-    </a>
-  </p> -->
-</footer>
+        <!-- 社交媒体图标 -->
+        <div class="flex space-x-4 mt-4">
+          <a href="#" class="text-teal-600 hover:text-teal-700">
+            <Icon name="simple-icons:wechat" class="w-6 h-6" />
+          </a>
+          <a href="#" class="text-teal-600 hover:text-teal-700">
+            <Icon name="bx:store" class="w-6 h-6" />
+          </a>
+          <a href="#" class="text-teal-600 hover:text-teal-700">
+            <Icon name="bx:coffee" class="w-6 h-6" />
+          </a>
+        </div>
+      </div>
+
+      <!-- 中间：联系方式 -->
+      <div class="md:col-span-1">
+        <h3 class="text-lg font-semibold mb-4 text-gray-800">联系我们</h3>
+        <div class="space-y-3 text-slate-600">
+          <!-- 深圳联系方式 -->
+          <div class="flex items-start gap-2">
+            <Icon name="bx:map" class="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
+            <div>
+              <strong>深圳工作室：</strong>
+              <p>深圳市福田区中康路8号 雕塑家园1826</p>
+            </div>
+          </div>
+
+          <!-- 广州联系方式 -->
+          <div class="flex items-start gap-2">
+            <Icon name="bx:map" class="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
+            <div>
+              <strong>广州门店：</strong>
+              <p>广州市海珠区广纸北二路广纸东五街11号</p>
+            </div>
+          </div>
+
+          <!-- 邮箱 -->
+          <div class="flex items-start gap-2">
+            <Icon name="bx:envelope" class="w-5 h-5 text-teal-600 mt-1 flex-shrink-0" />
+            <div>
+              <strong>公众邮箱：</strong>
+              <p>bean2cupcoffee@hotmail.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：关注我们 -->
+      <div class="md:col-span-1">
+        <h3 class="text-lg font-semibold mb-4 text-gray-800">关注我们</h3>
+        <div class="flex items-center gap-4">
+          <!-- 二维码小一些但还是存在 -->
+          <div class="flex-shrink-0">
+            <img
+              src={'/qrcode.jpeg'}
+              alt="BEAN2CUP 微信公众号二维码"
+              class="w-24 h-24 object-cover rounded-md shadow-sm"
+            />
+          </div>
+          <div>
+            <p class="text-slate-600">
+              扫码关注微信公众号<br/>
+              <strong class="text-teal-600">"BEAN2CUP"</strong><br/>
+              获取更多咖啡知识、新品资讯和活动信息
+            </p>
+          </div>
+        </div>
+
+        <!-- 订阅按钮 -->
+        <!-- <div class="mt-6">
+          <a href="#" class="inline-flex items-center px-4 py-2 bg-teal-600 text-white rounded-md hover:bg-teal-700 transition-colors">
+            <Icon name="bx:bell" class="w-5 h-5 mr-2" />
+            <span>订阅电子快讯</span>
+          </a>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- 底部版权信息 -->
+    <div class="mt-12 pt-6 border-t border-slate-200">
+      <p class="text-center text-sm text-slate-500">
+        Copyright © {new Date().getFullYear()} Bean2Cup. All rights reserved.
+      </p>
+    </div>
+  </div>
+</div>
