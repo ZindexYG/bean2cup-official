@@ -1,0 +1,193 @@
+---
+/**
+ * 首页轮播 Banner 组件
+ * 1. 读取前5个活动作为轮播内容
+ * 2. 使用 Splide.js 实现轮播功能（轻量级，仅~30KB）
+ * 3. 图文结合，参考星巴克风格设计
+ * 4. 支持自动播放、手动切换、键盘控制
+ * 5. 响应式设计，移动端优化
+ */
+
+import { getCollection } from 'astro:content'
+import { Icon } from 'astro-icon/components'
+
+// 获取前5个已发布的活动
+const recentEvents = await getCollection('events', ({ data }) => {
+  return !data.draft && data.publishDate < new Date()
+})
+
+
+// 按时间倒序排列，取前5个作为轮播内容
+const bannerEvents = recentEvents
+.sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+.slice(0, 5)
+---
+
+<!-- 轮播 Banner 容器 -->
+<section class="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden mb-8">
+  <!-- Splide 容器 -->
+  <div id="banner-splide" class="splide w-full h-full">
+    <div class="splide__track h-full">
+      <ul class="splide__list h-full">
+        {bannerEvents.map((event, index) => (
+          <!-- 1. 点击整个 banner 内容跳转到详情 -->
+          <li class="splide__slide relative h-full">
+            <!-- 添加链接包装整个内容 -->
+            <a href={`/events/${event.slug}`} class="block w-full h-full">
+              <!-- 背景图片层 -->
+              <div class="absolute inset-0">
+                <img
+                  src={event.data.image.src}
+                  alt={event.data.image.alt}
+                  class="w-full h-full object-cover"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+                <!-- 深色遮罩层，增强文字可读性，符合星巴克风格 -->
+                <div class="absolute inset-0 bg-black/40"></div>
+              </div>
+
+              <!-- 内容区域 -->
+              <div class="relative z-10 flex items-center h-full">
+                <div class="container mx-auto px-4">
+                  <div class="max-w-2xl text-white">
+                    <!-- 分类标签，使用 teal 主色调 -->
+                    <span class="inline-block px-3 py-1 bg-teal-600 text-sm font-medium rounded-full mb-4">
+                      {event.data.category}
+                    </span>
+
+                    <!-- 活动标题，响应式字体大小 -->
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                      {event.data.title}
+                    </h2>
+
+                    <!-- 活动描述，限制显示行数 -->
+                    <p class="text-lg md:text-xl mb-6 opacity-90 line-clamp-3">
+                      {event.data.snippet}
+                    </p>
+
+                    <!-- 操作按钮组 - 移除原有按钮，因为整个区域都可点击 -->
+                    <!-- 发布日期信息 -->
+                    <div class="mt-6 text-sm opacity-75">
+                      <time datetime={event.data.publishDate.toISOString()}>
+                        {event.data.publishDate.toLocaleDateString('zh-CN')}
+                      </time>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- 自定义导航箭头 -->
+    <div class="splide__arrows">
+      <button class="splide__arrow splide__arrow--prev" type="button">
+        <!-- <Icon name="bx:chevron-left" class="w-6 h-6" /> -->
+        <Icon name="bx:chevron-right" class="w-6 h-6" />
+      </button>
+      <button class="splide__arrow splide__arrow--next" type="button">
+        <Icon name="bx:chevron-right" class="w-6 h-6" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  /**
+   * Banner 轮播组件脚本
+   * 使用 Splide.js 实现轻量级轮播功能
+   */
+  import { Splide } from '@splidejs/splide'
+  import '@splidejs/splide/css'
+
+  // 初始化轮播组件
+  const splide = new Splide('#banner-splide', {
+    // 基础配置
+    type: 'loop',        // 循环播放
+    autoplay: true,      // 自动播放
+    interval: 5000,      // 5秒切换间隔
+    pauseOnHover: true,  // 鼠标悬停时暂停
+    pauseOnFocus: true,  // 获得焦点时暂停
+
+    // 切换效果配置
+    speed: 800,          // 切换动画速度（毫秒）
+    easing: 'ease-in-out', // 缓动函数
+
+    // UI 组件
+    pagination: true,    // 显示分页指示器
+    arrows: true,        // 显示导航箭头
+
+    // 交互控制
+    keyboard: true,      // 键盘控制支持
+    wheel: false,        // 禁用滚轮控制，避免误触
+
+    // 可访问性
+    ariaLabel: '活动轮播', // 无障碍标签
+
+    // 响应式配置
+    breakpoints: {
+      640: {
+        arrows: false,   // 移动端隐藏导航箭头
+        autoplay: false, // 移动端关闭自动播放，节省电量
+      }
+    }
+  })
+
+  // 挂载组件
+  splide.mount()
+</script>
+
+<style>
+  /* 分页指示器样式 */
+  .splide__pagination {
+    @apply bottom-6; /* 距离底部 24px */
+  }
+
+  .splide__pagination__page {
+    @apply bg-white/50 w-3 h-3 border-none; /* 半透明白色圆点 */
+  }
+
+  .splide__pagination__page.is-active {
+    @apply bg-white; /* 激活状态为纯白色 */
+  }
+
+  /* 导航箭头样式 */
+  .splide__arrow {
+    @apply bg-white/20 text-white border-none w-12 h-12 rounded-full backdrop-blur-sm;
+    @apply hover:bg-white/30 transition-all duration-200;
+    @apply flex items-center justify-center;
+  }
+
+  .splide__arrow--prev {
+    @apply left-4; /* 左箭头位置 */
+  }
+
+  .splide__arrow--next {
+    @apply right-4; /* 右箭头位置 */
+  }
+
+  .splide__arrow:disabled {
+    @apply opacity-50 cursor-not-allowed; /* 禁用状态样式 */
+  }
+
+  .splide__arrow svg {
+    @apply w-6 h-6; /* 箭头图标大小 */
+  }
+
+  /* 文本截断样式，确保描述文字不超过3行 */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* 移动端优化 */
+  @media (max-width: 640px) {
+    .splide__arrow {
+      @apply hidden; /* 移动端隐藏箭头 */
+    }
+  }
+</style>
