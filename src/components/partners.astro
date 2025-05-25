@@ -1,0 +1,129 @@
+---
+/**
+ * 服务或合作单位展示组件
+ * 1. 单行滚动展示合作伙伴
+ * 2. 鼠标悬停效果
+ * 3. 根据项目设计风格一致性实现
+ */
+
+// 合作伙伴数据
+const partners = [
+  { name: '深圳职业技术学院' },
+  { name: '中国银联' },
+  { name: '1200 Bookshop' },
+  { name: '渣打银行私人银行' },
+  { name: '九月艺术' },
+  { name: '禾田书房' },
+  { name: '招商银行私人银行' },
+  { name: '深圳合纵文化集团' },
+  { name: 'Pure Sue纯素主义' },
+  { name: '民生银行私人银行' },
+  { name: 'MINI COOPER' },
+  { name: '斑克咖啡' },
+  { name: '合富辉煌' },
+  { name: '深港城市建筑双城双年展' },
+  { name: '叁点半文化传播' },
+  { name: '邦华集团' },
+  { name: '深圳中医院' },
+  { name: '城会玩' },
+  { name: '侨鑫集团' },
+  { name: '香港西敏旅行社' },
+  { name: 'Art Expo' },
+  { name: '亚太国际文化交流中心' },
+  { name: '深圳公共艺术中心' },
+  { name: '华里酒店集团/华文创文化' },
+  { name: '保利玛莎拉蒂' },
+  { name: '捷和教育' },
+  { name: 'MounGar423' },
+  { name: 'K11艺术商场' },
+  { name: '施木极品艺术家居' },
+  { name: '美吧秀艺术文化' },
+  { name: 'FILA' },
+  { name: '深圳安吖' },
+  { name: '蛇小猫咖啡' },
+]
+
+// 复制一份数据以实现无缝滚动
+const allPartners = [...partners]
+---
+
+<section class='py-16 bg-slate-50'>
+  <div class='container mx-auto'>
+    <!-- 标题区域 -->
+    <div class='text-center mb-12'>
+      <h2 class='text-3xl font-bold text-gray-800'>服务与合作单位</h2>
+      <p class='text-slate-600 mt-2'>
+        感谢众多优秀企业和机构对我们的信任与支持
+      </p>
+    </div>
+
+    <!-- 滚动展示区域 -->
+    <div class='overflow-hidden relative'>
+      <!-- 滚动容器 -->
+      <div id='partners-slider' class='whitespace-nowrap'>
+        <!-- 伙伴列表 -->
+        <div class='inline-block partners-track animate-scroll'>
+          {
+            allPartners.map(partner => (
+              <div class='inline-block mx-6 my-3 partner-item'>
+                <div class='bg-white px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 min-w-[180px] text-center'>
+                  <p class='text-gray-700 font-medium'>{partner.name}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 设置滚动动画 */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  /* 应用动画到轨道 */
+  .animate-scroll {
+    animation: scroll 60s linear infinite;
+  }
+
+  /* 鼠标悬停时暂停动画 */
+  #partners-slider:hover .animate-scroll {
+    animation-play-state: paused;
+  }
+
+  /* 伙伴项样式 */
+  .partner-item {
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  /**
+   * 合作伙伴展示交互脚本
+   * - 鼠标悬停暂停滚动
+   * - 点击可跳转（预留功能）
+   */
+  document.addEventListener('DOMContentLoaded', function () {
+    const slider = document.getElementById('partners-slider')
+    const partnerItems = document.querySelectorAll('.partner-item')
+
+    // 鼠标悬停特效增强（已通过CSS实现基本暂停）
+    partnerItems.forEach(item => {
+      item.addEventListener('mouseenter', function () {
+        this.querySelector('div').classList.add('ring-2', 'ring-teal-600')
+      })
+
+      item.addEventListener('mouseleave', function () {
+        this.querySelector('div').classList.remove('ring-2', 'ring-teal-600')
+      })
+    })
+  })
+</script>
