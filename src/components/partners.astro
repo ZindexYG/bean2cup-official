@@ -2,85 +2,214 @@
 /**
  * 服务或合作单位展示组件
  * 1. 单行滚动展示合作伙伴
- * 2. 鼠标悬停效果
- * 3. 根据项目设计风格一致性实现
+ * 2. 多行反向滚动效果
+ * 3. 中间渐变高亮区域（不遮盖内容）
+ * 4. 铺满可视宽度
+ * 5. 支持图标展示，无图标时优雅降级
  */
 
-// 合作伙伴数据
+import { Icon } from 'astro-icon/components'
+
+// 合作伙伴数据，包含对应的图标
 const partners = [
-  { name: '深圳职业技术学院' },
-  { name: '中国银联' },
-  { name: '1200 Bookshop' },
-  { name: '渣打银行私人银行' },
-  { name: '九月艺术' },
-  { name: '禾田书房' },
-  { name: '招商银行私人银行' },
-  { name: '深圳合纵文化集团' },
-  { name: 'Pure Sue纯素主义' },
-  { name: '民生银行私人银行' },
-  { name: 'MINI COOPER' },
-  { name: '斑克咖啡' },
-  { name: '合富辉煌' },
-  { name: '深港城市建筑双城双年展' },
-  { name: '叁点半文化传播' },
-  { name: '邦华集团' },
-  { name: '深圳中医院' },
-  { name: '城会玩' },
-  { name: '侨鑫集团' },
-  { name: '香港西敏旅行社' },
-  { name: 'Art Expo' },
-  { name: '亚太国际文化交流中心' },
-  { name: '深圳公共艺术中心' },
-  { name: '华里酒店集团/华文创文化' },
-  { name: '保利玛莎拉蒂' },
-  { name: '捷和教育' },
-  { name: 'MounGar423' },
-  { name: 'K11艺术商场' },
-  { name: '施木极品艺术家居' },
-  { name: '美吧秀艺术文化' },
-  { name: 'FILA' },
-  { name: '深圳安吖' },
-  { name: '蛇小猫咖啡' },
+  { name: '深圳职业技术学院', icon: 'bx:building' },
+  { name: '中国银联', icon: 'bx:credit-card' },
+  { name: '1200 Bookshop', icon: 'bx:book-open' },
+  { name: '渣打银行私人银行', icon: null },
+  { name: '九月艺术', icon: 'bx:palette' },
+  { name: '禾田书房', icon: 'bx:library' },
+  { name: '招商银行私人银行', icon: null },
+  { name: '深圳合纵文化集团', icon: 'bx:buildings' },
+  { name: 'Pure Sue纯素主义', icon: 'bx:leaf' },
+  { name: '民生银行私人银行', icon: null },
+  { name: 'MINI COOPER', icon: 'bx:car' },
+  { name: '斑克咖啡', icon: 'bx:coffee' },
+  { name: '合富辉煌', icon: 'bx:building-house' },
+  { name: '深港城市建筑双城双年展', icon: 'bx:buildings' },
+  { name: '叁点半文化传播', icon: 'bx:broadcast' },
+  { name: '邦华集团', icon: 'bx:building' },
+  { name: '深圳中医院', icon: 'bx:plus-medical' },
+  { name: '城会玩', icon: 'bx:game' },
+  { name: '侨鑫集团', icon: 'bx:building' },
+  { name: '香港西敏旅行社', icon: null },
+  { name: 'Art Expo', icon: 'bx:brush' },
+  { name: '亚太国际文化交流中心', icon: 'bx:globe' },
+  { name: '深圳公共艺术中心', icon: 'bx:palette' },
+  { name: '华里酒店集团/华文创文化', icon: 'bx:hotel' },
+  { name: '保利玛莎拉蒂', icon: 'bx:car' },
+  { name: '捷和教育', icon: 'bx:book-reader' },
+  { name: 'MounGar423', icon: null },
+  { name: 'K11艺术商场', icon: 'bx:store' },
+  { name: '施木极品艺术家居', icon: 'bx:home' },
+  { name: '美吧秀艺术文化', icon: 'bx:brush' },
+  { name: 'FILA', icon: 'bx:shopping-bag' },
+  { name: '深圳安吖', icon: null },
+  { name: '蛇小猫咖啡', icon: 'bx:coffee' },
 ]
 
-// 复制一份数据以实现无缝滚动
-const allPartners = [...partners]
+// 将合作伙伴分为三组
+const row1 = [...partners.slice(0, 11), ...partners.slice(0, 11)]
+const row2 = [...partners.slice(11, 22), ...partners.slice(11, 22)]
+const row3 = [...partners.slice(22), ...partners.slice(22)]
 ---
 
-<section class='py-16 bg-slate-50'>
-  <div class='container mx-auto'>
-    <!-- 标题区域 -->
-    <div class='text-center mb-12'>
+<section class='relative py-16 bg-slate-50 overflow-hidden w-full'>
+  <!-- 标题区域 -->
+  <div class='container mx-auto px-4 mb-12 relative z-10'>
+    <div class='text-center'>
       <h2 class='text-3xl font-bold text-gray-800'>服务与合作单位</h2>
       <p class='text-slate-600 mt-2'>
         感谢众多优秀企业和机构对我们的信任与支持
       </p>
     </div>
+  </div>
 
-    <!-- 滚动展示区域 -->
-    <div class='overflow-hidden relative'>
-      <!-- 滚动容器 -->
-      <div id='partners-slider' class='whitespace-nowrap'>
-        <!-- 伙伴列表 -->
-        <div class='inline-block partners-track animate-scroll'>
-          {
-            allPartners.map(partner => (
-              <div class='inline-block mx-6 my-3 partner-item'>
-                <div class='bg-white px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 min-w-[180px] text-center'>
-                  <p class='text-gray-700 font-medium'>{partner.name}</p>
+  <!-- 中间高亮渐变区域 - 调整z-index确保不遮盖内容 -->
+  <div
+    class='absolute left-1/2 top-0 bottom-0 w-[600px] -translate-x-1/2 z-0 pointer-events-none'>
+    <div
+      class='absolute inset-0 bg-gradient-to-r from-transparent via-teal-50/30 to-transparent'>
+    </div>
+  </div>
+
+  <!-- 滚动展示区域 - 三行反向滚动 -->
+  <div class='partners-container w-full'>
+    <!-- 第一行 - 从左向右 -->
+    <div class='partners-row mb-1'>
+      <div class='partners-track animate-scroll-right'>
+        {
+          row1.map(partner => (
+            <div class='partner-item'>
+              <div class='bg-white px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 h-full flex items-center gap-3 min-w-[180px]'>
+                {/* 图标区域 - 有图标时显示，无图标时显示默认图标 */}
+                <div class='flex-shrink-0'>
+                  {partner.icon ? (
+                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                  ) : (
+                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
+                      <span class='text-teal-600 text-xs font-bold'>
+                        {partner.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
+                {/* 合作伙伴名称 */}
+                <p class='text-gray-700 font-medium text-sm flex-1'>
+                  {partner.name}
+                </p>
               </div>
-            ))
-          }
-        </div>
+            </div>
+          ))
+        }
       </div>
     </div>
+
+    <!-- 第二行 - 从右向左 -->
+    <div class='partners-row mb-1'>
+      <div class='partners-track animate-scroll-left'>
+        {
+          row2.map(partner => (
+            <div class='partner-item'>
+              <div class='bg-white px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 h-full flex items-center gap-3 min-w-[180px]'>
+                {/* 图标区域 */}
+                <div class='flex-shrink-0'>
+                  {partner.icon ? (
+                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                  ) : (
+                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
+                      <span class='text-teal-600 text-xs font-bold'>
+                        {partner.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {/* 合作伙伴名称 */}
+                <p class='text-gray-700 font-medium text-sm flex-1'>
+                  {partner.name}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- 第三行 - 从左向右 -->
+    <div class='partners-row'>
+      <div class='partners-track animate-scroll-right-slow'>
+        {
+          row3.map(partner => (
+            <div class='partner-item'>
+              <div class='bg-white px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 h-full flex items-center gap-3 min-w-[180px]'>
+                {/* 图标区域 */}
+                <div class='flex-shrink-0'>
+                  {partner.icon ? (
+                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                  ) : (
+                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
+                      <span class='text-teal-600 text-xs font-bold'>
+                        {partner.name.charAt(0)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+                {/* 合作伙伴名称 */}
+                <p class='text-gray-700 font-medium text-sm flex-1'>
+                  {partner.name}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- 两侧渐变遮罩 -->
+  <div
+    class='absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent z-20 pointer-events-none'>
+  </div>
+  <div
+    class='absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent z-20 pointer-events-none'>
   </div>
 </section>
 
 <style>
-  /* 设置滚动动画 */
-  @keyframes scroll {
+  /* 伙伴容器样式 */
+  .partners-container {
+    position: relative;
+    overflow: hidden;
+    padding: 1rem 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  /* 伙伴行样式 */
+  .partners-row {
+    position: relative;
+    overflow: hidden;
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+
+  /* 伙伴轨道样式 */
+  .partners-track {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+    padding: 0 1rem;
+    width: fit-content;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* 伙伴项目样式 */
+  .partner-item {
+    flex: 0 0 auto;
+  }
+
+  /* 设置从左到右滚动动画 */
+  @keyframes scroll-right {
     0% {
       transform: translateX(0);
     }
@@ -89,19 +218,39 @@ const allPartners = [...partners]
     }
   }
 
+  /* 设置从右到左滚动动画 */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
   /* 应用动画到轨道 */
-  .animate-scroll {
-    animation: scroll 60s linear infinite;
+  .animate-scroll-right {
+    animation: scroll-right 50s linear infinite;
+  }
+
+  .animate-scroll-left {
+    animation: scroll-left 60s linear infinite;
+  }
+
+  .animate-scroll-right-slow {
+    animation: scroll-right 70s linear infinite;
   }
 
   /* 鼠标悬停时暂停动画 */
-  #partners-slider:hover .animate-scroll {
+  .partners-row:hover .partners-track {
     animation-play-state: paused;
   }
 
-  /* 伙伴项样式 */
-  .partner-item {
-    cursor: pointer;
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .partner-item .min-w-[180px] {
+      min-width: 150px;
+    }
   }
 </style>
 
@@ -109,21 +258,43 @@ const allPartners = [...partners]
   /**
    * 合作伙伴展示交互脚本
    * - 鼠标悬停暂停滚动
-   * - 点击可跳转（预留功能）
+   * - 高亮交互效果
    */
   document.addEventListener('DOMContentLoaded', function () {
-    const slider = document.getElementById('partners-slider')
     const partnerItems = document.querySelectorAll('.partner-item')
 
-    // 鼠标悬停特效增强（已通过CSS实现基本暂停）
+    // 鼠标悬停特效
     partnerItems.forEach(item => {
       item.addEventListener('mouseenter', function () {
-        this.querySelector('div').classList.add('ring-2', 'ring-teal-600')
+        const card = this.querySelector('div')
+        card.classList.add('ring-2', 'ring-teal-600', 'shadow-lg', 'scale-105')
+        card.style.zIndex = '30'
       })
 
       item.addEventListener('mouseleave', function () {
-        this.querySelector('div').classList.remove('ring-2', 'ring-teal-600')
+        const card = this.querySelector('div')
+        card.classList.remove(
+          'ring-2',
+          'ring-teal-600',
+          'shadow-lg',
+          'scale-105',
+        )
+        card.style.zIndex = ''
       })
     })
+
+    // 确保滚动始终覆盖整个视窗宽度
+    function updateContainerWidth() {
+      const containers = document.querySelectorAll('.partners-container')
+      containers.forEach(container => {
+        const containerEl = container as HTMLElement
+        containerEl.style.width = '100vw'
+        containerEl.style.marginLeft = `calc(50% - 50vw)`
+      })
+    }
+
+    // 初始调整和窗口大小改变时调整
+    updateContainerWidth()
+    window.addEventListener('resize', updateContainerWidth)
   })
 </script>
