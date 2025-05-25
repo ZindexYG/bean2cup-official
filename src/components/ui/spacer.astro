@@ -1,0 +1,26 @@
+---
+/**
+ * 间距组件
+ * 用于在组件之间创建统一的垂直间距
+ * @param {string} size - 间距大小 (sm, md, lg, xl, 2xl)
+ */
+
+interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+}
+
+const { size = 'lg' } = Astro.props;
+
+// 间距大小映射
+const spaces = {
+  sm: 'py-4',   // 1rem (16px)
+  md: 'py-8',   // 2rem (32px)
+  lg: 'py-12',  // 3rem (48px)
+  xl: 'py-16',  // 4rem (64px)
+  '2xl': 'py-24' // 6rem (96px)
+};
+
+const classes = spaces[size];
+---
+
+<div class={classes} aria-hidden="true"></div>

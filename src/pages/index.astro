@@ -13,21 +13,27 @@ import Features from '@components/features.astro'
 import Hero from '@components/hero.astro'
 import Logos from '@components/logos.astro'
 import Banner from '@components/banner.astro'
+import Partners from '@components/partners.astro'
 import Layout from '@layouts/Layout.astro'
+import Spacer from '@components/ui/Spacer.astro' // 引入间距组件
 ---
 
 <Layout title='首页'>
   {/* @component Container - 用于包装和限制内容宽度的容器组件 */}
   <Banner />
-  <Container>
-    {/* @component Banner - 显示网站横幅或通知的组件 */}
-    {/* @component Hero - 展示网站主要标题和介绍的英雄区域组件 */}
-    <!-- <Hero /> -->
-    {/* @component Features - 展示网站主要特性或服务的组件 */}
-    <Features />
-    {/* @component Logos - 展示合作伙伴或客户标志的组件 */}
-    <!-- <Logos /> -->
-    {/* @component Cta - Call to Action 行动召唤组件，用于引导用户采取行动 */}
-    <!-- <Cta /> -->
-  </Container>
+  <Spacer size='lg' />
+  <!-- <Container> -->
+  {/* @component Banner - 显示网站横幅或通知的组件 */}
+  {/* @component Hero - 展示网站主要标题和介绍的英雄区域组件 */}
+  <!-- <Hero /> -->
+  {/* @component Features - 展示网站主要特性或服务的组件 */}
+  <Features />
+  <Spacer size='lg' />
+  {/* @component Logos - 展示合作伙伴或客户标志的组件 */}
+  <!-- <Logos /> -->
+  {/* @component Partners - 展示服务或合作单位 */}
+  {/* @component Cta - Call to Action 行动召唤组件，用于引导用户采取行动 */}
+  <!-- <Cta /> -->
+  <!-- </Container> -->
+  <Partners />
 </Layout>
