@@ -15,19 +15,18 @@ import Partners from '@components/partners.astro'
 import Layout from '@layouts/Layout.astro'
 import BrandIntro from '@components/BrandIntro.astro'
 import Spacer from '@components/ui/spacer.astro'
+import ProductHighlights from '@components/ProductHighlights.astro'
 ---
 
 <Layout title='首页'>
-  {/* @component Container - 用于包装和限制内容宽度的容器组件 */}
+  {/* @component Banner - 显示网站横幅或通知的组件 */}
   <Banner />
   <!-- <Spacer size='lg' /> -->
-  <!-- <Container> -->
-  {/* @component Banner - 显示网站横幅或通知的组件 */}
-  {/* @component Hero - 展示网站主要标题和介绍的英雄区域组件 */}
-  <!-- <Hero /> -->
   <BrandIntro />
   {/* @component Features - 展示网站主要特性或服务的组件 */}
   <!-- <Features /> -->
+  <!-- <Spacer size='lg' /> -->
+  <ProductHighlights />
   <Spacer size='lg' />
   {/* @component Logos - 展示合作伙伴或客户标志的组件 */}
   <!-- <Logos /> -->
