@@ -1,13 +1,37 @@
 ---
+import { Image } from 'astro:assets'
+
+import BaristaSkills from 'assets/courses/BaristaSkills.webp'
+import Brewing from 'assets/courses/Brewing.webp'
+import Roasting from 'assets/courses/Roasting.webp'
+import SensorySkills from 'assets/courses/SensorySkills.webp'
+
 export interface Props {
   title: string
   subtitle: string
-  icon?: string // 预留 icon 字段，便于后续支持图标展示
+  icon?: string
   description: string
   target: string
   outline: string[]
+  reverse?: boolean // 添加反转布局的属性
 }
-const { title, subtitle, icon, description, target, outline } = Astro.props
+const {
+  title,
+  subtitle,
+  icon,
+  description,
+  target,
+  outline,
+  reverse = false,
+} = Astro.props
+
+// Map icon names to their respective components
+const iconMap = {
+  barista: BaristaSkills,
+  brewing: Brewing,
+  roasting: Roasting,
+  sensory: SensorySkills,
+}
 
 // 判断是否需要分栏显示（大纲超过10项时）
 const splitIndex = Math.ceil(outline.length / 2)
@@ -17,44 +41,76 @@ const rightOutline = isMultiColumn ? outline.slice(splitIndex) : []
 ---
 
 <!-- 课程模块组件 -->
-<section class='mb-12'>
-  {/* 预留 icon 展示位，后续可根据 icon 字段渲染对应图标 */}
-  {/* {icon && <Icon name={icon} class="mr-2" />} */}
-  <h2 class='text-2xl font-bold mb-2 text-center leading-relaxed'>
-    {title}<br/>
-    <span class='text-base text-gray-500'>{subtitle}</span>
-  </h2>
-  <p class='mb-2 text-gray-700'>{description}</p>
-  {/* 适合人群加粗提示，行高提升 */}
-  <p class='mb-4 mt-4 text-base text-gray-700 leading-relaxed'>
-    <span class='font-bold text-gray-800'>适合人群：</span>{target}
-  </p>
-  {/* 课程大纲加粗标题，行高提升 */}
-  <div class='mb-2 mt-6'>
-    <span class='font-bold text-gray-800 text-lg'>课程大纲</span>
+<section class='mb-16'>
+  <!-- 课程标题区域 -->
+  <div class='mb-8 text-center'>
+    <h2 class='text-2xl font-bold leading-relaxed'>
+      {title}<br />
+      <span class='text-base text-gray-500'>{subtitle}</span>
+    </h2>
   </div>
-  {
-    isMultiColumn ? (
-      // 超过10项时，左右分栏布局，便于阅读
-      <div class='flex flex-col md:flex-row gap-6 mt-2'>
-        <ul class='list-disc pl-6 flex-1 space-y-2 text-gray-600'>
-          {leftOutline.map(item => (
-            <li>{item}</li>
-          ))}
-        </ul>
-        <ul class='list-disc pl-6 flex-1 space-y-2 text-gray-600'>
-          {rightOutline.map(item => (
-            <li>{item}</li>
-          ))}
-        </ul>
+
+  <!-- 两栏布局：内容和图片 -->
+  <div
+    class={`flex flex-col gap-8 ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+    <!-- 左侧内容区域 -->
+    <!-- <div class='flex-1 p-6 space-y-4 bg-slate-50'> -->
+    <div
+      class=`flex-1 py-6 ${reverse ? 'pl-8 pr-32':'pr-8 pl-32'} space-y-4 bg-slate-50 hover:bg-slate-100 hover:shadow-lg transition-colors duration-300 ease-in-out `>
+      {/* 课程标题加粗，行高提升 */}
+      <p class='text-gray-700'>{description}</p>
+
+      {/* 适合人群加粗提示，行高提升 */}
+      <p class='text-base leading-relaxed text-gray-700'>
+        <span class='font-bold text-gray-800'>适合人群：</span>{target}
+      </p>
+
+      {/* 课程大纲加粗标题，行高提升 */}
+      <div class='mt-2'>
+        <span class='text-lg font-bold text-gray-800'>课程大纲</span>
       </div>
-    ) : (
-      // 10项及以内，单列展示
-      <ul class='list-disc pl-6 mt-2 space-y-2 text-gray-600 leading-relaxed'>
-        {outline.map(item => (
-          <li>{item}</li>
-        ))}
-      </ul>
-    )
-  }
+
+      {
+        isMultiColumn ? (
+          // 超过10项时，左右分栏布局，便于阅读
+          <div class='flex flex-col gap-6 mt-2 md:flex-row'>
+            <ul class='flex-1 pl-6 space-y-2 text-gray-600 list-disc'>
+              {leftOutline.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <ul class='flex-1 pl-6 space-y-2 text-gray-600 list-disc'>
+              {rightOutline.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          // 10项及以内，单列展示
+          <ul class='pl-6 mt-2 space-y-2 leading-relaxed text-gray-600 list-disc'>
+            {outline.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <!-- 右侧图片区域 -->
+    {
+      icon && iconMap[icon] && (
+        <div class='flex items-center flex-1'>
+          <div class='w-full overflow-hidden '>
+            <Image
+              src={iconMap[icon]}
+              alt={`${title} 课程图片`}
+              width={800}
+              height={450}
+              class='object-cover w-full h-auto'
+            />
+          </div>
+        </div>
+      )
+    }
+  </div>
 </section>
