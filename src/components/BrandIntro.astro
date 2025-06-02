@@ -1,0 +1,184 @@
+---
+// filepath: /src/components/home/BrandIntro.astro
+import { Image } from 'astro:assets';
+
+// 导入图片
+import faithImg from '../assets/OUR_FAITH.webp';
+import persistenceImg from '../assets/OUR_PERSISTENCE.webp';
+import serviceImg from '../assets/OUR_SERVICE.webp';
+
+// 定义组件接口
+export interface Props {
+  // 可选标题，默认为空
+  title?: string;
+}
+
+// 解构 props，设置默认值
+const { title = "关于 BEAN2CUP" } = Astro.props;
+
+// 定义品牌简介内容数组
+const brandSections = [
+  {
+    id: "faith",
+    titleEn: "OUR FAITH",
+    titleCn: "我们的理念",
+    image: faithImg,
+    alt: "咖啡从种子到杯子的理念",
+    content: `BEAN2CUP
+寓意着从种子到杯子。
+我们的理念是由咖啡果实开始到杯中的咖啡，
+从种植、采摘、咖啡果处理、烘焙、杯测、储存、冲泡的
+每一个环节都用心把控，让消费者可以感受到我们
+每杯咖啡精挑细选的心意。
+消费者在分享交流中越懂得好咖啡，
+如此就越鼓励咖啡行业的发展。
+传播专业的精品咖啡概念。`
+  },
+  {
+    id: "persistence",
+    titleEn: "OUR PERSISTENCE",
+    titleCn: "我们的坚持",
+    image: persistenceImg,
+    alt: "咖啡制作的坚持与品质",
+    content: `我们对豆子的出品总有一份执着的坚持。
+深入庄园探索咖啡的奥秘，
+从处理到包装运输，
+庄园里的每个处理环节我们参与其中。
+纯手工精挑豆子，历经三次手选。
+并根据豆子的特性烘焙，把咖啡的风情发掘出来。
+Q-Grader咖啡评鉴师严格杯测出品。
+每一次磨粉和冲泡都是一次不同的历程。
+我们咖啡豆的瑕疵率更是低于
+SCAA美国精品咖啡协会的标准，
+把专注严谨的态度注入咖啡，
+务必为你呈现更好更健康的咖啡。`
+  },
+  {
+    id: "service",
+    titleEn: "OUR SERVICE",
+    titleCn: "我们的服务",
+    image: serviceImg,
+    alt: "Bean2Cup咖啡服务",
+    content: `- 自家烘焙咖啡豆
+- 自营店铺（精品冲泡/日式冲泡）
+- SCA课程培训
+- 拉花兴趣班
+- 咖啡师全能班
+- 专业器具代理
+- 开店顾问
+- 咖啡沙龙分享会
+- 日本咖啡深造游学之旅`
+  }
+];
+---
+
+<section id="brand-intro" class="py-16 bg-slate-50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-16">{title}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {brandSections.map((section) => (
+        <div class="brand-card relative group">
+          <!-- 卡片主体 -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden h-full transition-all duration-300 hover:shadow-md">
+            <!-- 图片 -->
+            <div class="aspect-[4/3] overflow-hidden">
+              <Image
+                src={section.image}
+                alt={section.alt}
+                class="w-full h-full object-cover transition-transform group-hover:scale-105 duration-500"
+                width={400}
+                height={300}
+                loading="lazy"
+              />
+            </div>
+
+            <!-- 标题 -->
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-teal-600">
+                <span class="block">{section.titleEn}</span>
+                <span class="text-lg text-gray-700 mt-1">{section.titleCn}</span>
+              </h3>
+            </div>
+          </div>
+
+          <!-- 悬停时弹出的浮窗 -->
+          <div class="popup-content absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
+            <div class="bg-white rounded-xl shadow-xl p-6 h-full overflow-auto">
+              <h3 class="text-xl font-semibold text-teal-600 mb-4">
+                <span class="block">{section.titleEn}</span>
+                <span class="text-lg text-gray-700 mt-1">{section.titleCn}</span>
+              </h3>
+
+              {section.id === 'service' ? (
+                <ul class="list-disc pl-5 text-slate-700 space-y-1 mt-4">
+                  {section.content.split('\n').filter(line => line.trim().startsWith('-')).map(line => (
+                    <li>{line.replace('-', '').trim()}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="text-slate-700 whitespace-pre-line leading-relaxed">
+                  {section.content}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 弹出浮窗效果 */
+  .popup-content {
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+  }
+
+  .group:hover .popup-content {
+    transform: translateY(0);
+  }
+
+  /* 确保弹出内容在小屏幕上也能正常显示 */
+  @media (max-width: 768px) {
+    .popup-content {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -45%);
+      width: 90%;
+      max-width: 500px;
+      max-height: 80vh;
+      z-index: 50;
+    }
+
+    .group:hover .popup-content {
+      transform: translate(-50%, -50%);
+    }
+  }
+</style>
+
+<script>
+  // 添加点击关闭功能，特别是在移动设备上
+  document.addEventListener('DOMContentLoaded', () => {
+    const popups = document.querySelectorAll('.popup-content');
+
+    popups.forEach(popup => {
+      popup.addEventListener('click', (e) => {
+        // 阻止冒泡，避免立即关闭
+        e.stopPropagation();
+      });
+    });
+
+    // 点击其他区域关闭弹窗
+    document.addEventListener('click', () => {
+      // 在移动设备上，移除所有卡片的hover状态
+      if (window.innerWidth <= 768) {
+        document.querySelectorAll('.brand-card').forEach(card => {
+          card.classList.remove('group-hover');
+        });
+      }
+    });
+  });
+</script>

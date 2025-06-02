@@ -7,14 +7,14 @@
  * @module Components
  * @description 导入所需的组件模块
  */
-import Container from '@components/container.astro'
 import Features from '@components/features.astro'
 import Hero from '@components/hero.astro'
-import Logos from '@components/logos.astro'
+
 import Banner from '@components/banner.astro'
 import Partners from '@components/partners.astro'
 import Layout from '@layouts/Layout.astro'
-import Spacer from '@components/ui/spacer.astro' // 引入间距组件
+import BrandIntro from '@components/BrandIntro.astro'
+import Spacer from '@components/ui/spacer.astro'
 ---
 
 <Layout title='首页'>
@@ -25,8 +25,9 @@ import Spacer from '@components/ui/spacer.astro' // 引入间距组件
   {/* @component Banner - 显示网站横幅或通知的组件 */}
   {/* @component Hero - 展示网站主要标题和介绍的英雄区域组件 */}
   <!-- <Hero /> -->
+  <BrandIntro />
   {/* @component Features - 展示网站主要特性或服务的组件 */}
-  <Features />
+  <!-- <Features /> -->
   <Spacer size='lg' />
   {/* @component Logos - 展示合作伙伴或客户标志的组件 */}
   <!-- <Logos /> -->
