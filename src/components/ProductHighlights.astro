@@ -1,0 +1,118 @@
+---
+/**
+ * @fileoverview 产品精选组件 - 展示不同分类的咖啡产品
+ */
+
+// 导入商品数据
+import goods from 'content/goods.json'
+import Coffee from 'assets/icon/Coffee.webp'
+import CoffeeAccessories from 'assets/icon/CoffeeAccessories.webp'
+import CoffeeEquipment from 'assets/icon/CoffeeEquipment.webp'
+import Courses from 'assets/icon/Courses.webp'
+import { Image } from 'astro:assets'
+
+// 定义组件接口
+export interface Props {
+  /** 每个类型显示的商品数量 */
+  itemsPerCategory?: number
+}
+
+// 解构 props，设置默认值
+const { itemsPerCategory = 1 } = Astro.props
+
+// 定义产品类别
+const categories = [
+  {
+    id: 'coffee',
+    title: '咖啡豆',
+    subtitle: 'Coffee',
+    icon: Coffee,
+    link: '/coffee',
+    types: ['意式咖啡豆子', '亚洲', '非洲', '美洲', '精品挂耳']
+  },
+  {
+    id: 'courses',
+    title: '課程咨詢',
+    subtitle: 'Courses',
+    icon: Courses,
+    link: '/courses'
+  },
+  {
+    id: 'equipment',
+    title: '咖啡器具',
+    subtitle: 'Coffee Equipment',
+    icon: CoffeeEquipment,
+    link: '/equipment',
+    types: ['咖啡器具']
+  },
+  {
+    id: 'accessories',
+    title: '咖啡周邊',
+    subtitle: 'Coffee Accessories',
+    icon: CoffeeAccessories,
+    link: '/accessories'
+  }
+]
+---
+
+<section class="w-full py-16">
+  <div class="container px-4 mx-auto">
+    <h2 class="mb-12 text-3xl font-bold text-center text-gray-800">产品精选</h2>
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {categories.map((category) => (
+        <a
+          href={category.link}
+          class="overflow-hidden transition-transform bg-white rounded-lg shadow-md opacity-0 product-card hover:shadow-lg hover:-translate-y-1"
+        >
+          <div class="flex flex-col items-center justify-center p-8">
+            <div class="flex items-center justify-center w-32 h-32 mb-6">
+              {category.icon && (
+                <Image
+                  src={category.icon}
+                  alt={category.title}
+                  width={128}
+                  height={128}
+                  class="object-contain"
+                />
+              )}
+            </div>
+            <h3 class="text-xl font-bold text-center text-gray-800">{category.title}</h3>
+            <p class="text-center text-gray-600">{category.subtitle}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // 初始化观察器，处理滚动时的淡入效果
+  document.addEventListener('DOMContentLoaded', () => {
+    const productCards = document.querySelectorAll('.product-card');
+
+    // 创建交叉观察器
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          // 添加延迟，使卡片依次显示
+          setTimeout(() => {
+            entry.target.classList.add('opacity-100');
+            observer.unobserve(entry.target);
+          }, index * 150);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    // 观察每个产品卡片元素
+    productCards.forEach(card => {
+      observer.observe(card);
+    });
+  });
+</script>
+
+<style>
+  .product-card {
+    transition: all 0.3s ease-in-out, opacity 0.5s ease-in-out;
+  }
+</style>
