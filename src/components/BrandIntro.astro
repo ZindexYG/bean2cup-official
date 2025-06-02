@@ -3,9 +3,9 @@
 import { Image } from 'astro:assets';
 
 // 导入图片
-import faithImg from '../assets/OUR_FAITH.webp';
-import persistenceImg from '../assets/OUR_PERSISTENCE.webp';
-import serviceImg from '../assets/OUR_SERVICE.webp';
+import faithImg from 'assets/OUR_FAITH.webp';
+import persistenceImg from 'assets/OUR_PERSISTENCE.webp';
+import serviceImg from 'assets/OUR_SERVICE.webp';
 
 // 定义组件接口
 export interface Props {
@@ -72,7 +72,7 @@ SCAA美国精品咖啡协会的标准，
 ];
 ---
 
-<section id="brand-intro" class="py-16 bg-slate-50">
+<section id="brand-intro" class="py-16 ">
   <div class="container mx-auto px-4">
     <h2 class="text-3xl font-bold text-center text-gray-800 mb-16">{title}</h2>
 
@@ -103,7 +103,7 @@ SCAA美国精品咖啡协会的标准，
           </div>
 
           <!-- 悬停时弹出的浮窗 -->
-          <div class="popup-content absolute inset-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10">
+          <div class="popup-content absolute inset-0 opacity-0 invisible group-hover:opacity-95 group-hover:visible transition-all duration-300 z-10">
             <div class="bg-white rounded-xl shadow-xl p-6 h-full overflow-auto">
               <h3 class="text-xl font-semibold text-teal-600 mb-4">
                 <span class="block">{section.titleEn}</span>
