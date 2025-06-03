@@ -10,17 +10,22 @@ const menuitems = [
     children: null,
   },
   {
-    title: '课程介绍',
+    title: '课堂介绍',
     path: '/courses',
     children: null,
   },
   {
-    title: '活动讯息',
+    title: '活动记录',
     path: '/events',
     children: null,
   },
+  // {
+  //   title: '游学体验',
+  //   path: '/experience',
+  //   children: null,
+  // },
   {
-    title: '游学体验',
+    title: '产品介绍',
     path: '/experience',
     children: null,
   },
@@ -38,9 +43,9 @@ const menuitems = [
 ---
 
 <Container>
-  <header class='flex flex-col lg:flex-row justify-between items-center my-5'>
+  <header class='flex flex-col items-center justify-between my-5 lg:flex-row'>
     <Astronav>
-      <div class='flex w-full lg:w-auto items-center justify-between'>
+      <div class='flex items-center justify-between w-full lg:w-auto'>
         <a href='/' class='text-lg'
           ><span class='font-bold text-slate-800'>Bean2</span><span
             class='text-slate-500'>Cup</span
@@ -50,7 +55,7 @@ const menuitems = [
           <MenuIcon class='w-4 h-4 text-gray-800' />
         </div>
       </div>
-      <MenuItems class='hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0'>
+      <MenuItems class='hidden w-full mt-2 lg:w-auto lg:flex lg:mt-0'>
         <ul class='flex flex-col lg:flex-row lg:gap-3'>
           {
             menuitems.map((item, index) => (
@@ -67,7 +72,7 @@ const menuitems = [
                   <li>
                     <a
                       href={item.path}
-                      class='flex lg:px-3 py-2 items-center text-gray-600 hover:text-gray-900'>
+                      class='flex items-center py-2 text-gray-600 lg:px-3 hover:text-gray-900'>
                       <span> {item.title}</span>
                       {item.badge && (
                         <span class='ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full'>
