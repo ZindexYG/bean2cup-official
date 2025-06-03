@@ -1,116 +1,140 @@
 ---
 /**
- * @fileoverview 产品精选组件 - 展示不同分类的咖啡产品
+ * @fileoverview 产品精选组件 - 展示咖啡豆产品
  */
 
 import Coffee from 'assets/icon/Coffee.webp'
-import CoffeeAccessories from 'assets/icon/CoffeeAccessories.webp'
-import CoffeeEquipment from 'assets/icon/CoffeeEquipment.webp'
-import Courses from 'assets/icon/Courses.webp'
 import { Image } from 'astro:assets'
+import goods from 'content/goods.json'
 
-// 定义组件接口
-export interface Props {
-  /** 每个类型显示的商品数量 */
-  itemsPerCategory?: number
+// 定义咖啡豆类别
+const coffeeCategory = {
+  id: 'coffee',
+  title: '咖啡豆',
+  subtitle: 'Coffee',
+  icon: Coffee,
+  link: '/coffee',
+  types: ['意式咖啡豆子', '亚洲', '非洲', '美洲'],
 }
 
-// 解构 props，设置默认值
-const { itemsPerCategory = 1 } = Astro.props
+// 获取所有咖啡产品（不限数量）并过滤掉重复标题的产品
+const getCoffeeProducts = () => {
+  // 筛选指定类型的商品
+  const typeFilteredProducts = goods.filter(product =>
+    coffeeCategory.types.includes(product.type) &&
+    product.title &&
+    product.images &&
+    product.images.length > 0
+  );
 
-// 定义产品类别
-const categories = [
-  {
-    id: 'coffee',
-    title: '咖啡豆',
-    subtitle: 'Coffee',
-    icon: Coffee,
-    link: '/coffee',
-    types: ['意式咖啡豆子', '亚洲', '非洲', '美洲', '精品挂耳']
-  },
-  {
-    id: 'courses',
-    title: '課程咨詢',
-    subtitle: 'Courses',
-    icon: Courses,
-    link: '/courses'
-  },
-  {
-    id: 'equipment',
-    title: '咖啡器具',
-    subtitle: 'Coffee Equipment',
-    icon: CoffeeEquipment,
-    link: '/equipment',
-    types: ['咖啡器具']
-  },
-  {
-    id: 'accessories',
-    title: '咖啡周邊',
-    subtitle: 'Coffee Accessories',
-    icon: CoffeeAccessories,
-    link: '/accessories'
-  }
-]
+  // 使用 Map 过滤掉重复标题的产品
+  const uniqueTitlesMap = new Map();
+  typeFilteredProducts.forEach(product => {
+    if (!uniqueTitlesMap.has(product.title)) {
+      uniqueTitlesMap.set(product.title, product);
+    }
+  });
+
+  // 将过滤后的产品按 displayTime 排序（新品在前）
+  const uniqueProducts = Array.from(uniqueTitlesMap.values())
+    .sort((a, b) => new Date(b.displayTime).getTime() - new Date(a.displayTime).getTime());
+
+  return uniqueProducts;
+}
+
+// 获取所有咖啡产品
+const coffeeProducts = getCoffeeProducts();
 ---
 
-<section class="w-full py-16 bg-slate-50">
-  <div class="px-4 mx-auto">
-    <!-- <h2 class="mb-12 text-3xl font-bold text-center text-gray-800">产品精选</h2> -->
+<section class='w-full py-20 bg-slate-50'>
+  <div class='px-6 mx-auto max-w-[1600px]'>
+    <div class='flex items-center justify-between mb-10'>
+      <h2 class='text-3xl font-bold text-gray-800'>咖啡豆精选</h2>
+      <a
+        href={coffeeCategory.link}
+        class='px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-md hover:bg-teal-700'>
+        查看全部
+      </a>
+    </div>
 
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-      {categories.map((category) => (
-        <a
-          href={category.link}
-          class="overflow-hidden transition-transform bg-white rounded-lg shadow-md opacity-0 product-card hover:shadow-lg hover:-translate-y-1"
-        >
-          <div class="flex flex-col items-center justify-center p-8">
-            <div class="flex items-center justify-center w-32 h-32 mb-6">
-              {category.icon && (
-                <Image
-                  src={category.icon}
-                  alt={category.title}
-                  width={128}
-                  height={128}
-                  class="object-contain"
-                />
-              )}
-            </div>
-            <h3 class="text-xl font-bold text-center text-gray-800">{category.title}</h3>
-            <p class="text-center text-gray-600">{category.subtitle}</p>
-          </div>
-        </a>
-      ))}
+    <!-- 水平滚动产品展示 -->
+    <div class='relative'>
+      <div class='pb-6 overflow-x-auto hide-scrollbar'>
+        <div class='flex space-x-6 min-w-max'>
+          {
+            coffeeProducts.map(product => (
+              <a
+                href={product.url}
+                target='_blank'
+                rel='noopener noreferrer'
+                class='relative flex-shrink-0 w-[320px] overflow-hidden transition-all bg-white border border-gray-200 rounded-lg product-card group hover:-translate-y-2 hover:shadow-xl'>
+                <div class='relative pt-[100%] overflow-hidden'>
+                  {product.images && product.images.length > 0 && (
+                    <>
+                      <img
+                        src={product.images[0]}
+                        alt={product.title}
+                        class='absolute inset-0 object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-0'
+                      />
+                      {product.images.length > 1 && (
+                        <img
+                          src={product.images[1] || product.images[0]}
+                          alt={product.title}
+                          class='absolute inset-0 object-cover w-full h-full transition-opacity duration-300 opacity-0 group-hover:opacity-100'
+                        />
+                      )}
+                    </>
+                  )}
+                  {product.isSoldOut && (
+                    <div class='absolute px-3 py-1.5 text-sm font-medium text-white bg-gray-800 rounded top-4 right-4'>
+                      已售罄
+                    </div>
+                  )}
+                  <div class='absolute top-0 left-0 px-3 py-1.5 text-sm font-medium text-white bg-teal-600 rounded-br'>
+                    {product.type}
+                  </div>
+                </div>
+                <div class='p-5'>
+                  <h4 class='h-16 text-lg font-medium text-gray-800 line-clamp-2'>
+                    {product.title}
+                  </h4>
+                  <div class='flex items-center justify-between mt-3'>
+                    <p class='text-xl font-bold text-teal-600'>¥{product.price}</p>
+                    <span class='px-3 py-1 text-sm text-gray-600 transition-colors border border-gray-300 rounded-full hover:bg-teal-50 hover:border-teal-300'>
+                      查看详情 →
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<script>
-  // 初始化观察器，处理滚动时的淡入效果
-  document.addEventListener('DOMContentLoaded', () => {
-    const productCards = document.querySelectorAll('.product-card');
-
-    // 创建交叉观察器
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-          // 添加延迟，使卡片依次显示
-          setTimeout(() => {
-            entry.target.classList.add('opacity-100');
-            observer.unobserve(entry.target);
-          }, index * 150);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    // 观察每个产品卡片元素
-    productCards.forEach(card => {
-      observer.observe(card);
-    });
-  });
-</script>
-
 <style>
   .product-card {
-    transition: all 0.3s ease-in-out, opacity 0.5s ease-in-out;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .product-card img {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* 确保图片容器有固定的宽高比 */
+  .product-card .relative {
+    aspect-ratio: 1/1;
+  }
+
+  /* 隐藏滚动条但保持可滚动性 */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
   }
 </style>
