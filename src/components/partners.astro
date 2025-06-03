@@ -53,12 +53,12 @@ const row2 = [...partners.slice(11, 22), ...partners.slice(11, 22)]
 const row3 = [...partners.slice(22), ...partners.slice(22)]
 ---
 
-<section class='relative py-16 bg-slate-50 overflow-hidden w-full'>
+<section class='relative w-full py-16 overflow-hidden'>
   <!-- 标题区域 -->
-  <div class='container mx-auto px-4 mb-12 relative z-10'>
+  <div class='container relative z-10 px-4 mx-auto mb-12'>
     <div class='text-center'>
       <h2 class='text-3xl font-bold text-gray-800'>服务与合作单位</h2>
-      <p class='text-slate-600 mt-2'>
+      <p class='mt-2 text-slate-600'>
         感谢众多优秀企业和机构对我们的信任与支持
       </p>
     </div>
@@ -73,9 +73,9 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
   </div>
 
   <!-- 滚动展示区域 - 三行反向滚动 -->
-  <div class='partners-container w-full'>
+  <div class='w-full partners-container'>
     <!-- 第一行 - 从左向右 -->
-    <div class='partners-row mb-1'>
+    <div class='mb-1 partners-row'>
       <div class='partners-track animate-scroll-right'>
         {
           row1.map(partner => (
@@ -86,15 +86,15 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                   {partner.icon ? (
                     <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
                   ) : (
-                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
-                      <span class='text-teal-600 text-xs font-bold'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
+                      <span class='text-xs font-bold text-teal-600'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
                   )}
                 </div>
                 {/* 合作伙伴名称 */}
-                <p class='text-gray-700 font-medium text-sm flex-1'>
+                <p class='flex-1 text-sm font-medium text-gray-700'>
                   {partner.name}
                 </p>
               </div>
@@ -105,7 +105,7 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
     </div>
 
     <!-- 第二行 - 从右向左 -->
-    <div class='partners-row mb-1'>
+    <div class='mb-1 partners-row'>
       <div class='partners-track animate-scroll-left'>
         {
           row2.map(partner => (
@@ -116,15 +116,15 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                   {partner.icon ? (
                     <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
                   ) : (
-                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
-                      <span class='text-teal-600 text-xs font-bold'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
+                      <span class='text-xs font-bold text-teal-600'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
                   )}
                 </div>
                 {/* 合作伙伴名称 */}
-                <p class='text-gray-700 font-medium text-sm flex-1'>
+                <p class='flex-1 text-sm font-medium text-gray-700'>
                   {partner.name}
                 </p>
               </div>
@@ -146,15 +146,15 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                   {partner.icon ? (
                     <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
                   ) : (
-                    <div class='w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center'>
-                      <span class='text-teal-600 text-xs font-bold'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
+                      <span class='text-xs font-bold text-teal-600'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
                   )}
                 </div>
                 {/* 合作伙伴名称 */}
-                <p class='text-gray-700 font-medium text-sm flex-1'>
+                <p class='flex-1 text-sm font-medium text-gray-700'>
                   {partner.name}
                 </p>
               </div>
@@ -167,10 +167,10 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
 
   <!-- 两侧渐变遮罩 -->
   <div
-    class='absolute left-0 top-0 h-full w-20 bg-gradient-to-r from-slate-50 to-transparent z-20 pointer-events-none'>
+    class='absolute top-0 left-0 z-20 w-20 h-full pointer-events-none bg-gradient-to-r from-slate-50 to-transparent'>
   </div>
   <div
-    class='absolute right-0 top-0 h-full w-20 bg-gradient-to-l from-slate-50 to-transparent z-20 pointer-events-none'>
+    class='absolute top-0 right-0 z-20 w-20 h-full pointer-events-none bg-gradient-to-l from-slate-50 to-transparent'>
   </div>
 </section>
 
