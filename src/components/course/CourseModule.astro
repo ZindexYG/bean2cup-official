@@ -50,9 +50,9 @@ const rightOutline = isMultiColumn ? outline.slice(splitIndex) : []
     </h2>
   </div>
 
-  <!-- 两栏布局：内容和图片 -->
+  <!-- PC 端两栏布局：内容和图片 -->
   <div
-    class={`flex flex-col gap-8 ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+    class={`hidden md:flex flex-col gap-8 ${reverse ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
     <!-- 左侧内容区域 -->
     <!-- <div class='flex-1 p-6 space-y-4 bg-slate-50'> -->
     <div
@@ -112,5 +112,65 @@ const rightOutline = isMultiColumn ? outline.slice(splitIndex) : []
         </div>
       )
     }
+  </div>
+  <!-- 移动端上下布局，图片和内容 -->
+  <div class="block md:hidden">
+    <!-- 移动端图片区域 -->
+    {
+      icon && iconMap[icon] && (
+        <div class='mb-6'>
+          <div class='w-full overflow-hidden'>
+            <Image
+              src={iconMap[icon]}
+              alt={`${title} 课程图片`}
+              width={800}
+              height={450}
+              class='object-cover w-full h-auto'
+            />
+          </div>
+        </div>
+      )
+    }
+
+    <!-- 移动端内容区域 -->
+    <div class='p-8 space-y-4 transition-colors duration-300 ease-in-out bg-slate-50 hover:bg-slate-100 hover:shadow-lg'>
+      {/* 课程描述 */}
+      <p class='text-gray-700'>{description}</p>
+
+      {/* 适合人群 */}
+      <p class='text-base leading-relaxed text-gray-700'>
+        <span class='font-bold text-gray-800'>适合人群：</span>{target}
+      </p>
+
+      {/* 课程大纲标题 */}
+      <div class='mt-2'>
+        <span class='text-lg font-bold text-gray-800'>课程大纲</span>
+      </div>
+
+      {
+        isMultiColumn ? (
+          // 超过10项时，左右分栏布局，便于阅读
+          <div class='flex flex-col gap-6 mt-2'>
+            <ul class='flex-1 pl-6 space-y-2 text-gray-600 list-disc'>
+              {leftOutline.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <ul class='flex-1 pl-6 space-y-2 text-gray-600 list-disc'>
+              {rightOutline.map(item => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          // 10项及以内，单列展示
+          <ul class='pl-6 mt-2 space-y-2 leading-relaxed text-gray-600 list-disc'>
+            {outline.map(item => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
   </div>
 </section>
