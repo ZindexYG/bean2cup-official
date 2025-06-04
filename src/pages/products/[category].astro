@@ -1,0 +1,84 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Container from '@components/container.astro'
+import Sectionhead from '@components/sectionhead.astro'
+import ProductFilter from '@components/products/ProductFilter.astro'
+import ProductGrid from '@components/products/ProductGrid.astro'
+
+// 导入产品数据
+import goodsData from 'content/goods.json'
+
+export function getStaticPaths() {
+  // 导入产品数据
+  const data = import.meta.glob<{ default: any[] }>('/src/content/goods.json', {
+    eager: true,
+  })
+  const goodsData = Object.values(data)[0].default
+
+  // 获取所有产品类型（去重）
+  const categories = [
+    ...new Set(goodsData.filter(item => item.type).map(item => item.type)),
+  ]
+
+  // 为每个类别创建路径
+  return categories.map(category => ({
+    params: { category },
+    props: { category },
+  }))
+}
+
+// 从路径参数获取类别
+const { category = '' } = Astro.params
+console.log('路径参数获取的类别:', category)
+
+// 获取所有产品类型（去重）
+const categories = [
+  ...new Set(goodsData.filter(item => item.type).map(item => item.type)),
+]
+
+// 根据类别筛选产品
+const filteredProducts = goodsData.filter(
+  product =>
+    product.type === category &&
+    product.title &&
+    product.price &&
+    Array.isArray(product.images) &&
+    product.images.length > 0,
+)
+
+// 按显示时间排序（新品在前）
+filteredProducts.sort((a, b) => {
+  if (!a.displayTime || !b.displayTime) return 0
+  return new Date(b.displayTime).getTime() - new Date(a.displayTime).getTime()
+})
+
+// 元数据
+const metadata = {
+  title: `${category} - 产品介绍`,
+  description: `探索Bean2Cup推出的${category}类产品，为您的咖啡之旅提供专业设备与原料。`,
+}
+
+// 如果请求的类别不存在，重定向到产品页面
+if (!categories.includes(category)) {
+  return Astro.redirect('/products')
+}
+---
+
+<Layout title={metadata.title}>
+  <Container>
+    <Sectionhead>
+      <Fragment slot='title'>产品介绍 - {category}</Fragment>
+      <Fragment slot='desc'>
+        精选咖啡豆与专业咖啡器具，探索您的咖啡之旅
+      </Fragment>
+    </Sectionhead>
+
+    <div class='py-12 mx-auto max-w-7xl'>
+      <!-- 产品筛选区 -->
+      <ProductFilter categories={categories} activeCategory={category} />
+
+      <!-- 产品展示区 -->
+      <ProductGrid products={filteredProducts} />
+    </div>
+  </Container>
+</Layout>

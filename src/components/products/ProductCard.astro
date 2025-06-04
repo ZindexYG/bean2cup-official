@@ -1,0 +1,69 @@
+---
+
+export interface Props {
+  title: string;
+  subTitle?: string;
+  price: string;
+  imageUrl: string;
+  productUrl: string;
+  isSoldOut?: boolean;
+}
+
+const {
+  title,
+  subTitle = '',
+  price,
+  imageUrl,
+  productUrl,
+  isSoldOut = false
+} = Astro.props;
+---
+
+<div class="overflow-hidden transition-all bg-white rounded-lg shadow-sm group hover:shadow-md">
+  <!-- 图片容器，设置固定比例 -->
+  <div class="relative w-full overflow-hidden aspect-square">
+    <!-- 售罄标记 -->
+    {isSoldOut && (
+      <div class="absolute z-10 px-3 py-1 text-xs font-medium text-white rounded-full top-4 right-4 bg-gray-800/80">
+        售罄
+      </div>
+    )}
+
+    <img
+      src={imageUrl}
+      alt={title}
+      class={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${isSoldOut ? 'opacity-70' : ''}`}
+    />
+  </div>
+
+  <!-- 产品信息 -->
+  <div class="p-4 md:p-5">
+    <h3 class="text-base font-medium leading-tight text-gray-800 md:text-lg line-clamp-2">
+      {title}
+    </h3>
+
+    {subTitle && (
+      <p class="mt-2 text-sm text-gray-600 line-clamp-2">
+        {subTitle}
+      </p>
+    )}
+
+    <div class="flex items-center justify-between mt-3 md:mt-4">
+      <span class="font-bold text-slate-800">¥{price}</span>
+
+      <a
+        href={productUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class={`px-3 py-1.5 text-sm rounded transition-colors ${
+          isSoldOut
+            ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+            : 'bg-slate-800 text-white hover:bg-slate-700'
+        }`}
+        aria-disabled={isSoldOut}
+      >
+        {isSoldOut ? '已售罄' : '查看详情'}
+      </a>
+    </div>
+  </div>
+</div>

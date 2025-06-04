@@ -1,0 +1,36 @@
+---
+export interface Props {
+  products: Array<{
+    title: string;
+    subTitle?: string;
+    price: string;
+    images: string[];
+    url: string;
+    isSoldOut?: boolean;
+  }>;
+}
+
+const { products } = Astro.props;
+
+import ProductCard from './ProductCard.astro';
+---
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+  {products.map(product => (
+    <ProductCard
+      title={product.title}
+      subTitle={product.subTitle}
+      price={product.price}
+      imageUrl={product.images[0]}
+      productUrl={product.url}
+      isSoldOut={product.isSoldOut}
+    />
+  ))}
+</div>
+
+<!-- 无产品时显示 -->
+{products.length === 0 && (
+  <div class="py-16 text-center">
+    <p class="text-gray-600">暂无产品，请尝试其他筛选条件</p>
+  </div>
+)}
