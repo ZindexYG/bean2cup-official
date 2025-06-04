@@ -52,7 +52,7 @@ const coffeeProducts = getCoffeeProducts();
       <h2 class='text-3xl font-bold text-gray-800'>咖啡豆精选</h2>
       <a
         href={coffeeCategory.link}
-        class='px-4 py-2 text-sm font-medium text-white transition-colors bg-teal-600 rounded-md hover:bg-teal-700'>
+        class='px-4 py-2 text-sm font-medium text-white transition-colors bg-primary rounded-md hover:bg-primary-700'>
         查看全部
       </a>
     </div>
@@ -90,7 +90,7 @@ const coffeeProducts = getCoffeeProducts();
                       已售罄
                     </div>
                   )}
-                  <div class='absolute top-0 left-0 px-3 py-1.5 text-sm font-medium text-white bg-teal-600 rounded-br'>
+                  <div class='absolute top-0 left-0 px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-br'>
                     {product.type}
                   </div>
                 </div>
@@ -99,8 +99,8 @@ const coffeeProducts = getCoffeeProducts();
                     {product.title}
                   </h4>
                   <div class='flex items-center justify-between mt-3'>
-                    <p class='text-xl font-bold text-teal-600'>¥{product.price}</p>
-                    <span class='px-3 py-1 text-sm text-gray-600 transition-colors border border-gray-300 rounded-full hover:bg-teal-50 hover:border-teal-300'>
+                    <p class='text-xl font-bold text-primary'>¥{product.price}</p>
+                    <span class='px-3 py-1 text-sm text-gray-600 transition-colors border border-gray-300 rounded-full hover:bg-primary-50 hover:border-teal-300'>
                       查看详情 →
                     </span>
                   </div>

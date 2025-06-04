@@ -84,10 +84,10 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                 {/* 图标区域 - 有图标时显示，无图标时显示默认图标 */}
                 <div class='flex-shrink-0'>
                   {partner.icon ? (
-                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                    <Icon name={partner.icon} class='w-6 h-6 text-primary' />
                   ) : (
-                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
-                      <span class='text-xs font-bold text-teal-600'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full'>
+                      <span class='text-xs font-bold text-primary'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
@@ -114,10 +114,10 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                 {/* 图标区域 */}
                 <div class='flex-shrink-0'>
                   {partner.icon ? (
-                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                    <Icon name={partner.icon} class='w-6 h-6 text-primary' />
                   ) : (
-                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
-                      <span class='text-xs font-bold text-teal-600'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full'>
+                      <span class='text-xs font-bold text-primary'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
@@ -144,10 +144,10 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
                 {/* 图标区域 */}
                 <div class='flex-shrink-0'>
                   {partner.icon ? (
-                    <Icon name={partner.icon} class='w-6 h-6 text-teal-600' />
+                    <Icon name={partner.icon} class='w-6 h-6 text-primary' />
                   ) : (
-                    <div class='flex items-center justify-center w-6 h-6 bg-teal-100 rounded-full'>
-                      <span class='text-xs font-bold text-teal-600'>
+                    <div class='flex items-center justify-center w-6 h-6 bg-primary-100 rounded-full'>
+                      <span class='text-xs font-bold text-primary'>
                         {partner.name.charAt(0)}
                       </span>
                     </div>
@@ -267,7 +267,7 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
     partnerItems.forEach(item => {
       item.addEventListener('mouseenter', function () {
         const card = this.querySelector('div')
-        card.classList.add('ring-2', 'ring-teal-600', 'shadow-lg', 'scale-105')
+        card.classList.add('ring-2', 'ring-primary', 'shadow-lg', 'scale-105')
         card.style.zIndex = '30'
       })
 
@@ -275,7 +275,7 @@ const row3 = [...partners.slice(22), ...partners.slice(22)]
         const card = this.querySelector('div')
         card.classList.remove(
           'ring-2',
-          'ring-teal-600',
+          'ring-primary',
           'shadow-lg',
           'scale-105',
         )

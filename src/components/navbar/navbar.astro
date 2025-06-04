@@ -10,15 +10,16 @@ const menuitems = [
     children: null,
   },
   {
+    title: '活动信息',
+    path: '/events',
+    children: null,
+  },
+  {
     title: '课堂介绍',
     path: '/courses',
     children: null,
   },
-  {
-    title: '活动记录',
-    path: '/events',
-    children: null,
-  },
+
   // {
   //   title: '游学体验',
   //   path: '/experience',
@@ -29,11 +30,11 @@ const menuitems = [
     path: '/experience',
     children: null,
   },
-  {
-    title: '推荐新品',
-    path: '/recommend',
-    children: null,
-  },
+  // {
+  //   title: '推荐新品',
+  //   path: '/recommend',
+  //   children: null,
+  // },
   {
     title: '关于 B2C',
     path: '/about',
@@ -74,11 +75,6 @@ const menuitems = [
                       href={item.path}
                       class='flex items-center py-2 text-gray-600 lg:px-3 hover:text-gray-900'>
                       <span> {item.title}</span>
-                      {item.badge && (
-                        <span class='ml-1 px-2 py-0.5 text-[10px] animate-pulse font-semibold uppercase text-white bg-indigo-600 rounded-full'>
-                          New
-                        </span>
-                      )}
                     </a>
                   </li>
                 )}
