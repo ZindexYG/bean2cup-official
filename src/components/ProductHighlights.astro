@@ -6,6 +6,7 @@
 import Coffee from 'assets/icon/Coffee.webp'
 import { Image } from 'astro:assets'
 import goods from 'content/goods.json'
+import ProductCard from '@components/products/ProductCard.astro'
 
 // 定义咖啡豆类别
 const coffeeCategory = {
@@ -13,8 +14,8 @@ const coffeeCategory = {
   title: '咖啡豆',
   subtitle: 'Coffee',
   icon: Coffee,
-  link: '/coffee',
-  types: ['意式咖啡豆子', '亚洲', '非洲', '美洲'],
+  link: '/products', // 修改为使用新的路径结构
+  types: ['亚洲', '非洲', '美洲'],
 }
 
 // 获取所有咖啡产品（不限数量）并过滤掉重复标题的产品
@@ -46,13 +47,13 @@ const getCoffeeProducts = () => {
 const coffeeProducts = getCoffeeProducts();
 ---
 
-<section class='w-full py-20 bg-slate-50'>
+<section class='w-full py-20 bg-blue-50'>  <!-- 修改背景色为淡蓝色 -->
   <div class='px-6 mx-auto max-w-[1600px]'>
     <div class='flex items-center justify-between mb-10'>
-      <h2 class='text-3xl font-bold text-gray-800'>咖啡豆精选</h2>
+      <h2 class='text-3xl font-bold'>精选产品</h2>  <!-- 修改标题颜色 -->
       <a
         href={coffeeCategory.link}
-        class='px-4 py-2 text-sm font-medium text-white transition-colors bg-primary rounded-md hover:bg-primary-700'>
+        class='px-4 py-2 text-sm font-medium text-white transition-colors rounded-md bg-primary hover:bg-blue-600'>
         查看全部
       </a>
     </div>
@@ -61,73 +62,40 @@ const coffeeProducts = getCoffeeProducts();
     <div class='relative'>
       <div class='pb-6 overflow-x-auto hide-scrollbar'>
         <div class='flex space-x-6 min-w-max'>
-          {
-            coffeeProducts.map(product => (
-              <a
-                href={product.url}
-                target='_blank'
-                rel='noopener noreferrer'
-                class='relative flex-shrink-0 w-[320px] overflow-hidden transition-all bg-white border border-gray-200 rounded-lg product-card group hover:-translate-y-2 hover:shadow-xl'>
-                <div class='relative pt-[100%] overflow-hidden'>
-                  {product.images && product.images.length > 0 && (
-                    <>
-                      <img
-                        src={product.images[0]}
-                        alt={product.title}
-                        class='absolute inset-0 object-cover w-full h-full transition-opacity duration-300 group-hover:opacity-0'
-                      />
-                      {product.images.length > 1 && (
-                        <img
-                          src={product.images[1] || product.images[0]}
-                          alt={product.title}
-                          class='absolute inset-0 object-cover w-full h-full transition-opacity duration-300 opacity-0 group-hover:opacity-100'
-                        />
-                      )}
-                    </>
-                  )}
-                  {product.isSoldOut && (
-                    <div class='absolute px-3 py-1.5 text-sm font-medium text-white bg-gray-800 rounded top-4 right-4'>
-                      已售罄
-                    </div>
-                  )}
-                  <div class='absolute top-0 left-0 px-3 py-1.5 text-sm font-medium text-white bg-primary rounded-br'>
-                    {product.type}
-                  </div>
-                </div>
-                <div class='p-5'>
-                  <h4 class='h-16 text-lg font-medium text-gray-800 line-clamp-2'>
-                    {product.title}
-                  </h4>
-                  <div class='flex items-center justify-between mt-3'>
-                    <p class='text-xl font-bold text-primary'>¥{product.price}</p>
-                    <span class='px-3 py-1 text-sm text-gray-600 transition-colors border border-gray-300 rounded-full hover:bg-primary-50 hover:border-teal-300'>
-                      查看详情 →
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))
-          }
+          {coffeeProducts.map(product => (
+            <div class='relative flex-shrink-0 w-[280px]'>
+              {/* 类型标签 */}
+              <div class='absolute top-0 right-0 z-10 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-br'>
+                {product.type}
+              </div>
+
+              {/* 直接使用 ProductCard 并包装在 compact-card 中 */}
+              <div class="compact-card">
+                <ProductCard
+                  title={product.title}
+                  subTitle={product.subTitle}
+                  price={product.price}
+                  imageUrl={product.images}
+                  productUrl={product.url}
+                  isSoldOut={product.isSoldOut}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
+
+    {/* 无产品时显示 */}
+    {coffeeProducts.length === 0 && (
+      <div class="py-16 text-center">
+        <p class="text-gray-600">暂无精选产品</p>
+      </div>
+    )}
   </div>
 </section>
 
 <style>
-  .product-card {
-    transition: all 0.3s ease-in-out;
-  }
-
-  .product-card img {
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  /* 确保图片容器有固定的宽高比 */
-  .product-card .relative {
-    aspect-ratio: 1/1;
-  }
-
   /* 隐藏滚动条但保持可滚动性 */
   .hide-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
@@ -136,5 +104,57 @@ const coffeeProducts = getCoffeeProducts();
 
   .hide-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
+  }
+
+  /* 紧凑型卡片样式 - 进一步优化高度 */
+  .compact-card :global(.aspect-square) {
+    /* aspect-ratio: 16/9; 更扁平的图片比例 */
+    /* max-height: 150px; 限制最大高度 */
+  }
+
+  .compact-card :global(h3) {
+    font-size: 0.9rem; /* 更小的标题字体 */
+    line-height: 1.2; /* 减小行高 */
+    margin-bottom: 0.3rem; /* 减小下边距 */
+    line-clamp: 1; /* 只显示一行 */
+    -webkit-line-clamp: 1;
+  }
+
+  .compact-card :global(p) {
+    font-size: 0.8rem; /* 更小的副标题字体 */
+    line-height: 1.2; /* 减小行高 */
+    margin-top: 0.3rem; /* 减小上边距 */
+    margin-bottom: 0.3rem; /* 减小下边距 */
+  }
+
+  .compact-card :global(.p-4),
+  .compact-card :global(.md\:p-5) {
+    padding: 0.6rem; /* 进一步减小内边距 */
+  }
+
+  .compact-card :global(.mt-3),
+  .compact-card :global(.md\:mt-4) {
+    margin-top: 0.5rem; /* 减小底部元素间距 */
+  }
+
+  /* 缩小按钮尺寸和改进悬停效果 */
+  .compact-card :global(a[target="_blank"]) {
+    padding: 0.25rem 0.75rem; /* 更小的按钮 */
+    font-size: 0.75rem; /* 更小的按钮文字 */
+  }
+
+  /* 添加卡片整体悬停效果 */
+  .compact-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .compact-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px -5px rgba(57, 134, 226, 0.3), 0 8px 10px -6px rgba(57, 134, 226, 0.2);
+  }
+
+  /* 添加主色调边框过渡效果 */
+  .compact-card :global(.border-primary) {
+    border-color: #3986E2;
   }
 </style>

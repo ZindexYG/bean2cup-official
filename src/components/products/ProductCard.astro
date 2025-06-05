@@ -4,7 +4,7 @@ export interface Props {
   title: string;
   subTitle?: string;
   price: string;
-  imageUrl: string;
+  imageUrl: string[] | string; // 修改为支持数组或单个字符串
   productUrl: string;
   isSoldOut?: boolean;
 }
@@ -17,6 +17,10 @@ const {
   productUrl,
   isSoldOut = false
 } = Astro.props;
+
+// 处理图片数组或字符串
+const images = Array.isArray(imageUrl) ? imageUrl : [imageUrl];
+const hasMultipleImages = images.length > 1;
 ---
 
 <div class="overflow-hidden transition-all bg-white rounded-lg shadow-sm group hover:shadow-md">
@@ -29,27 +33,48 @@ const {
       </div>
     )}
 
+    <!-- 主图片 -->
     <img
-      src={imageUrl}
+      src={images[0]}
       alt={title}
-      class={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${isSoldOut ? 'opacity-70' : ''}`}
+      class={`w-full h-full object-cover transition-all duration-500 ${
+        hasMultipleImages ? 'group-hover:opacity-0' : 'group-hover:scale-105'
+      } ${isSoldOut ? 'opacity-70' : 'opacity-100'}`}
     />
+
+    <!-- 第二张图片 (如果有) -->
+    {hasMultipleImages && (
+      <img
+        src={images[1]}
+        alt={`${title} - 图片 2`}
+        class={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 opacity-0 group-hover:opacity-100 ${isSoldOut ? 'opacity-70' : ''}`}
+      />
+    )}
+
+    <!-- 添加一个主色调边框效果 -->
+    <div class="absolute inset-0 transition-opacity border-2 rounded-t-lg opacity-0 border-primary group-hover:opacity-100"></div>
   </div>
 
   <!-- 产品信息 -->
   <div class="p-4 md:p-5">
-    <h3 class="text-base font-medium leading-tight text-gray-800 md:text-lg line-clamp-2">
-      {title}
-    </h3>
+    <!-- 内容区域包装器，设置最小高度 -->
+    <div class="min-h-[4.5rem] mb-3">
+      <h3 class="text-base font-medium leading-tight text-gray-800 transition-colors group-hover:text-primary md:text-lg line-clamp-2">
+        {title}
+      </h3>
 
-    {subTitle && (
-      <p class="mt-2 text-sm text-gray-600 line-clamp-2">
-        {subTitle}
-      </p>
-    )}
+      <!-- 始终保留这个区域，即使 subTitle 为空 -->
+      <div class={`mt-2 ${!subTitle ? 'h-0' : ''}`}>
+        {subTitle && (
+          <p class="text-sm text-gray-600 line-clamp-2">
+            {subTitle}
+          </p>
+        )}
+      </div>
+    </div>
 
-    <div class="flex items-center justify-between mt-3 md:mt-4">
-      <span class="font-bold text-slate-800">¥{price}</span>
+    <div class="flex items-center justify-between">
+      <span class="font-bold text-primary">¥{price}</span>
 
       <a
         href={productUrl}
@@ -58,7 +83,7 @@ const {
         class={`px-3 py-1.5 text-sm rounded transition-colors ${
           isSoldOut
             ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
-            : 'bg-slate-800 text-white hover:bg-slate-700'
+            : 'bg-primary text-white hover:bg-blue-600'
         }`}
         aria-disabled={isSoldOut}
       >
