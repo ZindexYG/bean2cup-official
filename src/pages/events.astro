@@ -4,70 +4,248 @@ import { Picture } from 'astro:assets'
 import Layout from '@layouts/Layout.astro'
 import Container from '@components/container.astro'
 import Sectionhead from '@components/sectionhead.astro'
+// import Timeline from '@components/Timeline.astro'
 
-// 获取所有已发布的活动（draft: false 且日期早于当前时间）
-const publishedEvents = await getCollection('events', ({ data }) => {
-  return !data.draft && data.publishDate < new Date()
+// 获取所有已发布的活动
+const allEvents = await getCollection(
+  'events',
+  ({ data }) => !data.draft && data.publishDate < new Date(),
+)
+
+// 区分近期讯息（一年内）和历史活动（一年前）
+const oneYearAgo = new Date()
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
+
+const recentEvents = allEvents.filter(
+  event => event.data.publishDate >= oneYearAgo,
+)
+const pastEvents = allEvents.filter(
+  event => event.data.publishDate < oneYearAgo,
+)
+
+// 为近期讯息按月份分组
+const recentEventsByMonth = recentEvents.reduce((groups, event) => {
+  const date = event.data.publishDate
+  const monthYear = `${date.getFullYear()}年${date.getMonth() + 1}月`
+
+  if (!groups[monthYear]) {
+    groups[monthYear] = []
+  }
+
+  groups[monthYear].push(event)
+  return groups
+}, {})
+
+// 按照月份排序（从新到旧）
+const sortedMonths = Object.keys(recentEventsByMonth).sort((a, b) => {
+  const [yearA, monthA] = a.split('年')
+  const [yearB, monthB] = b.split('年')
+  return Number(yearB) - Number(yearA) || Number(monthB) - Number(monthA)
 })
 
-// 按活动时间倒序排列
-publishedEvents.sort(
-  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf(),
+// 对历史活动按年份排序（从新到旧）
+pastEvents.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
 )
 ---
 
 <Layout title='活动讯息'>
-  <Container>
+  <Container class='max-w-[1600px]'>
     <Sectionhead>
       <Fragment slot='title'>活动讯息</Fragment>
-      <Fragment slot='desc'> 我们的最新活动与讯息，欢迎报名参与。 </Fragment>
+      <Fragment slot='desc'>我们的最新活动与讯息，欢迎报名参与。</Fragment>
     </Sectionhead>
-    <main class='mt-16'>
-      <ul class='grid gap-16 max-w-4xl mx-auto'>
+
+    <!-- 标签切换 -->
+    <div class='mt-8 border-b border-gray-200'>
+      <nav class='flex space-x-8' aria-label='Tabs'>
+        <button class='tab-button active' data-tab='recent'>近期讯息</button>
+        <button class='tab-button' data-tab='past'>活动记录</button>
+      </nav>
+    </div>
+
+    <!-- 内容区域 -->
+    <div class='mt-8'>
+      <div id='recent-tab' class='tab-content active'>
         {
-          publishedEvents.map((eventEntry, index) => (
-            <li class='transition-shadow hover:shadow-lg rounded-lg bg-white/90 hover:bg-blue-50'>
-              <a href={`/events/${eventEntry.slug}`} class='block'>
-                <div class='grid md:grid-cols-2 gap-5 md:gap-10 items-center'>
-                  {/* 图片居中，宽高统一，背景色为 slate-100，圆角 */}
-                  {eventEntry.data.image && (
-                    <div class='flex justify-center items-center bg-slate-100 rounded-md w-[320px] h-[240px] mx-auto'>
-                      <Picture
-                        src={eventEntry.data.image.src}
-                        alt={eventEntry.data.image.alt || 'Event image'}
-                        class='object-cover object-center rounded-md w-[320px] h-[240px]'
-                        loading={index <= 2 ? 'eager' : 'lazy'}
-                        decoding={index <= 2 ? 'sync' : 'async'}
-                        width={320}
-                        height={240}
-                      />
-                    </div>
-                  )}
-                  <div>
-                    <span class='text-blue-400 uppercase tracking-wider text-sm font-medium'>
-                      {eventEntry.data.category}
-                    </span>
-                    <h2 class='text-3xl font-semibold leading-snug tracking-tight mt-1'>
-                      {eventEntry.data.title}
-                    </h2>
-                    <div class='flex gap-2 mt-3'>
-                      <span class='text-gray-400'>
-                        {eventEntry.data.author}
-                      </span>
-                      <span class='text-gray-400'>•</span>
-                      <time
-                        class='text-gray-400'
-                        datetime={eventEntry.data.publishDate.toISOString()}>
-                        {eventEntry.data.publishDate.toLocaleDateString()}
-                      </time>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            </li>
+          sortedMonths.map((month, monthIndex) => (
+            <div class='mb-16'>
+              <h2 class='pl-3 mb-6 text-2xl font-bold text-gray-800 border-l-4 border-blue-500'>
+                {month}
+              </h2>
+              <ul class='space-y-16'>
+                {recentEventsByMonth[month].map((eventEntry, index) => (
+                  <li class='transition-shadow rounded-lg hover:shadow-lg bg-white/90 hover:bg-blue-50'>
+                    <a href={`/events/${eventEntry.slug}`} class='block'>
+                      <div
+                        class={`grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}`}>
+                        <div
+                          class={`${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
+                          <div class='flex justify-center items-center bg-slate-100 rounded-md w-full h-[320px]'>
+                            <Picture
+                              src={eventEntry.data.image.src}
+                              alt={eventEntry.data.image.alt || 'Event image'}
+                              class='object-cover object-center w-full h-full rounded-md'
+                              loading={
+                                monthIndex === 0 && index <= 2
+                                  ? 'eager'
+                                  : 'lazy'
+                              }
+                              decoding={
+                                monthIndex === 0 && index <= 2
+                                  ? 'sync'
+                                  : 'async'
+                              }
+                              widths={[400, 800]}
+                              sizes='(max-width: 768px) 100vw, 50vw'
+                              width={800}
+                              height={320}
+                            />
+                          </div>
+                        </div>
+
+                        <div
+                          class={`${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
+                          <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
+                            {eventEntry.data.category}
+                          </span>
+                          <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
+                            {eventEntry.data.title}
+                          </h3>
+                          <p class='mt-4 text-gray-600 line-clamp-3'>
+                            {eventEntry.data.excerpt || ''}
+                          </p>
+                          <div class='flex gap-2 mt-4'>
+                            <span class='text-gray-400'>
+                              {eventEntry.data.author}
+                            </span>
+                            <span class='text-gray-400'>•</span>
+                            <time
+                              class='text-gray-400'
+                              datetime={eventEntry.data.publishDate.toISOString()}>
+                              {eventEntry.data.publishDate.toLocaleDateString(
+                                'zh-CN',
+                                {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                },
+                              )}
+                            </time>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))
         }
-      </ul>
-    </main>
+      </div>
+      <div id='past-tab' class='hidden tab-content'>
+        <!-- <h2 class='mb-10 text-3xl font-semibold text-center text-gray-800'>历史活动回顾</h2> -->
+
+        <!-- 使用Timeline组件显示历史活动 -->
+        <!-- <Timeline events={pastEvents} /> -->
+
+        <!-- 懒加载更多按钮（如果活动数量很多） -->
+        <div id='load-more-container' class='hidden mt-12 mb-8 text-center'>
+          <button
+            id='load-more'
+            class='px-6 py-3 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600'>
+            加载更多
+          </button>
+        </div>
+      </div>
+    </div>
   </Container>
 </Layout>
+
+<style>
+  .tab-button {
+    @apply py-4 px-1 text-center border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300;
+  }
+  .tab-button.active {
+    @apply border-blue-500 text-blue-600;
+  }
+  .tab-content {
+    @apply hidden;
+  }
+  .tab-content.active {
+    @apply block;
+  }
+</style>
+
+<script>
+  // 标签切换逻辑
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = document.querySelectorAll('.tab-button')
+    const tabContents = document.querySelectorAll('.tab-content')
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = (button as HTMLElement).dataset.tab
+
+        // 更新按钮状态
+        tabButtons.forEach(btn => btn.classList.remove('active'))
+        button.classList.add('active')
+
+        // 更新内容显示
+        tabContents.forEach(content => content.classList.remove('active'))
+        const tabContent = document.getElementById(`${tabId}-tab`)
+        if (tabContent) {
+          tabContent.classList.add('active')
+        }
+      })
+    })
+
+    // 懒加载控制
+    const pastTab = document.getElementById('past-tab')
+    const ITEMS_INITIAL = 10 // 初始显示数量
+    const ITEMS_PER_LOAD = 5 // 每次加载数量
+
+    if (pastTab) {
+      const timelineEvents = pastTab.querySelectorAll('.timeline-event')
+      const loadMoreBtn = document.getElementById('load-more')
+      const loadMoreContainer = document.getElementById('load-more-container')
+
+      let visibleItems = 0
+
+      // 如果事件数量超过初始显示数量，则显示加载更多按钮
+      if (timelineEvents.length > ITEMS_INITIAL && loadMoreContainer) {
+        loadMoreContainer.classList.remove('hidden')
+
+        // 初始只显示一部分
+        timelineEvents.forEach((event, index) => {
+          if (index >= ITEMS_INITIAL) {
+            ;(event as HTMLElement).style.display = 'none'
+          } else {
+            visibleItems++
+          }
+        })
+
+        // 加载更多按钮点击事件
+        if (loadMoreBtn) {
+          loadMoreBtn.addEventListener('click', () => {
+            let count = 0
+
+            for (
+              let i = visibleItems;
+              i < timelineEvents.length && count < ITEMS_PER_LOAD;
+              i++
+            ) {
+              ;(timelineEvents[i] as HTMLElement).style.display = ''
+              count++
+              visibleItems++
+            }
+
+            // 如果所有项目都已显示，隐藏按钮
+            if (visibleItems >= timelineEvents.length && loadMoreContainer) {
+            }
+          })
+        }
+      }
+    }
+  })
+</script>
