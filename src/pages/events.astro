@@ -58,9 +58,9 @@ pastEvents.sort(
 
     <!-- 标签切换 -->
     <div class='mt-8 border-b border-gray-200'>
-      <nav class='flex space-x-8' aria-label='Tabs'>
-        <button class='tab-button active' data-tab='recent'>近期讯息</button>
-        <button class='tab-button' data-tab='past'>活动记录</button>
+      <nav class='flex' aria-label='Tabs'>
+        <button class='flex-1 tab-button active' data-tab='recent'>近期讯息</button>
+        <button class='flex-1 tab-button' data-tab='past'>活动记录</button>
       </nav>
     </div>
 
@@ -96,10 +96,12 @@ pastEvents.sort(
                                   ? 'sync'
                                   : 'async'
                               }
-                              widths={[400, 800]}
+                              widths={[320, 800]}
                               sizes='(max-width: 768px) 100vw, 50vw'
                               width={800}
                               height={320}
+                              inferSize={false}
+                              style='aspect-ratio: 5/3; height: 100%; width: 100%;'
                             />
                           </div>
                         </div>
