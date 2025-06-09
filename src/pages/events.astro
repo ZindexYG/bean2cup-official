@@ -12,21 +12,13 @@ const allEvents = await getCollection(
   ({ data }) => !data.draft && data.publishDate < new Date(),
 )
 
-// 区分近期讯息（一年内）和历史活动（一年前）
-const oneYearAgo = new Date()
-oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1)
-
 // 按发布日期从新到旧排序
-const recentEvents = allEvents
-  .filter(event => event.data.publishDate >= oneYearAgo)
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+const sortedEvents = allEvents.sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+)
 
-const pastEvents = allEvents
-  .filter(event => event.data.publishDate < oneYearAgo)
-  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
-
-// 为近期讯息按月份分组
-const recentEventsByMonth = recentEvents.reduce((groups, event) => {
+// 为活动按月份分组
+const eventsByMonth = sortedEvents.reduce((groups, event) => {
   const date = event.data.publishDate
   const monthYear = `${date.getFullYear()}年${date.getMonth() + 1}月`
 
@@ -39,35 +31,20 @@ const recentEventsByMonth = recentEvents.reduce((groups, event) => {
 }, {})
 
 // 按照月份排序（从新到旧）
-const sortedMonths = Object.keys(recentEventsByMonth).sort((a, b) => {
+const sortedMonths = Object.keys(eventsByMonth).sort((a, b) => {
   const [yearA, monthA] = a.split('年')
   const [yearB, monthB] = b.split('年')
-  return (
-    Number(yearB) - Number(yearA) ||
-    Number(monthB.replace('月', '')) - Number(monthA.replace('月', ''))
-  )
+  return Number(yearB) - Number(yearA) || Number(monthB.replace('月', '')) - Number(monthA.replace('月', ''))
 })
 
-// 对历史活动按年份分组
-const pastEventsByYear = pastEvents.reduce((groups, event) => {
-  const year = event.data.publishDate.getFullYear().toString()
-
-  if (!groups[year]) {
-    groups[year] = []
-  }
-
-  groups[year].push(event)
-  return groups
-}, {})
-
-// 获取所有年份并排序（从新到旧）
-const sortedYears = Object.keys(pastEventsByYear).sort(
-  (a, b) => Number(b) - Number(a),
-)
-
 // 将服务器端数据序列化为JSON字符串，供客户端JavaScript使用
-const sortedYearsJSON = JSON.stringify(sortedYears)
-const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
+const sortedMonthsJSON = JSON.stringify(sortedMonths)
+const eventsByMonthJSON = JSON.stringify(eventsByMonth)
+
+// 初始显示最新的3个月份
+const initialMonthsCount = Math.min(3, sortedMonths.length)
+const initialMonths = sortedMonths.slice(0, initialMonthsCount)
+const hasMoreMonths = sortedMonths.length > initialMonthsCount
 ---
 
 <Layout title='活动讯息'>
@@ -81,7 +58,7 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
     <div class='mt-8 border-b border-gray-200'>
       <nav class='flex' aria-label='Tabs'>
         <button class='flex-1 tab-button active' data-tab='recent'
-          >近期讯息</button
+          >活动讯息</button
         >
         <button class='flex-1 tab-button' data-tab='past'>活动记录</button>
       </nav>
@@ -90,90 +67,15 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
     <!-- 内容区域 -->
     <div class='mt-8'>
       <div id='recent-tab' class='tab-content active'>
-        {
-          sortedMonths.map((month, monthIndex) => (
-            <div class='mb-16'>
-              <h2 class='pl-3 mb-6 text-2xl font-bold text-gray-800 border-l-4 border-blue-500'>
-                {month}
-              </h2>
-              <ul class='space-y-16'>
-                {recentEventsByMonth[month].map((eventEntry, index) => (
-                  <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
-                    <a href={`/events/${eventEntry.slug}`} class='block p-6'>
-                      <div
-                        class={`grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}`}>
-                        <div
-                          class={`${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
-                          <div class='lazy-image-container flex justify-center items-center rounded-md w-full h-[290px]'>
-                            <Picture
-                              src={eventEntry.data.image.src}
-                              alt={eventEntry.data.image.alt || 'Event image'}
-                              class='object-cover object-center w-full h-full rounded-md'
-                              loading='lazy'
-                              decoding='async'
-                              widths={[320, 800]}
-                              sizes='(max-width: 768px) 100vw, 50vw'
-                              width={800}
-                              height={320}
-                              inferSize={false}
-                              style='aspect-ratio: 5/3; height: 100%; width: 100%;'
-                            />
-                          </div>
-                        </div>
-
-                        <div
-                          class={`${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4`}>
-                          <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
-                            {eventEntry.data.category}
-                          </span>
-                          <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
-                            {eventEntry.data.title}
-                          </h3>
-                          <p class='mt-4 text-gray-600 line-clamp-3'>
-                            {eventEntry.data.excerpt || ''}
-                          </p>
-                          <div class={`flex gap-2 mt-4 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}`}>
-                            <span class='text-gray-400'>
-                              {eventEntry.data.author}
-                            </span>
-                            <span class='text-gray-400'>•</span>
-                            <time
-                              class='text-gray-400'
-                              datetime={eventEntry.data.publishDate.toISOString()}>
-                              {eventEntry.data.publishDate.toLocaleDateString(
-                                'zh-CN',
-                                {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric',
-                                },
-                              )}
-                            </time>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))
-        }
-      </div>
-      <div id='past-tab' class='hidden tab-content'>
-        <h2 class='mb-10 text-3xl font-semibold text-center text-gray-800'>
-          历史活动回顾
-        </h2>
-
-        <div id='past-events-container'>
+        <div id="events-container">
           {
-            sortedYears.length > 0 && (
-              <div class='year-section' data-year={sortedYears[0]}>
-                <h3 class='pl-3 mb-6 text-2xl font-bold text-gray-800 border-l-4 border-blue-500'>
-                  {sortedYears[0]}年
-                </h3>
-                <ul class='mb-16 space-y-16'>
-                  {pastEventsByYear[sortedYears[0]].map((eventEntry, index) => (
+            initialMonths.map((month, monthIndex) => (
+              <div class='mb-16 month-section'>
+                <h2 class='pl-3 mb-6 text-2xl font-bold text-gray-800 border-l-4 border-blue-500'>
+                  {month}
+                </h2>
+                <ul class='space-y-16'>
+                  {eventsByMonth[month].map((eventEntry, index) => (
                     <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
                       <a href={`/events/${eventEntry.slug}`} class='block p-6'>
                         <div
@@ -187,27 +89,28 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
                                 class='object-cover object-center w-full h-full rounded-md'
                                 loading='lazy'
                                 decoding='async'
-                                widths={[320, 600]}
-                                sizes='(max-width: 768px) 100vw, 25vw'
-                                width={600}
+                                widths={[320, 800]}
+                                sizes='(max-width: 768px) 100vw, 50vw'
+                                width={800}
                                 height={320}
                                 inferSize={false}
                                 style='aspect-ratio: 5/3; height: 100%; width: 100%;'
                               />
                             </div>
                           </div>
+
                           <div
                             class={`${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4`}>
                             <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
                               {eventEntry.data.category}
                             </span>
-                            <h4 class='mt-2 text-2xl font-semibold leading-snug tracking-tight'>
+                            <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
                               {eventEntry.data.title}
-                            </h4>
-                            <p class='mt-3 text-gray-600 line-clamp-2'>
+                            </h3>
+                            <p class='mt-4 text-gray-600 line-clamp-3'>
                               {eventEntry.data.excerpt || ''}
                             </p>
-                            <div class={`flex gap-2 mt-3 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}`}>
+                            <div class={`flex gap-2 mt-4 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}`}>
                               <span class='text-gray-400'>
                                 {eventEntry.data.author}
                               </span>
@@ -232,21 +135,25 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
                   ))}
                 </ul>
               </div>
-            )
+            ))
           }
         </div>
 
         <!-- 加载更多按钮 -->
-        {sortedYears.length > 1 && (
+        {hasMoreMonths && (
           <div id='load-more-container' class='mt-8 mb-16 text-center'>
             <button
               id='load-more'
               class='px-6 py-3 text-white transition-colors bg-blue-500 rounded-md hover:bg-blue-600'
-              data-current-index="1">
-              加载更多历史活动
+              data-current-index={initialMonthsCount}>
+              加载更多活动讯息
             </button>
           </div>
         )}
+      </div>
+
+      <div id='past-tab' class='hidden tab-content'>
+        <!-- 活动记录标签页内容留空 -->
       </div>
     </div>
   </Container>
@@ -271,15 +178,15 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
   }
 </style>
 
-<script define:vars={{ sortedYearsJSON, pastEventsByYearJSON }}>
+<script define:vars={{ sortedMonthsJSON, eventsByMonthJSON }}>
   // 标签切换逻辑
   document.addEventListener('DOMContentLoaded', () => {
     const tabButtons = document.querySelectorAll('.tab-button')
     const tabContents = document.querySelectorAll('.tab-content')
 
     // 解析服务器端传递的数据
-    const sortedYears = JSON.parse(sortedYearsJSON);
-    const pastEventsByYear = JSON.parse(pastEventsByYearJSON);
+    const sortedMonths = JSON.parse(sortedMonthsJSON);
+    const eventsByMonth = JSON.parse(eventsByMonthJSON);
 
     // 图片懒加载实现
     const setupIntersectionObserver = () => {
@@ -333,95 +240,100 @@ const pastEventsByYearJSON = JSON.stringify(pastEventsByYear)
     // 初始化图片懒加载
     setupIntersectionObserver();
 
-    // 历史年份加载更多功能
+    // 活动讯息加载更多功能
     const loadMoreBtn = document.getElementById('load-more');
     if (loadMoreBtn) {
       loadMoreBtn.addEventListener('click', () => {
-        const pastEventsContainer = document.getElementById('past-events-container');
-        const currentIndex = parseInt(loadMoreBtn.getAttribute('data-current-index') || '1');
+        const eventsContainer = document.getElementById('events-container');
+        const currentIndex = parseInt(loadMoreBtn.getAttribute('data-current-index') || '3');
+        const batchSize = 3; // 每次加载3个月份
 
-        if (currentIndex < sortedYears.length) {
-          const yearToLoad = sortedYears[currentIndex];
+        // 加载下一批月份
+        for (let i = 0; i < batchSize; i++) {
+          const monthIndex = currentIndex + i;
+          if (monthIndex < sortedMonths.length) {
+            const monthToLoad = sortedMonths[monthIndex];
 
-          if (yearToLoad && pastEventsByYear[yearToLoad]) {
-            // 创建新的年份区域
-            const yearSection = document.createElement('div');
-            yearSection.classList.add('year-section');
-            yearSection.setAttribute('data-year', yearToLoad);
+            if (monthToLoad && eventsByMonth[monthToLoad]) {
+              // 创建新的月份区域
+              const monthSection = document.createElement('div');
+              monthSection.classList.add('mb-16', 'month-section');
 
-            // 添加年份标题
-            const yearTitle = document.createElement('h3');
-            yearTitle.classList.add('pl-3', 'mb-6', 'text-2xl', 'font-bold', 'text-gray-800', 'border-l-4', 'border-blue-500');
-            yearTitle.textContent = `${yearToLoad}年`;
-            yearSection.appendChild(yearTitle);
+              // 添加月份标题
+              const monthTitle = document.createElement('h2');
+              monthTitle.classList.add('pl-3', 'mb-6', 'text-2xl', 'font-bold', 'text-gray-800', 'border-l-4', 'border-blue-500');
+              monthTitle.textContent = monthToLoad;
+              monthSection.appendChild(monthTitle);
 
-            // 添加事件列表
-            const eventsList = document.createElement('ul');
-            eventsList.classList.add('space-y-16', 'mb-16');
+              // 添加活动列表
+              const eventsList = document.createElement('ul');
+              eventsList.classList.add('space-y-16');
 
-            // 使用模板字符串构建HTML内容
-            eventsList.innerHTML = pastEventsByYear[yearToLoad].map((event, index) => `
-              <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
-                <a href="/events/${event.slug}" class='block p-6'>
-                  <div class='grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}'>
-                    <div class='${index % 2 === 1 ? 'md:col-start-2' : ''}'>
-                      <div class='lazy-image-container flex justify-center items-center rounded-md w-full h-[290px]'>
-                        <img
-                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
-                          data-src="${event.data.image.src.src || event.data.image.src}"
-                          alt="${event.data.image.alt || 'Event image'}"
-                          class='object-cover object-center w-full h-full rounded-md'
-                          style='aspect-ratio: 5/3; height: 100%; width: 100%;'
-                          loading="lazy"
-                        />
+              // 使用模板字符串构建HTML内容
+              eventsList.innerHTML = eventsByMonth[monthToLoad].map((event, index) => `
+                <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
+                  <a href="/events/${event.slug}" class='block p-6'>
+                    <div class='grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}'>
+                      <div class='${index % 2 === 1 ? 'md:col-start-2' : ''}'>
+                        <div class='lazy-image-container flex justify-center items-center rounded-md w-full h-[290px]'>
+                          <img
+                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
+                            data-src="${event.data.image.src.src || event.data.image.src}"
+                            alt="${event.data.image.alt || 'Event image'}"
+                            class='object-cover object-center w-full h-full rounded-md'
+                            style='aspect-ratio: 5/3; height: 100%; width: 100%;'
+                            loading="lazy"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div class='${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4'>
-                      <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
-                        ${event.data.category}
-                      </span>
-                      <h4 class='mt-2 text-2xl font-semibold leading-snug tracking-tight'>
-                        ${event.data.title}
-                      </h4>
-                      <p class='mt-3 text-gray-600 line-clamp-2'>
-                        ${event.data.excerpt || ''}
-                      </p>
-                      <div class='flex gap-2 mt-3 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}'>
-                        <span class='text-gray-400'>
-                          ${event.data.author}
+                      <div class='${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4'>
+                        <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
+                          ${event.data.category}
                         </span>
-                        <span class='text-gray-400'>•</span>
-                        <time
-                          class='text-gray-400'
-                          datetime="${new Date(event.data.publishDate).toISOString()}">
-                          ${new Date(event.data.publishDate).toLocaleDateString('zh-CN', {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          })}
-                        </time>
+                        <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
+                          ${event.data.title}
+                        </h3>
+                        <p class='mt-4 text-gray-600 line-clamp-3'>
+                          ${event.data.excerpt || ''}
+                        </p>
+                        <div class='flex gap-2 mt-4 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}'>
+                          <span class='text-gray-400'>
+                            ${event.data.author}
+                          </span>
+                          <span class='text-gray-400'>•</span>
+                          <time
+                            class='text-gray-400'
+                            datetime="${new Date(event.data.publishDate).toISOString()}">
+                            ${new Date(event.data.publishDate).toLocaleDateString('zh-CN', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                          </time>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-            `).join('');
+                  </a>
+                </li>
+              `).join('');
 
-            yearSection.appendChild(eventsList);
-            pastEventsContainer.appendChild(yearSection);
-
-            // 更新当前索引
-            loadMoreBtn.setAttribute('data-current-index', (currentIndex + 1).toString());
-
-            // 如果已加载所有年份，隐藏按钮
-            if (currentIndex + 1 >= sortedYears.length) {
-              loadMoreBtn.style.display = 'none';
+              monthSection.appendChild(eventsList);
+              eventsContainer.appendChild(monthSection);
             }
-
-            // 为新加载的图片设置懒加载
-            setupIntersectionObserver();
           }
         }
+
+        // 更新当前索引
+        const newIndex = currentIndex + batchSize;
+        loadMoreBtn.setAttribute('data-current-index', newIndex.toString());
+
+        // 如果已加载所有月份，隐藏按钮
+        if (newIndex >= sortedMonths.length) {
+          loadMoreBtn.style.display = 'none';
+        }
+
+        // 为新加载的图片设置懒加载
+        setupIntersectionObserver();
       });
     }
   })
