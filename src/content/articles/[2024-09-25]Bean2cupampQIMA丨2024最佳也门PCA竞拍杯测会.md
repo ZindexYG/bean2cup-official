@@ -4,7 +4,7 @@ category: Events
 draft: false
 image:
   alt: Bean2cup & QIMA丨 2024最佳也门PCA竞拍杯测会
-  src: /assets/articles/[2025-05-28]广西大开眼界咖啡节丨免费新品体验官招募中_02.jpg
+  src: /assets/articles/[2024-09-25]Bean2cupampQIMA丨2024最佳也门PCA竞拍杯测会_03.jpg
 publishDate: 2024-09-25 10:00
 snippet: Bean2Cup 咖啡活动资讯，包含咖啡节、杯测会、咖啡文化交流等精彩活动。
 tags:
