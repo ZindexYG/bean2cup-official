@@ -8,7 +8,7 @@ import Sectionhead from '@components/sectionhead.astro'
 
 // 获取所有已发布的活动
 const allEvents = await getCollection(
-  'events',
+  'articles',
   ({ data }) => !data.draft && data.publishDate < new Date(),
 )
 
@@ -59,7 +59,9 @@ pastEvents.sort(
     <!-- 标签切换 -->
     <div class='mt-8 border-b border-gray-200'>
       <nav class='flex' aria-label='Tabs'>
-        <button class='flex-1 tab-button active' data-tab='recent'>近期讯息</button>
+        <button class='flex-1 tab-button active' data-tab='recent'
+          >近期讯息</button
+        >
         <button class='flex-1 tab-button' data-tab='past'>活动记录</button>
       </nav>
     </div>
@@ -75,13 +77,13 @@ pastEvents.sort(
               </h2>
               <ul class='space-y-16'>
                 {recentEventsByMonth[month].map((eventEntry, index) => (
-                  <li class='transition-shadow rounded-lg hover:shadow-lg bg-white/90 hover:bg-blue-50'>
+                  <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
                     <a href={`/events/${eventEntry.slug}`} class='block'>
                       <div
                         class={`grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}`}>
                         <div
                           class={`${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
-                          <div class='flex justify-center items-center bg-slate-100 rounded-md w-full h-[320px]'>
+                          <div class='flex justify-center items-center  rounded-md w-full h-[290px]'>
                             <Picture
                               src={eventEntry.data.image.src}
                               alt={eventEntry.data.image.alt || 'Event image'}
