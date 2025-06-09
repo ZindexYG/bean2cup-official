@@ -12,7 +12,7 @@ import { getCollection } from 'astro:content'
 import { Icon } from 'astro-icon/components'
 
 // 获取前5个已发布的活动
-const recentEvents = await getCollection('events', ({ data }) => {
+const recentEvents = await getCollection('articles', ({ data }) => {
   return !data.draft && data.publishDate < new Date()
 })
 
@@ -26,12 +26,12 @@ const bannerEvents = recentEvents
 <!-- 轮播 Banner 容器 -->
 <section class="relative w-full h-[80vh] md:h-[80vh] lg:h-[80vh] overflow-hidden">
   <!-- Splide 容器 -->
-  <div id="banner-splide" class="splide w-full h-full">
-    <div class="splide__track h-full">
-      <ul class="splide__list h-full">
+  <div id="banner-splide" class="w-full h-full splide">
+    <div class="h-full splide__track">
+      <ul class="h-full splide__list">
         {bannerEvents.map((event, index) => (
           <!-- 1. 点击整个 banner 内容跳转到详情 -->
-          <li class="splide__slide relative h-full">
+          <li class="relative h-full splide__slide">
             <!-- 添加链接包装整个内容 -->
             <a href={`/events/${event.slug}`} class="block w-full h-full">
               <!-- 背景图片层 -->
@@ -39,7 +39,7 @@ const bannerEvents = recentEvents
                 <img
                   src={event.data.image.src}
                   alt={event.data.image.alt}
-                  class="w-full h-full object-cover"
+                  class="object-cover w-full h-full"
                   loading={index === 0 ? 'eager' : 'lazy'}
                 />
                 <!-- 深色遮罩层，增强文字可读性，符合星巴克风格 -->
@@ -48,20 +48,20 @@ const bannerEvents = recentEvents
 
               <!-- 内容区域 -->
               <div class="relative z-10 flex items-center h-full">
-                <div class="container mx-auto px-4">
+                <div class="container px-4 mx-auto">
                   <div class="max-w-2xl text-white">
                     <!-- 分类标签，使用 teal 主色调 -->
-                    <span class="inline-block px-3 py-1 bg-primary text-sm font-medium rounded-full mb-4">
+                    <span class="inline-block px-3 py-1 mb-4 text-sm font-medium rounded-full bg-primary">
                       {event.data.category}
                     </span>
 
                     <!-- 活动标题，响应式字体大小 -->
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight">
+                    <h2 class="mb-4 text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
                       {event.data.title}
                     </h2>
 
                     <!-- 活动描述，限制显示行数 -->
-                    <p class="text-lg md:text-xl mb-6 opacity-90 line-clamp-3">
+                    <p class="mb-6 text-lg md:text-xl opacity-90 line-clamp-3">
                       {event.data.snippet}
                     </p>
 
