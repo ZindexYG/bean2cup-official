@@ -1,0 +1,163 @@
+---
+// filepath: /Users/yg/Documents/z-index/bean2cup-official/src/components/EventHighlights.astro
+/**
+ * @component EventHighlights
+ * @description 展示历史活动图片的走马灯组件，支持自动横向滚动和鼠标悬停暂停
+ */
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+
+// 直接导入事件数据
+import eventData from 'content/eventLogs.json'
+
+// 定义组件接口
+export interface Props {
+  /** 标题 */
+  title?: string
+  /** 副标题 */
+  subtitle?: string
+  /** 滚动速度(ms) */
+  scrollSpeed?: number
+  /** 显示的事件数量 */
+  limit?: number
+}
+
+// 解构 props，设置默认值
+const {
+  title = '精彩活动',
+  subtitle = '我们始终致力于为客户提供高品质的咖啡体验',
+  scrollSpeed = 3000,
+  limit = 8,
+} = Astro.props
+
+// 处理事件数据
+const events = eventData.slides
+  .filter(event => event.title && event.date) // 过滤有效数据
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // 按日期排序
+  .slice(0, limit)
+  .map((event, index) => ({
+    id: event.number,
+    title: event.title,
+    date: new Date(event.date).toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }),
+    // 如果没有图片，使用占位图
+    image: event.images && event.images.length > 0 ? event.images[0].path : '',
+    description:
+      event.text_content && event.text_content.length > 0
+        ? event.text_content[0]
+        : '',
+    isFirst: index === 0, // 标记第一个项目
+  }))
+---
+
+<section class='py-12 bg-slate-50'>
+  <div class='container mx-auto px-4'>
+    <!-- 标题区域 -->
+    <div class='text-center mb-10'>
+      <h2 class='text-3xl font-bold text-gray-800 mb-3'>{title}</h2>
+      <p class='text-slate-700 max-w-2xl mx-auto'>{subtitle}</p>
+    </div>
+
+    <!-- 走马灯区域 -->
+    <div class='relative overflow-hidden'>
+      <div
+        class='event-carousel flex overflow-x-auto snap-none py-4 gap-3 md:gap-4 scrollbar-hide'>
+        {
+          events.map(event => (
+            <a
+              href={`/events#event-${event.id}`}
+              class={`event-item flex-shrink-0 relative group overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl w-80 md:w-96'`}
+              data-event-id={event.id}>
+              <div
+                class={`relative overflow-hidden h-56 md:h-64`}>
+                <img
+                  src={event.image || '/placeholder-image.jpg'}
+                  alt={event.title}
+                  class='w-full h-full object-cover transition-transform duration-500 group-hover:scale-105'
+                />
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* 隐藏滚动条但保留功能 */
+    .scrollbar-hide {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* 无限滚动动画 */
+    @keyframes autoScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .event-carousel {
+      display: flex;
+      animation: autoScroll 30s linear infinite;
+      width: fit-content;
+    }
+
+    .event-carousel:hover {
+      animation-play-state: paused;
+    }
+  </style>
+
+  <script define:vars={{ scrollSpeed }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const carousel = document.querySelector('.event-carousel')
+      if (!carousel) return
+
+      // 创建事件项的克隆以实现无限滚动效果
+      const createInfiniteScroll = () => {
+        const items = carousel.querySelectorAll('.event-item')
+        if (items.length === 0) return
+
+        // 复制所有项目并添加到末尾以创建无限滚动效果
+        items.forEach(item => {
+          const clone = item.cloneNode(true)
+          carousel.appendChild(clone)
+        })
+      }
+
+      // 调用函数创建无限滚动
+      createInfiniteScroll()
+
+      // 调整动画持续时间基于项目数量和滚动速度
+      const adjustAnimationSpeed = () => {
+        const items = carousel.querySelectorAll('.event-item')
+        const totalItems = items.length
+        // 计算适当的动画持续时间 (每项大约3秒)
+        const duration = (totalItems / 2) * 3
+
+        carousel.style.animationDuration = `${duration}s`
+      }
+
+      // 调整动画速度
+      adjustAnimationSpeed()
+
+      // 当用户离开页面时暂停动画以节省资源
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          carousel.style.animationPlayState = 'paused'
+        } else {
+          carousel.style.animationPlayState = 'running'
+        }
+      })
+    })
+  </script>
+</section>

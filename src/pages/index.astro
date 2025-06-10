@@ -10,17 +10,19 @@
 import Features from '@components/features.astro'
 import Hero from '@components/hero.astro'
 
+import Layout from '@layouts/Layout.astro'
 import Banner from '@components/banner.astro'
 import Partners from '@components/partners.astro'
-import Layout from '@layouts/Layout.astro'
 import BrandIntro from '@components/BrandIntro.astro'
-import Spacer from '@components/ui/spacer.astro'
 import ProductHighlights from '@components/ProductHighlights.astro'
+import EventHighlights from '@components/EventHighlights.astro'
+
 ---
 
 <Layout title='首页'>
   <Banner />
   <ProductHighlights />
+  <EventHighlights />
   <Partners />
-  <BrandIntro />
+  <!-- <BrandIntro /> -->
 </Layout>
