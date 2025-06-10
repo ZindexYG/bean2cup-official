@@ -151,8 +151,7 @@ const sortedYears = Object.keys(eventLogsByYear).sort(
   }
   .tab-panel.active {
     opacity: 1;
-    max-height: 100vh;
-    overflow: auto; /* 允许滚动 */
+    max-height: 10000px; /* 设置一个足够大的高度值，确保内容完全显示 */
   }
   .tab-panel.hidden {
     display: none;
@@ -176,6 +175,12 @@ const sortedYears = Object.keys(eventLogsByYear).sort(
       tabButtons[0].setAttribute('aria-selected', 'true')
       tabPanels[0].classList.add('active')
       tabPanels[0].classList.remove('hidden')
+
+      // 确保初始面板高度正确设置
+      const initialPanel = tabPanels[0] as HTMLElement;
+      initialPanel.style.maxHeight = 'none'; // 临时移除最大高度限制以获取实际高度
+      const panelHeight = initialPanel.scrollHeight;
+      initialPanel.style.maxHeight = `${panelHeight}px`; // 设置精确高度
 
       // 隐藏其他标签页
       for (let i = 1; i < tabPanels.length; i++) {
@@ -202,20 +207,57 @@ const sortedYears = Object.keys(eventLogsByYear).sort(
         button.classList.add('active')
         button.setAttribute('aria-selected', 'true')
 
-        // 先将所有面板标记为隐藏
+        // 先将当前活动面板高度设为0，准备隐藏
         tabPanels.forEach(panel => {
-          panel.classList.add('hidden')
-          panel.classList.remove('active')
+          if (panel.classList.contains('active')) {
+            // 保存当前高度以便动画
+            const currentPanel = panel as HTMLElement;
+            currentPanel.style.maxHeight = '0';
+            // 添加一个短暂的延迟后再隐藏
+            setTimeout(() => {
+              panel.classList.add('hidden')
+              panel.classList.remove('active')
+            }, 300); // 与CSS过渡时间匹配
+          } else {
+            // 非活动面板直接隐藏
+            panel.classList.add('hidden')
+            panel.classList.remove('active')
+          }
         })
 
-        // 然后显示当前面板（使用延迟以支持过渡效果）
+        // 准备显示目标面板
         setTimeout(() => {
+          // 移除隐藏类
           tabPanel.classList.remove('hidden')
-          // 这里用 setTimeout 允许 DOM 更新后再添加 active 类，使过渡效果更流畅
+
+          // 先计算面板实际高度
+          const targetPanel = tabPanel as HTMLElement;
+          // 临时设置样式以便测量
+          targetPanel.style.position = 'absolute';
+          targetPanel.style.visibility = 'hidden';
+          targetPanel.style.maxHeight = 'none';
+          targetPanel.style.display = 'block';
+
+          // 获取实际高度
+          const height = targetPanel.scrollHeight;
+
+          // 恢复原始样式
+          targetPanel.style.position = '';
+          targetPanel.style.visibility = '';
+          targetPanel.style.display = '';
+          targetPanel.style.maxHeight = '0';
+
+          // 短暂延迟后添加active类并设置高度
           setTimeout(() => {
             tabPanel.classList.add('active')
+            targetPanel.style.maxHeight = `${height}px`;
+
+            // 内容加载完成后，移除固定高度限制
+            setTimeout(() => {
+              targetPanel.style.maxHeight = 'none';
+            }, 350);
           }, 10)
-        }, 50)
+        }, 310) // 稍微超过前一个过渡的时间
       })
     })
 
@@ -253,5 +295,20 @@ const sortedYears = Object.keys(eventLogsByYear).sort(
     } else {
       setInitialState()
     }
+
+    // 监听窗口大小变化，重新计算活动面板高度
+    window.addEventListener('resize', () => {
+      // 获取当前活动面板
+      const activePanel = document.querySelector('.tab-panel.active') as HTMLElement;
+      if (activePanel) {
+        // 临时移除高度限制以获取新的实际高度
+        activePanel.style.maxHeight = 'none';
+        const newHeight = activePanel.scrollHeight;
+        // 重新设置高度（如果已经进入完全显示状态则不设置）
+        if (activePanel.style.maxHeight !== 'none') {
+          activePanel.style.maxHeight = `${newHeight}px`;
+        }
+      }
+    });
   })
 </script>

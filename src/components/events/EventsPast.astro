@@ -6,7 +6,7 @@ import GalleryImage from "../ui/GalleryImage.astro";
 const { sortedYears, eventLogsByYear } = Astro.props;
 
 // 反转年份排序 - 从旧到新
-const chronologicalYears = [...sortedYears];
+const chronologicalYears = [...sortedYears].reverse();
 console.log('eventLogsByYear',eventLogsByYear)
 ---
 
