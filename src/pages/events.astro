@@ -16,7 +16,7 @@ const allEvents = await getCollection(
 
 // 按发布日期从新到旧排序
 const sortedEvents = allEvents.sort(
-  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime()
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
 )
 
 // 为活动按月份分组
@@ -36,7 +36,10 @@ const eventsByMonth = sortedEvents.reduce((groups, event) => {
 const sortedMonths = Object.keys(eventsByMonth).sort((a, b) => {
   const [yearA, monthA] = a.split('年')
   const [yearB, monthB] = b.split('年')
-  return Number(yearB) - Number(yearA) || Number(monthB.replace('月', '')) - Number(monthA.replace('月', ''))
+  return (
+    Number(yearB) - Number(yearA) ||
+    Number(monthB.replace('月', '')) - Number(monthA.replace('月', ''))
+  )
 })
 
 // 初始显示最新的3个月份
@@ -46,23 +49,25 @@ const hasMoreMonths = sortedMonths.length > initialMonthsCount
 
 // 处理事件日志数据 - 按年份分组
 const eventLogs = eventLogsData.slides.sort((a, b) => {
-  const dateA = new Date(a.date);
-  const dateB = new Date(b.date);
-  return dateB.getTime() - dateA.getTime(); // 从新到旧排序
-});
+  const dateA = new Date(a.date)
+  const dateB = new Date(b.date)
+  return dateB.getTime() - dateA.getTime() // 从新到旧排序
+})
 
 // 按年份分组
 const eventLogsByYear = eventLogs.reduce((groups, event) => {
-  const year = new Date(event.date).getFullYear();
+  const year = new Date(event.date).getFullYear()
   if (!groups[year]) {
-    groups[year] = [];
+    groups[year] = []
   }
-  groups[year].push(event);
-  return groups;
-}, {});
+  groups[year].push(event)
+  return groups
+}, {})
 
 // 获取年份并排序（从新到旧）
-const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Number(a));
+const sortedYears = Object.keys(eventLogsByYear).sort(
+  (a, b) => Number(b) - Number(a),
+)
 ---
 
 <Layout title='活动讯息'>
@@ -76,23 +81,21 @@ const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Numb
     <div class='mt-8 border-b border-gray-200'>
       <nav class='flex' aria-label='Tabs'>
         <button
-          id="tab-recent"
+          id='tab-recent'
           class='flex-1 tab-button active'
           data-tab='recent'
-          aria-selected="true"
-          role="tab"
-          aria-controls="panel-recent"
-        >
+          aria-selected='true'
+          role='tab'
+          aria-controls='panel-recent'>
           活动讯息
         </button>
         <button
-          id="tab-past"
+          id='tab-past'
           class='flex-1 tab-button'
           data-tab='past'
-          aria-selected="false"
-          role="tab"
-          aria-controls="panel-past"
-        >
+          aria-selected='false'
+          role='tab'
+          aria-controls='panel-past'>
           活动记录
         </button>
       </nav>
@@ -101,7 +104,11 @@ const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Numb
     <!-- 内容区域 -->
     <div class='mt-8'>
       <!-- 活动讯息内容面板 -->
-      <div id="panel-recent" role="tabpanel" aria-labelledby="tab-recent" class="tab-panel active">
+      <div
+        id='panel-recent'
+        role='tabpanel'
+        aria-labelledby='tab-recent'
+        class='tab-panel active'>
         <EventsRecent
           initialMonths={initialMonths}
           eventsByMonth={eventsByMonth}
@@ -112,7 +119,11 @@ const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Numb
       </div>
 
       <!-- 活动记录内容面板 -->
-      <div id="panel-past" role="tabpanel" aria-labelledby="tab-past" class="tab-panel hidden">
+      <div
+        id='panel-past'
+        role='tabpanel'
+        aria-labelledby='tab-past'
+        class='tab-panel hidden'>
         <EventsPast
           sortedYears={sortedYears}
           eventLogsByYear={eventLogsByYear}
@@ -134,11 +145,14 @@ const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Numb
     opacity: 0;
     max-height: 0;
     overflow: hidden;
-    transition: opacity 0.3s ease-in-out, max-height 0.3s ease-in-out;
+    transition:
+      opacity 0.3s ease-in-out,
+      max-height 0.3s ease-in-out;
   }
   .tab-panel.active {
     opacity: 1;
-    max-height: 9999px; /* 一个足够大的值 */
+    max-height: 100vh;
+    overflow: auto; /* 允许滚动 */
   }
   .tab-panel.hidden {
     display: none;
@@ -152,91 +166,92 @@ const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Numb
 <script>
   // 标签切换逻辑
   document.addEventListener('DOMContentLoaded', () => {
-    const tabButtons = document.querySelectorAll('[role="tab"]');
-    const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+    const tabButtons = document.querySelectorAll('[role="tab"]')
+    const tabPanels = document.querySelectorAll('[role="tabpanel"]')
 
     // 初始状态设置
     function setInitialState() {
       // 默认显示第一个标签页
-      tabButtons[0].classList.add('active');
-      tabButtons[0].setAttribute('aria-selected', 'true');
-      tabPanels[0].classList.add('active');
-      tabPanels[0].classList.remove('hidden');
+      tabButtons[0].classList.add('active')
+      tabButtons[0].setAttribute('aria-selected', 'true')
+      tabPanels[0].classList.add('active')
+      tabPanels[0].classList.remove('hidden')
 
       // 隐藏其他标签页
-      for(let i = 1; i < tabPanels.length; i++) {
-        tabPanels[i].classList.add('hidden');
-        tabPanels[i].classList.remove('active');
-        tabButtons[i].classList.remove('active');
-        tabButtons[i].setAttribute('aria-selected', 'false');
+      for (let i = 1; i < tabPanels.length; i++) {
+        tabPanels[i].classList.add('hidden')
+        tabPanels[i].classList.remove('active')
+        tabButtons[i].classList.remove('active')
+        tabButtons[i].setAttribute('aria-selected', 'false')
       }
     }
 
     // 设置标签切换事件
     tabButtons.forEach(button => {
       button.addEventListener('click', () => {
-        const tabId = button.getAttribute('aria-controls');
-        const tabPanel = document.getElementById(tabId);
+        const tabId = button.getAttribute('aria-controls')
+        const tabPanel = document.getElementById(tabId)
 
-        if (!tabPanel) return;
+        if (!tabPanel) return
 
         // 更新按钮状态
         tabButtons.forEach(btn => {
-          btn.classList.remove('active');
-          btn.setAttribute('aria-selected', 'false');
-        });
-        button.classList.add('active');
-        button.setAttribute('aria-selected', 'true');
+          btn.classList.remove('active')
+          btn.setAttribute('aria-selected', 'false')
+        })
+        button.classList.add('active')
+        button.setAttribute('aria-selected', 'true')
 
         // 先将所有面板标记为隐藏
         tabPanels.forEach(panel => {
-          panel.classList.add('hidden');
-          panel.classList.remove('active');
-        });
+          panel.classList.add('hidden')
+          panel.classList.remove('active')
+        })
 
         // 然后显示当前面板（使用延迟以支持过渡效果）
         setTimeout(() => {
-          tabPanel.classList.remove('hidden');
+          tabPanel.classList.remove('hidden')
           // 这里用 setTimeout 允许 DOM 更新后再添加 active 类，使过渡效果更流畅
           setTimeout(() => {
-            tabPanel.classList.add('active');
-          }, 10);
-        }, 50);
-      });
-    });
+            tabPanel.classList.add('active')
+          }, 10)
+        }, 50)
+      })
+    })
 
     // 支持键盘导航
     tabButtons.forEach((button, index) => {
-      button.addEventListener('keydown', (e) => {
+      button.addEventListener('keydown', e => {
         // 左右箭头键导航
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-          e.preventDefault();
-          const direction = e.key === 'ArrowLeft' ? -1 : 1;
-          const targetIndex = (index + direction + tabButtons.length) % tabButtons.length;
-          tabButtons[targetIndex].focus();
-          tabButtons[targetIndex].click();
+          e.preventDefault()
+          const direction = e.key === 'ArrowLeft' ? -1 : 1
+          const targetIndex =
+            (index + direction + tabButtons.length) % tabButtons.length
+          tabButtons[targetIndex].focus()
+          tabButtons[targetIndex].click()
         }
         // 按下回车或空格激活标签
         else if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          button.click();
+          e.preventDefault()
+          button.click()
         }
-      });
-    });
+      })
+    })
 
     // 检查 URL 参数是否指定了标签
-    const params = new URLSearchParams(window.location.search);
-    const tabParam = params.get('tab');
+    const params = new URLSearchParams(window.location.search)
+    const tabParam = params.get('tab')
 
     if (tabParam) {
-      const targetTab = document.querySelector(`[data-tab="${tabParam}"]`);
+      const targetTab = document.querySelector(`[data-tab="${tabParam}"]`)
       if (targetTab) {
-        targetTab.click();
+        targetTab.click()
       } else {
-        setInitialState();
+        setInitialState()
       }
     } else {
-      setInitialState();
+      setInitialState()
     }
-  });
+  })
 </script>
