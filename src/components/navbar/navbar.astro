@@ -2,6 +2,8 @@
 import Container from '@components/container.astro'
 import Dropdown from './dropdown.astro'
 import { Astronav, MenuItems, MenuIcon } from 'astro-navbar'
+import { Picture } from 'astro:assets'
+import logo from '@assets/logo.png'
 
 const menuitems = [
   {
@@ -47,10 +49,16 @@ const menuitems = [
   <header class='flex flex-col items-center justify-between my-5 lg:flex-row'>
     <Astronav>
       <div class='flex items-center justify-between w-full lg:w-auto'>
-        <a href='/' class='text-lg'
-          ><span class='font-bold text-slate-800'>Bean2</span><span
-            class='text-slate-500'>Cup</span
-          >
+        <a href='/' class='flex items-center space-x-3 text-lg'>
+          <Picture
+            src={logo}
+            alt='Bean2Cup Logo'
+            class='h-8 w-auto'
+            loading='eager'
+          />
+          <span>
+            <span class='font-bold text-slate-800'>Bean2</span><span class='text-slate-500'>Cup</span>
+          </span>
         </a>
         <div class='block lg:hidden'>
           <MenuIcon class='w-4 h-4 text-gray-800' />
