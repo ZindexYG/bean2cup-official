@@ -91,27 +91,48 @@ const { initialMonths, eventsByMonth, hasMoreMonths, initialMonthsCount, sortedM
 
 <script define:vars={{ sortedMonths, eventsByMonth }}>
   document.addEventListener('DOMContentLoaded', () => {
-    // 图片懒加载实现
-    const setupIntersectionObserver = () => {
-      const imageContainers = document.querySelectorAll('.lazy-image-container');
+    let imageObserver = null;
 
-      const imageObserver = new IntersectionObserver((entries, observer) => {
+    // 图片懒加载实现 - 改进版
+    const setupIntersectionObserver = () => {
+      // 清理之前的观察器
+      if (imageObserver) {
+        imageObserver.disconnect();
+      }
+
+      const imageContainers = document.querySelectorAll('.lazy-image-container:not([data-loaded])');
+
+      imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const container = entry.target;
             const image = container.querySelector('img');
 
             if (image && image.dataset.src) {
-              image.src = image.dataset.src;
-              image.removeAttribute('data-src');
+              // 创建一个新的图片元素来预加载
+              const tempImg = new Image();
+              tempImg.onload = () => {
+                image.src = image.dataset.src;
+                image.removeAttribute('data-src');
+                container.setAttribute('data-loaded', 'true');
+                // 停止观察已加载的图片
+                observer.unobserve(container);
+              };
+              tempImg.onerror = () => {
+                console.warn('图片加载失败:', image.dataset.src);
+                container.setAttribute('data-loaded', 'true');
+                observer.unobserve(container);
+              };
+              tempImg.src = image.dataset.src;
+            } else {
+              // 对于已经有 src 的图片，直接标记为已加载
+              container.setAttribute('data-loaded', 'true');
+              observer.unobserve(container);
             }
-
-            // 停止观察已加载的图片
-            observer.unobserve(container);
           }
         });
       }, {
-        rootMargin: '50px 0px',
+        rootMargin: '100px 0px', // 增大预加载范围
         threshold: 0.1
       });
 
@@ -120,103 +141,151 @@ const { initialMonths, eventsByMonth, hasMoreMonths, initialMonthsCount, sortedM
       });
     }
 
+    // 获取图片源的辅助函数
+    const getImageSrc = (imageData) => {
+      if (typeof imageData === 'string') {
+        return imageData;
+      }
+      if (imageData && imageData.src) {
+        return typeof imageData.src === 'string' ? imageData.src : imageData.src.src;
+      }
+      return '';
+    };
+
     // 初始化图片懒加载
     setupIntersectionObserver();
 
-    // 活动讯息加载更多功能
+    // 活动讯息加载更多功能 - 改进版
     const loadMoreBtn = document.getElementById('load-more');
     if (loadMoreBtn) {
-      loadMoreBtn.addEventListener('click', () => {
+      loadMoreBtn.addEventListener('click', async () => {
         const eventsContainer = document.getElementById('events-container');
         const currentIndex = parseInt(loadMoreBtn.getAttribute('data-current-index') || '3');
         const batchSize = 3; // 每次加载3个月份
 
-        // 加载下一批月份
-        for (let i = 0; i < batchSize; i++) {
-          const monthIndex = currentIndex + i;
-          if (monthIndex < sortedMonths.length) {
-            const monthToLoad = sortedMonths[monthIndex];
+        // 显示加载状态
+        const originalText = loadMoreBtn.textContent;
+        loadMoreBtn.textContent = '加载中...';
+        loadMoreBtn.disabled = true;
 
-            if (monthToLoad && eventsByMonth[monthToLoad]) {
-              // 创建新的月份区域
-              const monthSection = document.createElement('div');
-              monthSection.classList.add('mb-16', 'month-section');
+        try {
+          // 加载下一批月份
+          for (let i = 0; i < batchSize; i++) {
+            const monthIndex = currentIndex + i;
+            if (monthIndex < sortedMonths.length) {
+              const monthToLoad = sortedMonths[monthIndex];
 
-              // 添加月份标题
-              const monthTitle = document.createElement('h2');
-              monthTitle.classList.add('pl-3', 'mb-6', 'text-2xl', 'font-bold', 'text-gray-800', 'border-l-4', 'border-blue-500');
-              monthTitle.textContent = monthToLoad;
-              monthSection.appendChild(monthTitle);
+              if (monthToLoad && eventsByMonth[monthToLoad]) {
+                // 创建新的月份区域
+                const monthSection = document.createElement('div');
+                monthSection.classList.add('mb-16', 'month-section');
 
-              // 添加活动列表
-              const eventsList = document.createElement('ul');
-              eventsList.classList.add('space-y-16');
+                // 添加月份标题
+                const monthTitle = document.createElement('h2');
+                monthTitle.classList.add('pl-3', 'mb-6', 'text-2xl', 'font-bold', 'text-gray-800', 'border-l-4', 'border-blue-500');
+                monthTitle.textContent = monthToLoad;
+                monthSection.appendChild(monthTitle);
 
-              // 使用模板字符串构建HTML内容
-              eventsList.innerHTML = eventsByMonth[monthToLoad].map((event, index) => `
-                <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
-                  <a href="/events/${event.slug}" class='block p-6'>
-                    <div class='grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}'>
-                      <div class='${index % 2 === 1 ? 'md:col-start-2' : ''}'>
-                        <div class='lazy-image-container flex justify-center items-center rounded-md w-full h-[290px]'>
-                          <img
-                            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3C/svg%3E"
-                            data-src="${event.data.image.src.src || event.data.image.src}"
-                            alt="${event.data.image.alt || 'Event image'}"
-                            class='object-cover object-center w-full h-full rounded-md'
-                            style='aspect-ratio: 5/3; height: 100%; width: 100%;'
-                            loading="lazy"
-                          />
+                // 添加活动列表
+                const eventsList = document.createElement('ul');
+                eventsList.classList.add('space-y-16');
+
+                // 构建HTML内容 - 修复图片源问题
+                eventsList.innerHTML = eventsByMonth[monthToLoad].map((event, index) => {
+                  const imageSrc = getImageSrc(event.data.image.src);
+                  const imageAlt = event.data.image.alt || 'Event image';
+
+                  return `
+                    <li class='transition-shadow rounded-lg hover:shadow-lg bg-slate-100 hover:bg-blue-50'>
+                      <a href="/events/${event.slug}" class='block p-6'>
+                        <div class='grid items-center gap-8 ${index % 2 === 0 ? 'md:grid-cols-[1fr_1.5fr]' : 'md:grid-cols-[1.5fr_1fr] md:grid-flow-dense'}'>
+                          <div class='${index % 2 === 1 ? 'md:col-start-2' : ''}'>
+                            <div class='lazy-image-container flex justify-center items-center rounded-md w-full h-[290px] bg-gray-100'>
+                              <img
+                                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 320'%3E%3Crect width='800' height='320' fill='%23f3f4f6'/%3E%3C/svg%3E"
+                                data-src="${imageSrc}"
+                                alt="${imageAlt}"
+                                class='object-cover object-center w-full h-full rounded-md transition-opacity duration-300'
+                                style='aspect-ratio: 5/3; height: 100%; width: 100%;'
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          </div>
+                          <div class='${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4'>
+                            <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
+                              ${event.data.category || ''}
+                            </span>
+                            <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
+                              ${event.data.title || ''}
+                            </h3>
+                            <p class='mt-4 text-gray-600 line-clamp-3'>
+                              ${event.data.excerpt || ''}
+                            </p>
+                            <div class='flex gap-2 mt-4 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}'>
+                              <span class='text-gray-400'>
+                                ${event.data.author || ''}
+                              </span>
+                              <span class='text-gray-400'>•</span>
+                              <time
+                                class='text-gray-400'
+                                datetime="${new Date(event.data.publishDate).toISOString()}">
+                                ${new Date(event.data.publishDate).toLocaleDateString('zh-CN', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric',
+                                })}
+                              </time>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class='${index % 2 === 1 ? 'md:col-start-1 text-right' : 'text-left'} px-4'>
-                        <span class='text-sm font-medium tracking-wider text-blue-400 uppercase'>
-                          ${event.data.category}
-                        </span>
-                        <h3 class='mt-2 text-3xl font-semibold leading-snug tracking-tight'>
-                          ${event.data.title}
-                        </h3>
-                        <p class='mt-4 text-gray-600 line-clamp-3'>
-                          ${event.data.excerpt || ''}
-                        </p>
-                        <div class='flex gap-2 mt-4 ${index % 2 === 1 ? 'justify-end' : 'justify-start'}'>
-                          <span class='text-gray-400'>
-                            ${event.data.author}
-                          </span>
-                          <span class='text-gray-400'>•</span>
-                          <time
-                            class='text-gray-400'
-                            datetime="${new Date(event.data.publishDate).toISOString()}">
-                            ${new Date(event.data.publishDate).toLocaleDateString('zh-CN', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            })}
-                          </time>
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              `).join('');
+                      </a>
+                    </li>
+                  `;
+                }).join('');
 
-              monthSection.appendChild(eventsList);
-              eventsContainer.appendChild(monthSection);
+                monthSection.appendChild(eventsList);
+                eventsContainer.appendChild(monthSection);
+              }
             }
           }
+
+          // 等待DOM更新完成后再设置懒加载
+          await new Promise(resolve => setTimeout(resolve, 100));
+
+          // 为新加载的图片设置懒加载
+          setupIntersectionObserver();
+
+          // 触发父页面的标签页高度重新计算
+          const activePanel = document.querySelector('.tab-panel.active');
+          if (activePanel) {
+            // 触发自定义事件通知父页面内容已更新
+            const contentUpdateEvent = new CustomEvent('contentUpdated', {
+              bubbles: true,
+              detail: { panel: activePanel }
+            });
+            activePanel.dispatchEvent(contentUpdateEvent);
+          }
+
+          // 更新当前索引
+          const newIndex = currentIndex + batchSize;
+          loadMoreBtn.setAttribute('data-current-index', newIndex.toString());
+
+          // 如果已加载所有月份，隐藏按钮
+          if (newIndex >= sortedMonths.length) {
+            const loadMoreContainer = document.getElementById('load-more-container');
+            if (loadMoreContainer) {
+              loadMoreContainer.style.display = 'none';
+            }
+          }
+
+        } catch (error) {
+          console.error('加载更多内容时出错:', error);
+        } finally {
+          // 恢复按钮状态
+          loadMoreBtn.textContent = originalText;
+          loadMoreBtn.disabled = false;
         }
-
-        // 更新当前索引
-        const newIndex = currentIndex + batchSize;
-        loadMoreBtn.setAttribute('data-current-index', newIndex.toString());
-
-        // 如果已加载所有月份，隐藏按钮
-        if (newIndex >= sortedMonths.length) {
-          loadMoreBtn.style.display = 'none';
-        }
-
-        // 为新加载的图片设置懒加载
-        setupIntersectionObserver();
       });
     }
   });
