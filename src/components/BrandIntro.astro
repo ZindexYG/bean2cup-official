@@ -72,13 +72,13 @@ SCAA美国精品咖啡协会的标准，
 ];
 ---
 
-<section id="brand-intro" class="py-16 bg-slate-50">
+<section id="brand-intro" class="py-16 ">
   <div class="container px-4 mx-auto">
     <h2 class="mb-16 text-3xl font-bold text-center text-gray-800">{title}</h2>
 
     <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
       {brandSections.map((section) => (
-        <div class="relative brand-card group">
+        <div class="relative brand-card group cursor-pointer" data-section={section.id}>
           <!-- 卡片主体 -->
           <div class="h-full overflow-hidden transition-all duration-300 bg-white shadow-sm rounded-xl hover:shadow-md">
             <!-- 图片 -->
@@ -163,11 +163,27 @@ SCAA美国精品咖啡协会的标准，
   // 添加点击关闭功能，特别是在移动设备上
   document.addEventListener('DOMContentLoaded', () => {
     const popups = document.querySelectorAll('.popup-content');
+    const brandCards = document.querySelectorAll('.brand-card');
 
+    // 为弹出窗口添加事件，阻止冒泡
     popups.forEach(popup => {
       popup.addEventListener('click', (e) => {
-        // 阻止冒泡，避免立即关闭
+        // 弹窗内点击仍然执行跳转
+        const card = popup.closest('.brand-card');
+        // const sectionId = card.getAttribute('data-section');
+        window.location.href = '/about';
+
         e.stopPropagation();
+      });
+    });
+
+    // 添加卡片点击跳转功能
+    brandCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const sectionId = card.getAttribute('data-section');
+        console.log('点击卡片，跳转到:', sectionId);
+        // 跳转到about页面并添加锚点
+        window.location.href = '/about#' + sectionId;
       });
     });
 
