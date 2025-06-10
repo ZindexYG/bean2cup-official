@@ -1,0 +1,30 @@
+---
+// 接收属性
+interface Props {
+  src: string
+  alt: string
+  title: string
+  date: string
+  description?: string
+  className?: string
+}
+
+const {
+  src,
+  alt,
+  title,
+  date,
+  description = '',
+  className = 'w-full h-full object-cover transition-transform duration-500 hover:scale-110',
+} = Astro.props
+---
+
+<img
+  src={src}
+  alt={alt}
+  class={`cursor-zoom-in gallery-image ${className}`}
+  data-full={src}
+  data-title={title}
+  data-date={date}
+  data-desc={description}
+/>

@@ -1,35 +1,66 @@
 ---
+import ImageViewer from "../ui/ImageViewer.astro";
+import GalleryImage from "../ui/GalleryImage.astro";
+
 // 接收父组件传入的数据
 const { sortedYears, eventLogsByYear } = Astro.props;
+
+// 反转年份排序 - 从旧到新
+const chronologicalYears = [...sortedYears].reverse();
 ---
 
 <!-- 活动记录标签页内容 -->
-<div class="relative">
-  <!-- 进度条装饰 -->
-  <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary to-blue-200 rounded-full"></div>
-
-  <div class="space-y-8 relative z-10">
-    {sortedYears.map((year) => (
-      <div class="mb-16">
-        <h2 class="relative z-10 inline-block px-6 py-2 mb-10 text-2xl font-bold text-white bg-primary rounded-lg shadow-lg">
+<div class="relative timeline-container">
+  <!-- 年份导航栏 -->
+  <div id="year-nav" class="sticky top-0 z-30 flex justify-center items-center py-3 bg-white/80 backdrop-blur-md">
+    <div class="flex space-x-4 overflow-x-auto px-4 scrollbar-thin scrollbar-thumb-primary scrollbar-track-gray-100">
+      {chronologicalYears.map((year) => (
+        <button
+          class="year-nav-btn px-4 py-2 text-gray-600 rounded-full hover:bg-blue-50 transition-all"
+          data-year={year}
+        >
           {year}年
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- 进度条装饰 -->
+  <div id="timeline-progress" class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-gray-200 to-gray-200 rounded-full">
+    <div id="progress-indicator" class="w-full bg-gradient-to-b from-primary to-blue-400 rounded-full" style="height: 0%;"></div>
+  </div>
+
+  <div class="space-y-24 relative z-10 pt-6">
+    {chronologicalYears.map((year) => (
+      <div id={`year-${year}`} class="year-section mb-32" data-year={year}>
+        <h2 class="relative z-10 flex justify-center mb-16">
+          <span class="inline-block px-8 py-3 text-2xl font-bold text-white bg-primary rounded-lg shadow-lg transform transition-all duration-300">
+            {year}年
+          </span>
         </h2>
 
-        <div class="space-y-12">
+        <div class="space-y-24">
           {eventLogsByYear[year].map((event, index) => (
-            <div class="relative">
+            <div class="relative event-item" data-event-id={`event-${year}-${index}`}>
               <!-- 时间节点装饰 -->
               <div class="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primary rounded-full border-4 border-white shadow-md"></div>
 
               <div class={`grid gap-6 md:gap-12 items-start ${index % 2 === 0 ? 'md:grid-cols-[1fr_1fr]' : 'md:grid-cols-[1fr_1fr] md:grid-flow-dense'}`}>
-                <!-- 左侧内容或右侧内容 -->
+                <!-- 左侧内容 -->
                 <div class={`bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
                   <div class="aspect-video overflow-hidden">
                     {event.images && event.images.length > 0 && (
-                      <img
+                      <GalleryImage
                         src={event.images[0].path}
                         alt={event.title}
-                        class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        title={event.title}
+                        date={new Date(event.date).toLocaleDateString('zh-CN', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                        })}
+                        description={event.text_content ? event.text_content.join(' ') : ''}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
                       />
                     )}
                   </div>
@@ -50,16 +81,22 @@ const { sortedYears, eventLogsByYear } = Astro.props;
                   </div>
                 </div>
 
-                <!-- 图片网格 - 只在有多张图片时显示 -->
+                <!-- 图片网格 - 右侧 -->
                 <div class={`${index % 2 === 1 ? 'md:col-start-2' : ''} ${event.images && event.images.length <= 1 ? 'hidden md:block' : ''}`}>
                   {event.images && event.images.length > 1 ? (
-                    <div class={`grid gap-3 ${event.images.length > 3 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                    <div class="grid grid-cols-2 gap-3 h-full">
                       {event.images.slice(1, 5).map((image, imgIndex) => (
-                        <div class="aspect-square overflow-hidden rounded-lg shadow-md">
-                          <img
+                        <div class={`${event.images.length === 2 || (event.images.length === 3 && imgIndex === 0) ? 'col-span-2' : ''} aspect-square overflow-hidden rounded-lg shadow-md`}>
+                          <GalleryImage
                             src={image.path}
                             alt={`${event.title} 图片 ${imgIndex + 2}`}
-                            class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                            title={event.title}
+                            date={new Date(event.date).toLocaleDateString('zh-CN', {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            })}
+                            description={event.text_content ? event.text_content.join(' ') : ''}
                           />
                         </div>
                       ))}
@@ -78,3 +115,130 @@ const { sortedYears, eventLogsByYear } = Astro.props;
     ))}
   </div>
 </div>
+
+<!-- 引入图片查看器组件 -->
+<ImageViewer />
+
+<style>
+  /* 定制滚动条 */
+  .scrollbar-thin::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .scrollbar-thumb-primary::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary, #3b82f6);
+    border-radius: 3px;
+  }
+
+  .scrollbar-track-gray-100::-webkit-scrollbar-track {
+    background-color: #f3f4f6;
+  }
+
+  /* 活跃的年份按钮 */
+  .year-nav-btn.active {
+    @apply bg-primary text-white font-medium;
+  }
+</style>
+
+<script>
+  // Declare imageViewer property on Window interface
+  declare global {
+    interface Window {
+      imageViewer: any;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // 时间线进度条更新
+    function updateTimelineProgress() {
+      const container = document.querySelector('.timeline-container');
+      if (!container) return;
+
+      const scrollTop = window.scrollY;
+      const scrollHeight = container.scrollHeight;
+      const windowHeight = window.innerHeight;
+
+      // 计算滚动进度百分比
+      const scrollPercentage = (scrollTop / (scrollHeight - windowHeight)) * 100;
+      const progressIndicator = document.getElementById('progress-indicator');
+
+      if (progressIndicator) {
+        progressIndicator.style.height = `${Math.min(scrollPercentage, 100)}%`;
+      }
+    }
+
+    // 监听滚动更新进度条
+    window.addEventListener('scroll', updateTimelineProgress);
+
+    // 初始化进度条
+    updateTimelineProgress();
+
+    // 年份导航与固定年份标题
+    const yearSections = document.querySelectorAll('.year-section');
+    const yearNavBtns = document.querySelectorAll('.year-nav-btn');
+
+    // 点击年份导航按钮滚动到对应区域
+    yearNavBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetYear = btn.getAttribute('data-year');
+        const targetSection = document.getElementById(`year-${targetYear}`);
+
+        if (targetSection) {
+          // 获取年份导航栏的高度
+          const yearNav = document.getElementById('year-nav');
+          const yearNavHeight = yearNav ? yearNav.offsetHeight : 0;
+
+          // 滚动到目标位置，考虑导航栏高度
+          window.scrollTo({
+            top: targetSection.offsetTop - yearNavHeight - 20,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // 监听滚动以更新活跃年份
+    function updateActiveYear() {
+      // 获取当前视窗中心点
+      const viewportCenter = window.scrollY + window.innerHeight / 2;
+
+      // 找到最接近视窗中心的年份区域
+      let closestSection: Element | null = null;
+      let minDistance = Infinity;
+
+      yearSections.forEach(section => {
+        const sectionTop = (section as HTMLElement).offsetTop;
+        const sectionBottom = sectionTop + (section as HTMLElement).offsetHeight;
+        const sectionMiddle = (sectionTop + sectionBottom) / 2;
+
+        const distance = Math.abs(viewportCenter - sectionMiddle);
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSection = section;
+        }
+      });
+
+      if (closestSection) {
+        const activeYear = (closestSection as HTMLElement).getAttribute('data-year');
+
+        // 更新活跃年份按钮
+        yearNavBtns.forEach(btn => {
+          if (btn.getAttribute('data-year') === activeYear) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    window.addEventListener('scroll', updateActiveYear);
+    updateActiveYear(); // 初始化活跃年份
+
+    // 确保图片加载后，刷新图片查看器图片列表
+    if (window.imageViewer) {
+      window.imageViewer.collectGalleryImages();
+    }
+  });
+</script>
