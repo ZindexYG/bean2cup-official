@@ -4,7 +4,8 @@ import { Picture } from 'astro:assets'
 import Layout from '@layouts/Layout.astro'
 import Container from '@components/container.astro'
 import Sectionhead from '@components/sectionhead.astro'
-// import Timeline from '@components/Timeline.astro'
+// 导入事件日志数据
+import eventLogsData from '../content/eventLogs.json'
 
 // 获取所有已发布的活动
 const allEvents = await getCollection(
@@ -45,6 +46,26 @@ const eventsByMonthJSON = JSON.stringify(eventsByMonth)
 const initialMonthsCount = Math.min(3, sortedMonths.length)
 const initialMonths = sortedMonths.slice(0, initialMonthsCount)
 const hasMoreMonths = sortedMonths.length > initialMonthsCount
+
+// 处理事件日志数据 - 按年份分组
+const eventLogs = eventLogsData.slides.sort((a, b) => {
+  const dateA = new Date(a.date);
+  const dateB = new Date(b.date);
+  return dateB - dateA; // 从新到旧排序
+});
+
+// 按年份分组
+const eventLogsByYear = eventLogs.reduce((groups, event) => {
+  const year = new Date(event.date).getFullYear();
+  if (!groups[year]) {
+    groups[year] = [];
+  }
+  groups[year].push(event);
+  return groups;
+}, {});
+
+// 获取年份并排序（从新到旧）
+const sortedYears = Object.keys(eventLogsByYear).sort((a, b) => Number(b) - Number(a));
 ---
 
 <Layout title='活动讯息'>
@@ -153,7 +174,81 @@ const hasMoreMonths = sortedMonths.length > initialMonthsCount
       </div>
 
       <div id='past-tab' class='hidden tab-content'>
-        <!-- 活动记录标签页内容留空 -->
+        <!-- 活动记录标签页内容 -->
+        <div class="relative">
+          <!-- 进度条装饰 -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary to-blue-200 rounded-full"></div>
+
+          <div class="space-y-8 relative z-10">
+            {sortedYears.map((year) => (
+              <div class="mb-16">
+                <h2 class="relative z-10 inline-block px-6 py-2 mb-10 text-2xl font-bold text-white bg-primary rounded-lg shadow-lg">
+                  {year}年
+                </h2>
+
+                <div class="space-y-12">
+                  {eventLogsByYear[year].map((event, index) => (
+                    <div class="relative">
+                      <!-- 时间节点装饰 -->
+                      <div class="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primary rounded-full border-4 border-white shadow-md"></div>
+
+                      <div class={`grid gap-6 md:gap-12 items-start ${index % 2 === 0 ? 'md:grid-cols-[1fr_1fr]' : 'md:grid-cols-[1fr_1fr] md:grid-flow-dense'}`}>
+                        <!-- 左侧内容或右侧内容 -->
+                        <div class={`bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
+                          <div class="aspect-video overflow-hidden">
+                            {event.images && event.images.length > 0 && (
+                              <img
+                                src={event.images[0].path}
+                                alt={event.title}
+                                class="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                              />
+                            )}
+                          </div>
+                          <div class="p-5">
+                            <time class="text-sm font-medium text-primary">
+                              {new Date(event.date).toLocaleDateString('zh-CN', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              })}
+                            </time>
+                            <h3 class="mt-2 text-xl font-semibold text-gray-800">{event.title}</h3>
+                            <div class="mt-3 space-y-1">
+                              {event.text_content && event.text_content.map((text) => (
+                                <p class="text-gray-600 text-sm">{text}</p>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- 图片网格 - 只在有多张图片时显示 -->
+                        <div class={`${index % 2 === 1 ? 'md:col-start-2' : ''} ${event.images && event.images.length <= 1 ? 'hidden md:block' : ''}`}>
+                          {event.images && event.images.length > 1 ? (
+                            <div class={`grid gap-3 ${event.images.length > 3 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+                              {event.images.slice(1, 5).map((image, imgIndex) => (
+                                <div class="aspect-square overflow-hidden rounded-lg shadow-md">
+                                  <img
+                                    src={image.path}
+                                    alt={`${event.title} 图片 ${imgIndex + 2}`}
+                                    class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                                  />
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div class="flex items-center justify-center h-full text-center p-6 bg-blue-50 rounded-xl">
+                              <p class="text-primary font-medium italic">{event.title}</p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </Container>
