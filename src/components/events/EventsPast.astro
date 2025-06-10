@@ -7,7 +7,20 @@ const { sortedYears, eventLogsByYear } = Astro.props;
 
 // 反转年份排序 - 从旧到新
 const chronologicalYears = [...sortedYears].reverse();
-console.log('eventLogsByYear',eventLogsByYear)
+
+// 对每个年份内的事件进行反向排序 - 从旧到新
+const chronologicalEventsByYear = {};
+chronologicalYears.forEach(year => {
+  // 对每个年份内的事件按日期从旧到新排序
+  chronologicalEventsByYear[year] = [...eventLogsByYear[year]].sort((a, b) => {
+    const dateA = new Date(a.date);
+    const dateB = new Date(b.date);
+    return dateA.getTime() - dateB.getTime(); // 从旧到新排序
+  });
+});
+
+// 获取当前年份（用于显示"未来"标记）
+const currentYear = new Date().getFullYear();
 ---
 
 <!-- 活动记录标签页内容 -->
@@ -23,97 +36,137 @@ console.log('eventLogsByYear',eventLogsByYear)
           {year}年
         </button>
       ))}
+      <!-- 添加"未来"导航按钮 -->
+      <button
+        class="year-nav-btn px-4 py-2 text-gray-600 rounded-full hover:bg-blue-50 transition-all"
+        data-year="current"
+      >
+        未来
+      </button>
     </div>
   </div>
 
-  <!-- 进度条装饰 -->
-  <div id="timeline-progress" class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-gray-200 to-gray-200 rounded-full">
-    <div id="progress-indicator" class="w-full bg-gradient-to-b from-primary to-blue-400 rounded-full" style="height: 0%;"></div>
-  </div>
+  <!-- 整个时间线容器 -->
+  <div class="timeline-content-wrapper relative">
+    <!-- 进度条装饰 - 修改为不包含"未来"区域 -->
+    <div id="timeline-progress" class="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-gray-200 to-gray-200 rounded-full">
+      <div id="progress-indicator" class="w-full bg-gradient-to-b from-primary to-blue-400 rounded-full" style="height: 0%;"></div>
+    </div>
 
-  <div class="space-y-24 relative z-10 pt-6">
-    {chronologicalYears.map((year) => (
-      <div id={`year-${year}`} class="year-section mb-32" data-year={year}>
-        <h2 class="relative z-10 flex justify-center mb-16">
-          <span class="inline-block px-8 py-3 text-2xl font-bold text-white bg-primary rounded-lg shadow-lg transform transition-all duration-300">
-            {year}年
-          </span>
-        </h2>
+    <div class="space-y-24 relative z-10 pt-6">
+      {chronologicalYears.map((year) => (
+        <div id={`year-${year}`} class="year-section mb-32" data-year={year}>
+          <h2 class="relative z-10 flex justify-center mb-16">
+            <span class="inline-block px-8 py-3 text-2xl font-bold text-white bg-primary rounded-lg shadow-lg transform transition-all duration-300">
+              {year}年
+            </span>
+          </h2>
 
-        <div class="space-y-24">
-          {eventLogsByYear[year].map((event, index) => (
-            <div class="relative event-item" data-event-id={`event-${year}-${index}`}>
-              <!-- 时间节点装饰 -->
-              <div class="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primary rounded-full border-4 border-white shadow-md"></div>
+          <div class="space-y-24">
+            {chronologicalEventsByYear[year].map((event, index) => (
+              <div class="relative event-item" data-event-id={`event-${year}-${index}`}>
+                <!-- 时间节点装饰 -->
+                <div class="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-5 h-5 bg-primary rounded-full border-4 border-white shadow-md"></div>
 
-              <div class={`grid gap-6 md:gap-12 items-start ${index % 2 === 0 ? 'md:grid-cols-[1fr_1fr]' : 'md:grid-cols-[1fr_1fr] md:grid-flow-dense'}`}>
-                <!-- 左侧内容 -->
-                <div class={`bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
-                  <div class="aspect-video overflow-hidden">
-                    {event.images && event.images.length > 0 && (
-                      <GalleryImage
-                        src={event.images[0].path}
-                        alt={event.title}
-                        title={event.title}
-                        date={new Date(event.date).toLocaleDateString('zh-CN', {
+                <div class={`grid gap-6 md:gap-12 items-start ${index % 2 === 0 ? 'md:grid-cols-[1fr_1fr]' : 'md:grid-cols-[1fr_1fr] md:grid-flow-dense'}`}>
+                  <!-- 左侧内容 -->
+                  <div class={`bg-white rounded-xl shadow-md overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
+                    <div class="aspect-video overflow-hidden">
+                      {event.images && event.images.length > 0 && (
+                        <GalleryImage
+                          src={event.images[0].path}
+                          alt={event.title}
+                          title={event.title}
+                          date={new Date(event.date).toLocaleDateString('zh-CN', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                          description={event.text_content ? event.text_content.join(' ') : ''}
+                          className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
+                        />
+                      )}
+                    </div>
+                    <div class="p-5">
+                      <time class="text-sm font-medium text-primary">
+                        {new Date(event.date).toLocaleDateString('zh-CN', {
                           year: 'numeric',
                           month: 'long',
                           day: 'numeric',
                         })}
-                        description={event.text_content ? event.text_content.join(' ') : ''}
-                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                      />
+                      </time>
+                      <h3 class="mt-2 text-xl font-semibold text-gray-800">{event.title}</h3>
+                      <div class="mt-3 space-y-1">
+                        {event.text_content && event.text_content.map((text) => (
+                          <p class="text-gray-600 text-sm">{text}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 图片网格 - 右侧 -->
+                  <div class={`${index % 2 === 1 ? 'md:col-start-2' : ''} ${event.images && event.images.length <= 1 ? 'hidden md:block' : ''}`}>
+                    {event.images && event.images.length > 1 ? (
+                      <div class="grid grid-cols-2 gap-3 h-full">
+                        {event.images.slice(1, 5).map((image, imgIndex) => (
+                          <div class={`${event.images.length === 2 || (event.images.length === 3 && imgIndex === 0) ? 'col-span-2' : ''} aspect-square overflow-hidden rounded-lg shadow-md`}>
+                            <GalleryImage
+                              src={image.path}
+                              alt={`${event.title} 图片 ${imgIndex + 2}`}
+                              title={event.title}
+                              date={new Date(event.date).toLocaleDateString('zh-CN', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              })}
+                              description={event.text_content ? event.text_content.join(' ') : ''}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div class="flex items-center justify-center h-full text-center p-6 bg-blue-50 rounded-xl">
+                        <p class="text-primary font-medium italic">{event.title}</p>
+                      </div>
                     )}
                   </div>
-                  <div class="p-5">
-                    <time class="text-sm font-medium text-primary">
-                      {new Date(event.date).toLocaleDateString('zh-CN', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </time>
-                    <h3 class="mt-2 text-xl font-semibold text-gray-800">{event.title}</h3>
-                    <div class="mt-3 space-y-1">
-                      {event.text_content && event.text_content.map((text) => (
-                        <p class="text-gray-600 text-sm">{text}</p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 图片网格 - 右侧 -->
-                <div class={`${index % 2 === 1 ? 'md:col-start-2' : ''} ${event.images && event.images.length <= 1 ? 'hidden md:block' : ''}`}>
-                  {event.images && event.images.length > 1 ? (
-                    <div class="grid grid-cols-2 gap-3 h-full">
-                      {event.images.slice(1, 5).map((image, imgIndex) => (
-                        <div class={`${event.images.length === 2 || (event.images.length === 3 && imgIndex === 0) ? 'col-span-2' : ''} aspect-square overflow-hidden rounded-lg shadow-md`}>
-                          <GalleryImage
-                            src={image.path}
-                            alt={`${event.title} 图片 ${imgIndex + 2}`}
-                            title={event.title}
-                            date={new Date(event.date).toLocaleDateString('zh-CN', {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            })}
-                            description={event.text_content ? event.text_content.join(' ') : ''}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div class="flex items-center justify-center h-full text-center p-6 bg-blue-50 rounded-xl">
-                      <p class="text-primary font-medium italic">{event.title}</p>
-                    </div>
-                  )}
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <!-- 添加"未来"区域 -->
+      <div class="relative mt-20 pt-12 future-section">
+        <!-- 未来节点装饰 - 连接历史与未来的装饰点 -->
+        <div class="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-7 h-7 bg-gradient-to-r from-primary to-blue-400 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
+          <div class="w-2 h-2 bg-white rounded-full"></div>
+        </div>
+
+        <!-- "未来"区域 -->
+        <div id="year-current" class="year-section mb-16" data-year="current">
+          <h2 class="relative z-10 flex justify-center mb-12">
+            <span class="inline-block px-8 py-3 text-2xl font-bold text-white bg-gradient-to-r from-primary to-blue-400 rounded-lg shadow-lg transform transition-all duration-300">
+              未来
+            </span>
+          </h2>
+
+          <div class="flex flex-col items-center text-center max-w-2xl mx-auto">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
             </div>
-          ))}
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">期待更多精彩活动</h3>
+            <p class="text-gray-600 mb-6">我们将持续更新活动信息，敬请关注后续动态</p>
+            <a href="/events" class="px-6 py-3 bg-primary text-white rounded-full hover:bg-blue-600 transition-colors font-medium">
+              查看最新活动
+            </a>
+          </div>
         </div>
       </div>
-    ))}
+    </div>
   </div>
 </div>
 
@@ -148,6 +201,24 @@ console.log('eventLogsByYear',eventLogsByYear)
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    z-index: 30;
+  }
+
+  /* 进度条样式 */
+  #timeline-progress {
+    height: calc(100% - 200px); /* 减去底部空间，不包含未来区域 */
+  }
+
+  /* 平滑过渡 */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 给未来部分添加风格区分 */
+  .future-section {
+    position: relative;
+    padding-top: 2rem;
+    border-top: 1px dashed #e5e7eb;
   }
 </style>
 
@@ -160,21 +231,28 @@ console.log('eventLogsByYear',eventLogsByYear)
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    // 时间线进度条更新
+    // 时间线进度条更新 - 修改为仅作用于历史部分
     function updateTimelineProgress() {
-      const container = document.querySelector('.timeline-container');
+      const container = document.querySelector('.timeline-content-wrapper');
       if (!container) return;
 
       const scrollTop = window.scrollY;
-      const scrollHeight = container.scrollHeight;
+      const containerTop = container.getBoundingClientRect().top + scrollTop;
+      const containerHeight = container.scrollHeight;
       const windowHeight = window.innerHeight;
 
-      // 计算滚动进度百分比
-      const scrollPercentage = (scrollTop / (scrollHeight - windowHeight)) * 100;
-      const progressIndicator = document.getElementById('progress-indicator');
+      // 计算相对于容器中点的滚动位置
+      const scrollMiddle = scrollTop + windowHeight / 2;
 
+      // 计算进度百分比，滚动到中间就是50%
+      const progressPercentage = ((scrollMiddle - containerTop) / containerHeight) * 100;
+
+      // 限制在0-100%之间
+      const boundedProgress = Math.max(0, Math.min(100, progressPercentage));
+
+      const progressIndicator = document.getElementById('progress-indicator');
       if (progressIndicator) {
-        progressIndicator.style.height = `${Math.min(scrollPercentage, 100)}%`;
+        progressIndicator.style.height = `${boundedProgress}%`;
       }
     }
 
@@ -294,6 +372,7 @@ console.log('eventLogsByYear',eventLogsByYear)
         (section as HTMLElement).style.display = 'block';
       });
       updateActiveYear();
+      updateTimelineProgress();
     });
 
     // 确保图片加载后，刷新图片查看器图片列表
