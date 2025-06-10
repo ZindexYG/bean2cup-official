@@ -1,161 +1,481 @@
 ---
-import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
-import Layout from "@layouts/Layout.astro";
-import Container from "@components/container.astro";
-import Sectionhead from "@components/sectionhead.astro";
+import { getCollection } from 'astro:content'
+import { Picture } from 'astro:assets'
+import Layout from '@layouts/Layout.astro'
+import Container from '@components/container.astro'
 
-// 获取团队成员（draft: false 且已发布）
-// const publishedTeamMembers = await getCollection("team", ({ data }) => {
-//   return !data.draft && data.publishDate < new Date();
-// });
+// 导入关于页面的图片
+import aboutImage1 from '@assets/about/1.webp'
+import aboutImage2 from '@assets/about/2.webp'
+import aboutImage3 from '@assets/about/3.webp'
+import Bunco from '@assets/about/Bunco.jpg'
+
+// 导入咖啡生活细节图片
+import coffeeLife1 from '@assets/about/from_coffee_life_details_1.jpg'
+import coffeeLife2 from '@assets/about/from_coffee_life_details_2.jpg'
+import coffeeLife3 from '@assets/about/from_coffee_life_details_3.jpg'
+import coffeeLife4 from '@assets/about/from_coffee_life_details_4.jpg'
+import coffeeLife5 from '@assets/about/from_coffee_life_details_5.jpg'
+import coffeeLife6 from '@assets/about/from_coffee_life_details_6.jpg'
+import coffeeLife7 from '@assets/about/from_coffee_life_details_7.jpg'
+import coffeeLife8 from '@assets/about/from_coffee_life_details_8.jpg'
+import coffeeLife9 from '@assets/about/from_coffee_life_details_9.jpg'
+import coffeeLife10 from '@assets/about/from_coffee_life_details_10.jpg'
 ---
 
-<Layout title="关于 BEAN2CUP">
-  <Container>
-    <Sectionhead>
-      <Fragment slot="title">关于 Bean2Cup</Fragment>
-      <Fragment slot="desc">
-        从种子到杯子，严控每一环节，传播精品咖啡文化与专业服务。
-      </Fragment>
-    </Sectionhead>
+<Layout title='关于 BEAN2CUP'>
+  <!-- 英雄区域 -->
+  <section
+    class='relative h-screen flex items-center justify-center overflow-hidden'>
+    <div class='absolute inset-0 z-0'>
+      <Picture
+        src={aboutImage1}
+        alt='Bean2Cup 咖啡'
+        class='w-full h-full object-cover'
+        loading='eager'
+      />
+      <div class='absolute inset-0 bg-black/40'></div>
+    </div>
 
-    {/* 团队理念简介 - 优化为更有层次的结构，避免混乱 */}
-    <section class="mx-auto max-w-4xl mt-16">
-      <h2 class="font-bold text-2xl text-gray-800 mb-4">团队简介</h2>
-      <p class="text-lg leading-relaxed text-slate-700 mb-6">
-        <b>BEAN2CUP</b> 坚持“从种子到杯子”的全链路品质把控，涵盖种植、采摘、处理、烘焙、杯测、储存、冲泡七大环节。我们深入庄园，三次手工精选生豆，依据特性烘焙，并由 Q-Grader 评鉴师严格杯测，确保每一颗豆子都低于 SCAA 瑕疵标准。<br/>
-        <span class="block mt-4">我们不仅提供自家烘焙精品咖啡豆，更有 SCA 课程培训、门店体验、开店顾问等多元服务，致力于让更多人感受精品咖啡的魅力。</span>
+    <div class='relative z-10 text-center text-white max-w-4xl mx-auto px-4'>
+      <h1 class='text-5xl md:text-7xl font-bold mb-6 tracking-wide'>
+        与众不同的<br />
+        <span class='text-3xl md:text-4xl font-light'>精品咖啡</span>
+      </h1>
+      <p class='text-xl md:text-2xl font-light opacity-90'>
+        从种子到杯子，严控每一环节
       </p>
-    </section>
+    </div>
+  </section>
 
-    {/* 理念/坚持/服务 三栏展示，色彩更柔和 */}
-    <section class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mt-16">
-      <div>
-        <h3 class="font-bold text-lg text-primary mb-2">核心理念</h3>
-        <ul class="list-disc pl-5 text-slate-600 space-y-1">
-          <li>全流程严控：从种植到冲泡每一环节</li>
-          <li>精挑细选，传递精品咖啡精神</li>
-          <li>推动行业发展，传播咖啡文化</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-bold text-lg text-primary mb-2">品质坚持</h3>
-        <ul class="list-disc pl-5 text-slate-600 space-y-1">
-          <li>深入庄园参与处理</li>
-          <li>三次手工精选生豆</li>
-          <li>依据特性定制烘焙</li>
-          <li>Q-Grader 严格杯测</li>
-          <li>瑕疵率低于 SCAA 标准</li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="font-bold text-lg text-primary mb-2">多元服务</h3>
-        <ul class="list-disc pl-5 text-slate-600 space-y-1">
-          <li>自家烘焙咖啡豆</li>
-          <li>门店精品/日式冲泡体验</li>
-          <li>SCA课程、拉花兴趣班、全能班</li>
-          <li>器具代理、开店顾问、沙龙、日本游学</li>
-        </ul>
-      </div>
-    </section>
-
-    {/* 详细介绍 */}
-    <section class="mx-auto max-w-4xl mt-16">
-      <h2 class="font-bold text-2xl text-gray-800 mb-4">我们的承诺</h2>
-      <div class="grid md:grid-cols-2 gap-8">
+  <Container>
+    <!-- 品牌故事 -->
+    <section class='py-20'>
+      <div class='grid lg:grid-cols-2 gap-16 items-center'>
         <div>
-          <h3 class="font-bold text-primary mb-2">全链路品质把控</h3>
-          <p class="text-slate-700 mb-2">
-            “BEAN2CUP”代表从咖啡果实到杯中咖啡的全程管控，涵盖种植、采摘、处理、烘焙、杯测、储存、冲泡七大环节。每个环节用心把控，让消费者感受精挑细选的心意，推动精品咖啡文化发展。
+          <Picture
+            src={aboutImage3}
+            alt='咖啡种植'
+            class='w-full rounded-lg shadow-2xl'
+          />
+        </div>
+        <div class='space-y-6'>
+          <h2 class='text-4xl font-bold text-gray-800 mb-6'>
+            专业品质的精品咖啡
+          </h2>
+          <p class='text-lg leading-relaxed text-slate-700'>
+            <strong>BEAN2CUP</strong> 坚持"从种子到杯子"的全链路品质把控，涵盖种植、采摘、处理、烘焙、杯测、储存、冲泡七大环节。我们深入庄园，三次手工精选生豆，依据特性烘焙，并由
+            Q-Grader 评鉴师严格杯测。
+          </p>
+          <p class='text-lg leading-relaxed text-slate-700'>
+            十年来，我们不仅提供自家烘焙精品咖啡豆，更有 SCA
+            课程培训、门店体验、开店顾问等多元服务，致力于让更多人感受精品咖啡的魅力。
+          </p>
+          <div class='pt-4'>
+            <span
+              class='inline-block bg-primary text-white px-6 py-2 rounded-full text-sm font-medium'>
+              Est. 2013 - 十周年品牌
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心理念与品质把控 -->
+    <section class='py-20 bg-gray-50 -mx-4 px-4 md:-mx-8 md:px-8'>
+      <div class='max-w-6xl mx-auto'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-gray-800 mb-4'>
+            核心理念与品质承诺
+          </h2>
+          <p class='text-xl text-slate-600 max-w-3xl mx-auto'>
+            从种子到杯子的全链路把控，每一个环节都用心严控，确保每一杯咖啡都承载着我们的匠心与品质承诺
           </p>
         </div>
-        <div>
-          <h3 class="font-bold text-primary mb-2">对豆子出品的执着</h3>
-          <ul class="list-disc pl-5 text-slate-700 space-y-1">
-            <li>深入庄园探索，参与从处理到包装运输的每个环节</li>
-            <li>纯手工三次精挑豆子</li>
-            <li>根据豆子特性定制烘焙方案，发掘咖啡风味</li>
-            <li>Q-Grader评鉴师严格杯测，瑕疵率低于SCAA标准</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    {/* 服务体系 */}
-    <section class="mx-auto max-w-4xl mt-16">
-      <h2 class="font-bold text-2xl text-gray-800 mb-4">服务体系</h2>
-      <ul class="list-disc pl-5 text-slate-700 space-y-1">
-        <li><b>咖啡豆业务：</b>自家烘焙咖啡豆，确保品质可控。</li>
-        <li><b>线下体验：</b>自营店铺提供精品冲泡和日式冲泡服务。</li>
-        <li><b>培训业务：</b>
-          <ul class="list-disc pl-5">
-            <li>专业课程：SCA课程培训（国际认证）、咖啡师全能班。</li>
-            <li>兴趣课程：拉花兴趣班。</li>
-          </ul>
-        </li>
-        <li><b>增值服务：</b>
-          <ul class="list-disc pl-5">
-            <li>器具代理、开店顾问、咖啡沙龙、日本游学等。</li>
-          </ul>
-        </li>
-      </ul>
-    </section>
+        <!-- 品质把控流程 -->
+        <div class='grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16'>
+          <div class='bg-white p-8 rounded-lg shadow-md text-center'>
+            <div
+              class='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <span class='text-3xl'>🌱</span>
+            </div>
+            <h3 class='text-xl font-bold mb-3'>庄园直采</h3>
+            <p class='text-slate-600 text-sm'>
+              深入庄园探索，参与从处理到包装运输的每个环节
+            </p>
+          </div>
 
-    {/* 常见问题 Q&A */}
-    <section class="mx-auto max-w-4xl mt-16">
-      <h2 class="font-bold text-2xl text-gray-800 mb-4">常见问题</h2>
-      <div class="space-y-6">
-        <div>
-          <h3 class="font-bold text-primary mb-1">BEAN2CUP团队的核心理念是什么？</h3>
-          <p class="text-slate-700">
-            “从种子到杯子”，即对咖啡从种植到冲泡的全环节严格把控，让消费者感受精挑细选的心意，传播精品咖啡概念。
-          </p>
-        </div>
-        <div>
-          <h3 class="font-bold text-primary mb-1">团队在咖啡豆品质把控上有哪些具体措施？</h3>
-          <p class="text-slate-700">
-            深入庄园参与处理环节，手工三次精选手豆，依据豆子特性定制烘焙方案，Q-Grader评鉴师严格杯测，瑕疵率低于SCAA标准。
-          </p>
-        </div>
-        <div>
-          <h3 class="font-bold text-primary mb-1">BEAN2CUP提供哪些类型的服务？分别面向哪些群体？</h3>
-          <p class="text-slate-700">
-            咖啡豆业务、线下体验、培训课程、增值服务，覆盖消费者、爱好者、从业者与创业者。
-          </p>
-        </div>
-      </div>
-    </section>
+          <div class='bg-white p-8 rounded-lg shadow-md text-center'>
+            <div
+              class='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <span class='text-3xl'>✋</span>
+            </div>
+            <h3 class='text-xl font-bold mb-3'>三次手选</h3>
+            <p class='text-slate-600 text-sm'>
+              纯手工精挑豆子，剔除瑕疵豆，确保每一颗豆子的品质
+            </p>
+          </div>
 
-    {/* 团队成员（如需展示请取消注释） */}
-    {/*
-    <section class="mx-auto max-w-4xl mt-20">
-      <h2 class="font-bold text-2xl text-gray-800 mb-8 text-center">团队成员</h2>
-      <div class="grid md:grid-cols-3 gap-10">
-        {
-          publishedTeamMembers.map((teamMemberEntry) => (
-            <div class="group">
-              <div class="w-full aspect-square">
-                <Picture
-                  src={teamMemberEntry.data.avatar.src}
-                  alt={teamMemberEntry.data.avatar.alt}
-                  sizes="(max-width: 800px) 100vw, 400px"
-                  width={400}
-                  height={400}
-                  class="w-full rounded-md transition group-hover:-translate-y-1 group-hover:shadow-xl bg-white object-cover object-center aspect-square"
-                />
+          <div class='bg-white p-8 rounded-lg shadow-md text-center'>
+            <div
+              class='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <span class='text-3xl'>🔥</span>
+            </div>
+            <h3 class='text-xl font-bold mb-3'>定制烘焙</h3>
+            <p class='text-slate-600 text-sm'>
+              根据豆子特性定制烘焙方案，充分发掘每种咖啡的独特风味
+            </p>
+          </div>
+
+          <div class='bg-white p-8 rounded-lg shadow-md text-center'>
+            <div
+              class='w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4'>
+              <span class='text-3xl'>👨‍🍳</span>
+            </div>
+            <h3 class='text-xl font-bold mb-3'>专业杯测</h3>
+            <p class='text-slate-600 text-sm'>
+              Q-Grader 评鉴师严格杯测，瑕疵率低于 SCAA 标准
+            </p>
+          </div>
+        </div>
+
+        <!-- 多元服务体系 -->
+        <div class='bg-white rounded-2xl p-12 shadow-xl'>
+          <h3 class='text-3xl font-bold text-center text-gray-800 mb-12'>
+            多元服务体系
+          </h3>
+          <div class='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
+            <div class='text-center'>
+              <div
+                class='w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4'>
+                <span class='text-2xl'>☕</span>
               </div>
-              <div class="mt-4 text-center">
-                <h2 class="text-lg text-gray-800">{teamMemberEntry.data.name}</h2>
-                <h3 class="text-sm text-slate-500">
-                  {teamMemberEntry.data.title}
-                </h3>
+              <h4 class='text-lg font-bold mb-2'>咖啡豆业务</h4>
+              <p class='text-slate-600 text-sm'>
+                自家烘焙咖啡豆，确保从烘焙到出品的品质可控
+              </p>
+            </div>
+
+            <div class='text-center'>
+              <div
+                class='w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4'>
+                <span class='text-2xl'>🏪</span>
+              </div>
+              <h4 class='text-lg font-bold mb-2'>线下体验</h4>
+              <p class='text-slate-600 text-sm'>
+                自营店铺提供精品冲泡和日式冲泡服务
+              </p>
+            </div>
+
+            <div class='text-center'>
+              <div
+                class='w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4'>
+                <span class='text-2xl'>🎓</span>
+              </div>
+              <h4 class='text-lg font-bold mb-2'>培训业务</h4>
+              <p class='text-slate-600 text-sm'>
+                SCA课程、咖啡师全能班、拉花兴趣班
+              </p>
+            </div>
+
+            <div class='text-center'>
+              <div
+                class='w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4'>
+                <span class='text-2xl'>🤝</span>
+              </div>
+              <h4 class='text-lg font-bold mb-2'>增值服务</h4>
+              <p class='text-slate-600 text-sm'>
+                器具代理、开店顾问、咖啡沙龙、日本游学
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 创始人介绍 - 大气左图右内容 -->
+    <section class='py-20'>
+      <div class='max-w-7xl mx-auto'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-gray-800 mb-4'>
+            创建我们团队的人
+          </h2>
+          <p class='text-xl text-slate-600'>专业、专注、专心的咖啡匠人</p>
+        </div>
+
+        <div class='grid lg:grid-cols-2 gap-20 items-center'>
+          <!-- 左侧大图 -->
+          <div class='relative'>
+            <div class='aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl'>
+              <Picture
+                src={Bunco}
+                alt='王建涛 Bunco Wong'
+                class='w-full h-full object-cover'
+                loading='lazy'
+              />
+            </div>
+            <!-- 装饰元素 -->
+            <div
+              class='absolute -top-6 -right-6 w-24 h-24 bg-primary/10 rounded-full'>
+            </div>
+            <div
+              class='absolute -bottom-6 -left-6 w-16 h-16 bg-primary/20 rounded-full'>
+            </div>
+          </div>
+
+          <!-- 右侧内容 -->
+          <div class='space-y-8'>
+            <div>
+              <h3 class='text-4xl font-bold mb-3'>王建涛</h3>
+              <p class='text-2xl text-primary font-medium mb-2'>(Bunco Wong)</p>
+              <p class='text-xl text-slate-600 font-medium'>
+                BEAN2CUP COFFEE 创始人
+              </p>
+            </div>
+
+            <div class='space-y-8'>
+              <div>
+                <h4
+                  class='text-2xl font-bold mb-4 text-gray-800 flex items-center'>
+                  <span class='w-1 h-8 bg-primary rounded-full mr-3'></span>
+                  专业认证
+                </h4>
+                <ul class='space-y-3 text-slate-700'>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>SCA国际精品咖啡协会全模块认证教官及考官</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>Q-grader阿拉比卡咖啡品鉴师 (2013-2020)</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>R-grader罗布斯塔咖啡品鉴师 (2015-2022)</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>日本KONO珈琲塾焙煎技術者養成講座高级认证</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4
+                  class='text-2xl font-bold mb-4 text-gray-800 flex items-center'>
+                  <span class='w-1 h-8 bg-primary rounded-full mr-3'></span>
+                  社会职务
+                </h4>
+                <ul class='space-y-3 text-slate-700'>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>HK中国精品咖啡学会总干事</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>《普洱咖啡》杂志社专家委员会委员</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>深圳职业技术学院客座导师</span>
+                  </li>
+                  <li class='flex items-start'>
+                    <span
+                      class='w-2 h-2 bg-primary rounded-full mt-2 mr-3 flex-shrink-0'
+                    ></span>
+                    <span>人社部教育培训中心企业实训指导师资</span>
+                  </li>
+                </ul>
               </div>
             </div>
-          ))
-        }
+          </div>
+        </div>
       </div>
     </section>
-    */}
+
+    <!-- 品牌历程 -->
+    <section
+      class='py-20 bg-gradient-to-b from-gray-50 to-white -mx-4 px-4 md:-mx-8 md:px-8'>
+      <div class='max-w-6xl mx-auto'>
+        <div class='text-center mb-16'>
+          <h2 class='text-4xl font-bold text-gray-800 mb-4'>十年品牌历程</h2>
+          <p class='text-xl text-slate-600'>
+            任何事物乘以时间，都将变得珍贵且有力量
+          </p>
+        </div>
+
+        <div class='relative'>
+          <div
+            class='absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-primary/20'>
+          </div>
+
+          <div class='space-y-16'>
+            <div class='flex items-center'>
+              <div class='w-1/2 pr-8 text-right'>
+                <div
+                  class='bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'>
+                  <h3 class='text-3xl font-bold text-primary mb-4'>
+                    2013 起始
+                  </h3>
+                  <p class='text-slate-600 leading-relaxed'>
+                    在深圳上梅林创立 BEAN2CUP COFFEE
+                    工作室，开创深圳专业咖啡培训，用心做好咖啡教育。从种子到杯子全流程让大家正向专业的认识咖啡、学习咖啡，小班教学模式开启了时间的齿轮。
+                  </p>
+                </div>
+              </div>
+              <div
+                class='w-12 h-12 bg-primary rounded-full flex items-center justify-center relative z-10 shadow-lg'>
+                <span class='text-white text-lg font-bold'>1</span>
+              </div>
+              <div class='w-1/2 pl-8'></div>
+            </div>
+
+            <div class='flex items-center'>
+              <div class='w-1/2 pr-8'></div>
+              <div
+                class='w-12 h-12 bg-primary rounded-full flex items-center justify-center relative z-10 shadow-lg'>
+                <span class='text-white text-lg font-bold'>2</span>
+              </div>
+              <div class='w-1/2 pl-8'>
+                <div
+                  class='bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'>
+                  <h3 class='text-3xl font-bold text-primary mb-4'>
+                    2016 拓展
+                  </h3>
+                  <p class='text-slate-600 leading-relaxed'>
+                    坚定的迈向广州，将专业咖啡培训和精品咖啡理念带到更多城市。脚步坚定地站到了大家视野里，开始在更广阔的平台上传播精品咖啡文化。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class='flex items-center'>
+              <div class='w-1/2 pr-8 text-right'>
+                <div
+                  class='bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300'>
+                  <h3 class='text-3xl font-bold text-primary mb-4'>
+                    2023 十周年
+                  </h3>
+                  <p class='text-slate-600 leading-relaxed'>
+                    十年沉淀，继续用心烘焙，用心教学，传播精品咖啡文化。在时间的洗礼中，我们发现时间能够沉淀安静的力量，能够从启的恒力，能够保持灿烂的初心，成为独一无二的自己。
+                  </p>
+                </div>
+              </div>
+              <div
+                class='w-12 h-12 bg-primary rounded-full flex items-center justify-center relative z-10 shadow-lg'>
+                <span class='text-white text-lg font-bold'>3</span>
+              </div>
+              <div class='w-1/2 pl-8'></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 咖啡生活画廊 -->
+    <section class='py-20'>
+      <div class='text-center mb-16'>
+        <!-- <h2 class='text-4xl font-bold text-gray-800 mb-4'>来自烘焙室的生活</h2> -->
+        <p class='text-xl text-slate-600'>
+          记录我们咖啡生活的点点滴滴，每一个瞬间都诠释着对咖啡的热爱与坚持
+        </p>
+      </div>
+
+      <!-- 瀑布流画廊 -->
+      <div
+        class='columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4'>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife1}
+            alt='咖啡制作过程'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife2}
+            alt='咖啡豆烘焙'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife3}
+            alt='咖啡课程'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife4}
+            alt='咖啡教学'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife5}
+            alt='咖啡品鉴'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife6}
+            alt='咖啡培训'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife7}
+            alt='咖啡拉花'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife8}
+            alt='咖啡工具'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife9}
+            alt='咖啡文化'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+        <div class='break-inside-avoid mb-4'>
+          <Picture
+            src={coffeeLife10}
+            alt='咖啡生活'
+            class='w-full rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300'
+          />
+        </div>
+      </div>
+    </section>
   </Container>
 </Layout>
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
