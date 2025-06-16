@@ -14,8 +14,6 @@ const allEvents = await getCollection(
   ({ data }) => !data.draft && data.publishDate < new Date(),
 )
 
-console.log('allEvents', allEvents)
-
 // 按发布日期从新到旧排序
 const sortedEvents = allEvents.sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
